@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BHGroup.DAL.Entities
 {
     public class Person
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // auto increment
         [Required]  //notnull field
         [Key]       //entity primary key
         public int Id { get; set; }
