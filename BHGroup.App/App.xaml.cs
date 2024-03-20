@@ -9,5 +9,6 @@ namespace BHGroup.App
     /// </summary>
     public partial class App : Application
     {
+
     }
 }
