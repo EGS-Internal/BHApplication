@@ -4,9 +4,75 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BHGroup.App"
+        xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="MainWindow" Height="600" Width="920"
+        WindowStyle="None"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        >
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    <Border  Background="#272537" CornerRadius="20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Foreground="White"
+                FontSize="22"
+                Margin="20 0 0 0"
+                Text="Bro is fkup">
+            </TextBlock>
+            <StackPanel Grid.Row="1">
+                <RadioButton Content="Home"
+                             Foreground="White"
+                             Height="50"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="Stutdents"
+                             Foreground="White"
+                             Height="50"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="Lecturers"
+                             Foreground="White"
+                             Height="50"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"/> 
+                <RadioButton Content="Coures"
+                             Foreground="White"
+                             Height="50"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="Classes"
+                            Foreground="White"
+                            Height="50"
+                            FontSize="14"
+                            Style="{StaticResource MenuButtonTheme}"/>  
+            </StackPanel>
+            <TextBox Width="250"
+                     Height="40"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Left"
+                     Margin="5"
+                     Grid.Column="1"
+                     Style="{StaticResource TextBoxTheme}">
+                
+            </TextBox>
+            <ContentControl Grid.Row="1" Grid.Column="1" Margin="10"
+                            Content="{Binding CurrentView}">
+                
+            </ContentControl>
+        </Grid>
+    </Border>
 </Window>
