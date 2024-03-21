@@ -11,6 +11,6 @@ namespace BHGroup.DAL.Entities
     public class Lecturer : Person
     {
         [Required]
-        public DateOnly JoinDate { get; set; }
+        public DateTime JoinDate { get; set; }
     }
 }
