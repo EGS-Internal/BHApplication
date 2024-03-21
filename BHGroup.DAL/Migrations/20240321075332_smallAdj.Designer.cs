@@ -4,6 +4,7 @@ using BHGroup.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BHGroup.DAL.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20240321075332_smallAdj")]
+    partial class smallAdj
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,8 +35,7 @@ namespace BHGroup.DAL.Migrations
 
                     b.Property<string>("CourseCode")
                         .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Coursename")
                         .IsRequired()
@@ -55,27 +57,25 @@ namespace BHGroup.DAL.Migrations
 
             modelBuilder.Entity("BHGroup.DAL.Entities.Enrollment", b =>
                 {
-                    b.Property<string>("Semester")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)")
-                        .HasColumnOrder(3);
-
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
 
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
+                    b.Property<string>("Semester")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)")
+                        .HasColumnOrder(2);
+
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
-
-                    b.HasKey("Semester");
 
                     b.HasIndex("CourseID");
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Enrollments");
+                    b.ToTable("Enrollment");
                 });
 
             modelBuilder.Entity("BHGroup.DAL.Entities.Lecturer", b =>

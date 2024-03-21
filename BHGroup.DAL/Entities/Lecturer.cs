@@ -12,6 +12,6 @@ namespace BHGroup.DAL.Entities
     {
         [Required]
         public DateTime JoinDate { get; set; }
-        virtual public ICollection<Course> Courses { get; set; } = new List<Course>();
+        public ICollection<Course>? Courses { get; set; } = new List<Course>();
     }
 }
