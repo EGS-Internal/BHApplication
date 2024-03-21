@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +12,11 @@ namespace BHGroup.App.Public.Core
 
     class RelayCommand : ICommand
     {
-        public event EventHandler? CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove {  CommandManager.RequerySuggested -= value;}
-        }
+        public event EventHandler CanExecuteChanged;
+        //{
+            //add { CommandManager.RequerySuggested += value; }
+            //remove { CommandManager.RequerySuggested -= value; }
+        //}
         private Action<object> _execute;
         private Func<object, bool> _canExecute;
 
@@ -32,6 +34,11 @@ namespace BHGroup.App.Public.Core
         public void Execute(object? parameter)
         {
             _execute(parameter);
+        }
+
+        public void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
