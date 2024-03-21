@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BHGroup.DAL.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20240321091258_newfix")]
-    partial class newfix
+    [Migration("20240321093359_newMigration")]
+    partial class newMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
