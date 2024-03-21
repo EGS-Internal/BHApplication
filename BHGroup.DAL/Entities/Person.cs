@@ -6,8 +6,7 @@ namespace BHGroup.DAL.Entities
 {
     public class Person
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // auto increment
-        [Required]  //notnull field
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] // auto increment
         [Key]       //entity primary key
         public int Id { get; set; }
         [Required]
@@ -18,7 +17,7 @@ namespace BHGroup.DAL.Entities
         public string FirstName { get; set; }
         [Required]
         [StringLength(8)]
-        public DateOnly DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         [Required]
         public  bool Status { get; set; } //assume true is active and false is inactive
 

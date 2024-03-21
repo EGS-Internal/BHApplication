@@ -10,6 +10,6 @@ namespace BHGroup.DAL.Entities
     public class Student : Person
     {
         [Required]
-        public DateOnly JoinDate {  get; set; }
+        public DateTime JoinDate {  get; set; }
     }
 }
