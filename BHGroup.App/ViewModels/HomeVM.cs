@@ -10,7 +10,7 @@ namespace BHGroup.App.ViewModels
     class HomeVM : ObservableObject
     {
         public HomeVM() { 
-
+            
         } 
     }
 }

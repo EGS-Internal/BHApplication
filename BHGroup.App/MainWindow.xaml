@@ -7,16 +7,28 @@
         xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="920"
-        WindowStyle="None"
         Background="Transparent"
         ResizeMode="NoResize"
+        WindowStyle="None"
         AllowsTransparency="True"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         >
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-    <Border  Background="#272537" CornerRadius="20">
-        <Grid>
+    <Window.Resources>
+
+        <Style TargetType="{x:Type Image}"
+               x:Key="NavIcon">
+            <Style.Setters>
+                <Setter Property="Width" Value="25"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Margin" Value="10 0 0 0"/>
+            </Style.Setters>
+        </Style>
+    </Window.Resources>
+    <Border  Background="{Binding Theme}" CornerRadius="20">
+        <Grid Name="gridMain">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition/>
@@ -28,42 +40,52 @@
             <TextBlock
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Foreground="White"
+                Foreground="{Binding TextColor}"
                 FontSize="22"
                 Margin="20 0 0 0"
                 Text="Bro is fkup">
             </TextBlock>
             <StackPanel Grid.Row="1">
-                <RadioButton Content="Home"
-                             Foreground="White"
-                             Height="50"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding HomeCommand}"/>
-                <RadioButton Content="Stutdents"
-                             Foreground="White"
-                             Height="50"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding StudentCommand}"/>
-                <RadioButton Content="Lecturers"
-                             Foreground="White"
-                             Height="50"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding LecturerCommand}"/> 
-                <RadioButton Content="Coures"
-                             Foreground="White"
-                             Height="50"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding CourseCommand}"/>
-                <RadioButton Content="Classes"
-                            Foreground="White"
-                            Height="50"
-                            FontSize="14"
-                            Style="{StaticResource MenuButtonTheme}"
-                            Command="{Binding ClassCommand}"/>  
+                <StackPanel Orientation="Horizontal">
+                    <Image Style="{StaticResource NavIcon}" 
+                           Source="./Public/Image/baseline_home_black_24dp.png" />
+                    <RadioButton Content="Home"
+                                 Foreground="{Binding TextColor}"
+                                 Style="{Binding MyButtonStyle}"
+                                 Command="{Binding HomeCommand}"/>  
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Style="{StaticResource NavIcon}" 
+                           Source="./Public/Image/baseline_person_black_24dp.png" />
+                    <RadioButton Content="Stutdents"
+                                 Foreground="{Binding TextColor}"
+                                 Style="{Binding MyButtonStyle}"
+                                 Command="{Binding StudentCommand}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Style="{StaticResource NavIcon}" 
+                           Source="./Public/Image/teacher_2354280.png" />
+                    <RadioButton Content="Lecturers"
+                                 Foreground="{Binding TextColor}"
+                                 Style="{Binding MyButtonStyle}"
+                                 Command="{Binding LecturerCommand}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Style="{StaticResource NavIcon}" 
+                           Source="./Public/Image/exam_10402786.png"/>
+                    <RadioButton Content="Coures"
+                                 Foreground="{Binding TextColor}"
+                                 Style="{Binding MyButtonStyle}"
+                                 Command="{Binding CourseCommand}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Style="{StaticResource NavIcon}" 
+                           Source="./Public/Image/presentation.png"/>
+                    <RadioButton Content="Classes"
+                                 Foreground="{Binding TextColor}"
+                                 Style="{Binding MyButtonStyle}"
+                                 Command="{Binding ClassCommand}"/>  
+                </StackPanel>
             </StackPanel>
             <TextBox Width="250"
                      Height="40"
@@ -74,9 +96,41 @@
                      Style="{StaticResource TextBoxTheme}">
                 
             </TextBox>
+            <Button Command="{Binding ThemeCommand}" HorizontalAlignment="Right" Width="30" Height="30" Margin="0 0 100 0" Grid.Column="1">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <Image Source="{Binding ModeButton}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Click="Button_Close_Click" HorizontalAlignment="Right" Width="20" Height="20" Margin="0 0 10 0" Grid.Column="1">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="red" CornerRadius="40">
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button HorizontalAlignment="Right" Width="20" Height="20" Margin="0 0 40 0" Grid.Column="1">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Yellow" CornerRadius="40">
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button HorizontalAlignment="Right" Width="20" Height="20" Margin="0 0 70 0" Grid.Column="1">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="green" CornerRadius="40">
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
             <ContentControl Grid.Row="1" Grid.Column="1" Margin="10"
                             Content="{Binding CurrentView}">
-                
             </ContentControl>
         </Grid>
     </Border>

@@ -8,6 +8,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Public/Theme/LightMenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Public/Theme/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Public/Theme/TextBoxTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
