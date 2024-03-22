@@ -12,7 +12,8 @@ namespace BHGroup.DAL.Entities
     public class Student : Person
     {
         [Required]
+        [Key]
         [Column("student_code",Order = 1)]
-        public string StudentCode { get; set; }
+        public int StudentCode { get; set; }
     }
 }

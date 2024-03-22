@@ -13,23 +13,21 @@ namespace BHGroup.DAL.Entities
     [Table("enrollments")]
     public class Enrollment
     {
-        [NotMapped]
-        public string Student { get; set; }
-        [Column("student_code",Order = 1)]
-        public string StudentCode { get; set; }
         
+        [Column("student_code")]
+        [ForeignKey("student_code")]
+        public Student Student { get; set; }
         [Column("id")]
         public int Id { get; set; }
-        [NotMapped]
+        [Column("course_code")]
+        [ForeignKey("course_code")]
         public Course Course { get; set; }
-        [Column("course_code",Order = 2)]
-        public string CourseCode { get; set; }
         [AllowNull]
         [Column("grade")]
         public Grades Grade { get; set; }
         [StringLength(5)]
         [Required]
-        [Column("semester", Order = 3)]
+        [Column("semester")]
         public string Semester { get; set; }
     }
 }

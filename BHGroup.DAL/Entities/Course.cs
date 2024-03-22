@@ -27,6 +27,7 @@ namespace BHGroup.DAL.Entities
         [Column("description")]
         public string Description { get; set; }
         [Column("lecturer")]
+        [ForeignKey("staff_code")]
         public Lecturer Lecturer { get; set; }
     }
 }

@@ -13,8 +13,9 @@ namespace BHGroup.DAL.Entities
     public class Lecturer : Person
     {
         //[Index(IsUnique = true)]
+        [Key]
         [Column("staff_code",Order =1)]
-        public string StaffCode {  get; set; }
+        public int StaffCode {  get; set; }
         [Column("courses")]
         public ICollection<Course>? Courses { get; set; } = new List<Course>();
     }

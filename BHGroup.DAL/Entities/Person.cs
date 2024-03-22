@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BHGroup.DAL.Entities
 {
+
     public class Person
     {
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] // auto increment
-        [Key]
-        [Column("id")]//entity primary key
-        public int Id { get; set; }
+        public enum EStatus { active, inactive}
+        public enum EGender { male,female}
         [Required]
         [Column("last_name")]
         [StringLength(50)]
@@ -17,6 +17,7 @@ namespace BHGroup.DAL.Entities
         [StringLength(50)]
         [Column("first_name")]
         public string FirstName { get; set; }
+        public EGender Gender { get; set; }
         [Required]
         [StringLength(8)]
         [Column("date_of_birth")]
@@ -25,7 +26,7 @@ namespace BHGroup.DAL.Entities
         public DateTime JoinDate { get; set; }
         [Required]
         [Column("status")]
-        public bool Status { get; set; } //assume true is active and false is inactive
+        public EStatus Status { get; set; } //assume true is active and false is inactive
 
     }
 }

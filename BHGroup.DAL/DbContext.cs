@@ -14,20 +14,15 @@ namespace BHGroup.DAL
         public DbSet<Course> Courses { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; } 
         
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Student>().ToTable("students").HasIndex(e => e.StudentCode).IsUnique();
-            modelBuilder.Entity<Student>().Property(p => p.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Lecturer>().HasKey(p => p.Id);
-            modelBuilder.Entity<Lecturer>().Property(p => p.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Enrollment>().HasKey(p => new {p.StudentCode,p.CourseCode,p.Semester});
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-28NL6SO\\SQLEXPRESS;Database=SchoolDB;User Id=sa;Password=password;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-28NL6SO\\SQLEXPRESS;Database=school_db;User Id=sa;Password=password;TrustServerCertificate=true");
             }
         }
     }
