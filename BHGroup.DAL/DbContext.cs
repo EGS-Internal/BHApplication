@@ -16,10 +16,11 @@ namespace BHGroup.DAL
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Student>().HasKey(p => p.Id);
+            modelBuilder.Entity<Student>().ToTable("students").HasIndex(e => e.StudentCode).IsUnique();
             modelBuilder.Entity<Student>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Lecturer>().HasKey(p => p.Id);
             modelBuilder.Entity<Lecturer>().Property(p => p.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Enrollment>().HasKey(p => new {p.StudentCode,p.CourseCode,p.Semester});
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

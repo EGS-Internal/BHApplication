@@ -10,19 +10,26 @@ using System.Threading.Tasks;
 namespace BHGroup.DAL.Entities
 {
     public enum Grades {A,B,C,D,F };
+    [Table("enrollments")]
     public class Enrollment
     {
-        [Required]
-        [Key,Column(Order = 1)]
-        public Student Student { get; set; }
-        [Required]
-        [Key, Column(Order = 2)]
+        [NotMapped]
+        public string Student { get; set; }
+        [Column("student_code",Order = 1)]
+        public string StudentCode { get; set; }
+        
+        [Column("id")]
+        public int Id { get; set; }
+        [NotMapped]
         public Course Course { get; set; }
+        [Column("course_code",Order = 2)]
+        public string CourseCode { get; set; }
         [AllowNull]
+        [Column("grade")]
         public Grades Grade { get; set; }
         [StringLength(5)]
         [Required]
-        [Key,Column(Order = 3)]
+        [Column("semester", Order = 3)]
         public string Semester { get; set; }
     }
 }
