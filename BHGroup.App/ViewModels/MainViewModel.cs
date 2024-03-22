@@ -1,16 +1,15 @@
 ﻿using BHGroup.App.Public.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Windows;
 
 namespace BHGroup.App.ViewModels
 {
     class MainViewModel : ObservableObject
     {
         private object _currentView;
+        private string _modeButton;
+        private string _theme;
+        private string _textColor;
+        private Style _buttonStyle;
         public object CurrentView
         {
             get { return _currentView; }
@@ -19,11 +18,32 @@ namespace BHGroup.App.ViewModels
                 OnPropertyChanged();
             }
         }
+        public string ModeButton
+        {
+            get { return _modeButton; }
+            set { _modeButton = value; OnPropertyChanged();}
+        }
+        public string Theme
+        {
+            get { return _theme; }
+            set { _theme = value; OnPropertyChanged(); }
+        }
+        public string TextColor
+        {
+            get { return _textColor; }
+            set { _textColor = value; OnPropertyChanged(); }
+        }
+        public Style MyButtonStyle
+        {
+            get { return _buttonStyle; }
+            set { _buttonStyle = value; OnPropertyChanged(); }
+        }
         public RelayCommand HomeCommand { get; private set; }
         public RelayCommand StudentCommand { get; private set; }
         public RelayCommand LecturerCommand { get; private set; }
         public RelayCommand ClassCommand { get; private set; }
         public RelayCommand CourseCommand { get; private set; }
+        public RelayCommand ThemeCommand { get; private set; }
         private HomeVM HomeVM { get; set; }
         private StudentVM StudentVM { get; set; }
         private LecturerVM LecturerVM { get; set; }
@@ -33,20 +53,23 @@ namespace BHGroup.App.ViewModels
         private bool flag = true;
         public MainViewModel()
         {
+            ModeButton = "./Public/Image/sun.png";
+            Theme = "#272537";
+            TextColor = "White";
+            MyButtonStyle = (Style)Application.Current.FindResource("MenuButtonTheme");
+
             HomeVM = new HomeVM();
             StudentVM = new StudentVM();
             LecturerVM = new LecturerVM();
             ClassVM = new ClassVM();
             CourseVM = new CourseVM();
-
             CurrentView = HomeVM;
-
             HomeCommand = new RelayCommand(ExecuteHomeCommand, CanExecuteHomeCommand);
             StudentCommand = new RelayCommand(ExecuteStudentCommand, CanExecuteStudentCommand);
             LecturerCommand = new RelayCommand(ExecuteLecturerCommand, CanExecuteLecturerCommand);
             ClassCommand = new RelayCommand(ExecuteClassCommand, CanExecuteClassCommand);
             CourseCommand = new RelayCommand(ExecuteCourseCommand, CanExecuteCourseCommand);
-
+            ThemeCommand = new RelayCommand(ExecuteChangeTheme, CanExecuteChangeTheme);
         }
         private bool CanExecuteHomeCommand(object parameters)
         {
@@ -88,6 +111,13 @@ namespace BHGroup.App.ViewModels
         {
             CourseNavigate();
         }
+        private bool CanExecuteChangeTheme(object parameters) {
+            return true;        
+        }
+        private void ExecuteChangeTheme(object parameters)
+        {
+            ChangeTheme();
+        }
         private void HomeNavigate()
         {
             CurrentView = HomeVM;
@@ -108,6 +138,24 @@ namespace BHGroup.App.ViewModels
         private void CourseNavigate()
         {
             CurrentView = CourseVM;
+        }
+        private void ChangeTheme() {
+            if(ModeButton == "./Public/Image/brightness.png")
+            {
+                ModeButton = "./Public/Image/sun.png";
+                Theme = "#272537";
+                TextColor = "White";
+                MyButtonStyle = (Style)Application.Current.FindResource("MenuButtonTheme");
+            }
+
+            else
+            {
+                ModeButton = "./Public/Image/brightness.png";
+                Theme = "White";
+                TextColor = "Black";
+                MyButtonStyle = (Style)Application.Current.FindResource("LightMenuButtonTheme");
+            }
+                
         }
     }
 }
