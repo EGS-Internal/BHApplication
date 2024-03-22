@@ -1,17 +1,22 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BHGroup.DAL.Entities
 {
-
+    [Table("lecturers")]
     public class Lecturer : Person
     {
-        [Required]
-        public DateTime JoinDate { get; set; }
-        virtual public ICollection<Course> Courses { get; set; } = new List<Course>();
+        //[Index(IsUnique = true)]
+        [Key]
+        [Column("staff_code",Order =1)]
+        public int StaffCode {  get; set; }
+        [Column("courses")]
+        public ICollection<Course>? Courses { get; set; } = new List<Course>();
     }
 }
