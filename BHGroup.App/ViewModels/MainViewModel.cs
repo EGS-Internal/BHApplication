@@ -7,8 +7,6 @@ namespace BHGroup.App.ViewModels
     {
         private object _currentView;
         private string _modeButton;
-        private string _theme;
-        private string _textColor;
         private Style _buttonStyle;
         public object CurrentView
         {
@@ -22,16 +20,6 @@ namespace BHGroup.App.ViewModels
         {
             get { return _modeButton; }
             set { _modeButton = value; OnPropertyChanged();}
-        }
-        public string Theme
-        {
-            get { return _theme; }
-            set { _theme = value; OnPropertyChanged(); }
-        }
-        public string TextColor
-        {
-            get { return _textColor; }
-            set { _textColor = value; OnPropertyChanged(); }
         }
         public Style MyButtonStyle
         {
@@ -54,8 +42,6 @@ namespace BHGroup.App.ViewModels
         public MainViewModel()
         {
             ModeButton = "./Public/Image/sun.png";
-            Theme = "#272537";
-            TextColor = "White";
             MyButtonStyle = (Style)Application.Current.FindResource("MenuButtonTheme");
 
             HomeVM = new HomeVM();
@@ -64,6 +50,7 @@ namespace BHGroup.App.ViewModels
             ClassVM = new ClassVM();
             CourseVM = new CourseVM();
             CurrentView = HomeVM;
+
             HomeCommand = new RelayCommand(ExecuteHomeCommand, CanExecuteHomeCommand);
             StudentCommand = new RelayCommand(ExecuteStudentCommand, CanExecuteStudentCommand);
             LecturerCommand = new RelayCommand(ExecuteLecturerCommand, CanExecuteLecturerCommand);
@@ -143,19 +130,23 @@ namespace BHGroup.App.ViewModels
             if(ModeButton == "./Public/Image/brightness.png")
             {
                 ModeButton = "./Public/Image/sun.png";
-                Theme = "#272537";
-                TextColor = "White";
                 MyButtonStyle = (Style)Application.Current.FindResource("MenuButtonTheme");
+                var DefaultDictionary = Application.Current.Resources.MergedDictionaries[3];
+                DefaultDictionary["DefaultText"] = Application.Current.FindResource("DarkText");
+                DefaultDictionary["DefaultTextBoxText"] = Application.Current.FindResource("DarkTextBoxText");
+                DefaultDictionary["DefaultSearchBoxBackGround"] = Application.Current.FindResource("DarkSearchBoxBackGround");
+                DefaultDictionary["DefaultAppBackground"] = Application.Current.FindResource("DarkAppBackground");
             }
-
             else
             {
                 ModeButton = "./Public/Image/brightness.png";
-                Theme = "White";
-                TextColor = "Black";
                 MyButtonStyle = (Style)Application.Current.FindResource("LightMenuButtonTheme");
+                var DefaultDictionary = Application.Current.Resources.MergedDictionaries[3];
+                DefaultDictionary["DefaultText"] = Application.Current.FindResource("LightText");
+                DefaultDictionary["DefaultTextBoxText"] = Application.Current.FindResource("LightTextBoxText");
+                DefaultDictionary["DefaultSearchBoxBackGround"] = Application.Current.FindResource("LightSearchBoxBackGround");
+                DefaultDictionary["DefaultAppBackground"] = Application.Current.FindResource("LightAppBackground");
             }
-                
         }
     }
 }

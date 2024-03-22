@@ -30,5 +30,9 @@ namespace BHGroup.App
         {
             Application.Current.Shutdown();
         }
+        private void Button_Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
     }
 }

@@ -24,10 +24,12 @@
                 <Setter Property="Width" Value="25"/>
                 <Setter Property="Height" Value="25"/>
                 <Setter Property="Margin" Value="10 0 0 0"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Panel.ZIndex" Value="1"/>
             </Style.Setters>
         </Style>
     </Window.Resources>
-    <Border  Background="{Binding Theme}" CornerRadius="20">
+    <Border  Style="{DynamicResource DefaultAppBackground}" CornerRadius="20">
         <Grid Name="gridMain">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -40,52 +42,49 @@
             <TextBlock
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Foreground="{Binding TextColor}"
                 FontSize="22"
                 Margin="20 0 0 0"
-                Text="Bro is fkup">
+                Text="Bro is fkup"
+                Style="{DynamicResource DefaultText}">
             </TextBlock>
             <StackPanel Grid.Row="1">
-                <StackPanel Orientation="Horizontal">
+                <Grid>
                     <Image Style="{StaticResource NavIcon}" 
                            Source="./Public/Image/baseline_home_black_24dp.png" />
                     <RadioButton Content="Home"
-                                 Foreground="{Binding TextColor}"
                                  Style="{Binding MyButtonStyle}"
-                                 Command="{Binding HomeCommand}"/>  
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                                 Command="{Binding HomeCommand}"
+                                 HorizontalAlignment="Stretch"
+                                 Panel.ZIndex="0"/>  
+                </Grid>
+                <Grid>
                     <Image Style="{StaticResource NavIcon}" 
                            Source="./Public/Image/baseline_person_black_24dp.png" />
                     <RadioButton Content="Stutdents"
-                                 Foreground="{Binding TextColor}"
                                  Style="{Binding MyButtonStyle}"
                                  Command="{Binding StudentCommand}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                </Grid>
+                <Grid>
                     <Image Style="{StaticResource NavIcon}" 
                            Source="./Public/Image/teacher_2354280.png" />
                     <RadioButton Content="Lecturers"
-                                 Foreground="{Binding TextColor}"
                                  Style="{Binding MyButtonStyle}"
                                  Command="{Binding LecturerCommand}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                </Grid>
+                <Grid>
                     <Image Style="{StaticResource NavIcon}" 
                            Source="./Public/Image/exam_10402786.png"/>
                     <RadioButton Content="Coures"
-                                 Foreground="{Binding TextColor}"
                                  Style="{Binding MyButtonStyle}"
                                  Command="{Binding CourseCommand}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                </Grid>
+                <Grid>
                     <Image Style="{StaticResource NavIcon}" 
                            Source="./Public/Image/presentation.png"/>
                     <RadioButton Content="Classes"
-                                 Foreground="{Binding TextColor}"
                                  Style="{Binding MyButtonStyle}"
                                  Command="{Binding ClassCommand}"/>  
-                </StackPanel>
+                </Grid>
             </StackPanel>
             <TextBox Width="250"
                      Height="40"
@@ -96,7 +95,7 @@
                      Style="{StaticResource TextBoxTheme}">
                 
             </TextBox>
-            <Button Command="{Binding ThemeCommand}" HorizontalAlignment="Right" Width="30" Height="30" Margin="0 0 100 0" Grid.Column="1">
+            <Button Command="{Binding ThemeCommand}" HorizontalAlignment="Right" Width="25" Height="25" Margin="0 0 70 0" Grid.Column="1">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -109,22 +108,24 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="red" CornerRadius="40">
+                            <TextBlock Text="X" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Bold"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button HorizontalAlignment="Right" Width="20" Height="20" Margin="0 0 40 0" Grid.Column="1">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="Yellow" CornerRadius="40">
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button HorizontalAlignment="Right" Width="20" Height="20" Margin="0 0 70 0" Grid.Column="1">
+            <Button Click="Button_Minimize_Click" HorizontalAlignment="Right" Width="20" Height="20" Margin="0 0 40 0" Grid.Column="1">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="green" CornerRadius="40">
+                            <TextBlock Text="—" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0 0 0 2"/>      
                         </Border>
                     </ControlTemplate>
                 </Button.Template>

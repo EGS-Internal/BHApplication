@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BHGroup.App.ViewModels
 {
     class HomeVM : ObservableObject
     {
-        public HomeVM() { 
-            
+        public HomeVM() {
         } 
     }
 }

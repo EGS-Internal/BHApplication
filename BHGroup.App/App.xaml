@@ -11,6 +11,9 @@
                 <ResourceDictionary Source="Public/Theme/LightMenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Public/Theme/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Public/Theme/TextBoxTheme.xaml"/>
+                <ResourceDictionary Source="Public/Theme/DefaultTheme.xaml"/>
+                <ResourceDictionary Source="Public/Theme/LightTheme.xaml"/>
+                <ResourceDictionary Source="Public/Theme/DarkTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewModel:HomeVM}">
                 <view:HomeView/>
