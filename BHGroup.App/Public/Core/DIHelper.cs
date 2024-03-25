@@ -38,7 +38,6 @@ namespace BHGroup.App.Public.Core
             services.AddTransient<CourseVM, CourseVM>();
             services.AddTransient<ClassVM, ClassVM>();
             services.AddSingleton<DbContext, DBContext>();
-
             return services.BuildServiceProvider();
         }
     }

@@ -1,7 +1,7 @@
 ﻿using BHGroup.DAL.Entities;
 namespace BHGroup.BL
 {
-    internal interface ILecturer
+    public interface ILecturer
     {
         Lecturer GetById(int id);
         IEnumerable<Lecturer> GetAll();
