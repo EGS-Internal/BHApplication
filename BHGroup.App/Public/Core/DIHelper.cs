@@ -31,6 +31,7 @@ namespace BHGroup.App.Public.Core
             services.AddSingleton<IStudent, BLStudent>();
             services.AddSingleton<ICourse, BLCourse>();
             services.AddSingleton<ILecturer, BLLecturer>();
+
             services.AddTransient<MainViewModel, MainViewModel>();
             services.AddTransient<HomeVM, HomeVM>();
             services.AddTransient<StudentVM, StudentVM>();
