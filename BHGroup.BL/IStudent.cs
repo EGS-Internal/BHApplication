@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using BHGroup.DAL.Entities;
 namespace BHGroup.BL
 {
-    internal interface IStudent
+    public interface IStudent
     {
         //protected readonly DbContext _context;
         Student GetById(int id);

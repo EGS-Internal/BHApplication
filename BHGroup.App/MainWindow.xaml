@@ -17,7 +17,6 @@
         <viewModel:MainViewModel/>
     </Window.DataContext>
     <Window.Resources>
-
         <Style TargetType="{x:Type Image}"
                x:Key="NavIcon">
             <Style.Setters>
