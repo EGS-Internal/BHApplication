@@ -1,42 +1,44 @@
-﻿using BHGroup.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using BHGroup.App.Public.Core;
+using BHGroup.DAL.Entities;
 namespace BHGroup.BL
 {
     public class BLStudent : IStudent
     {
-        void IStudent.Add(Student student)
+        
+        private readonly DBContext _dbContext;
+        public BLStudent()
         {
-            throw new NotImplementedException();
+            _dbContext = DIHelper.Get().Services.GetRequiredService<DBContext>();
         }
-
-        void IStudent.Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<Student> IStudent.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        Student IStudent.GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<Student> IStudent.GetByName()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IStudent.Update(Student student)
-        {
-            throw new NotImplementedException();
-        }
+    
+    void IStudent.Add(Student student)
+    {
+        throw new NotImplementedException();
     }
+
+    void IStudent.Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    IEnumerable<Student> IStudent.GetAll()
+    {
+        throw new NotImplementedException();
+    }
+
+    Student IStudent.GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    IEnumerable<Student> IStudent.GetByName()
+    {
+        throw new NotImplementedException();
+    }
+
+    void IStudent.Update(Student student)
+    {
+        throw new NotImplementedException();
+    }
+}
 }

@@ -1,37 +1,58 @@
-﻿using BHGroup.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using BHGroup.App.Public.Core;
+using BHGroup.DAL;
+using BHGroup.DAL.Entities;
+using Microsoft.Extensions.DependencyInjection;
 namespace BHGroup.BL
 {
     public class BLLecturer : ILecturer
     {
+        private readonly DBContext _dbContext;
+        public BLLecturer()
+        {
+            _dbContext = DIHelper.Get().Services.GetRequiredService<DBContext>();
+        }
         void ILecturer.Add(Lecturer lecturer)
         {
-            throw new NotImplementedException();
+            if (_dbContext.Lecturers.Find(lecturer.StaffCode) != null)
+            {
+                _dbContext.Lecturers.Add(lecturer);
+            }
+            else
+            {
+                _dbContext.Lecturers.Update(lecturer);
+            }
+            _dbContext.SaveChanges();
         }
 
         void ILecturer.Delete(int id)
         {
-            throw new NotImplementedException();
+            Lecturer result = _dbContext.Lecturers.Find(id);
+            if (result != null)
+                _dbContext.Lecturers.Remove(result);
+            else
+            {
+                throw new Exception("Delete failed: record not found!");
+            }
         }
 
         IEnumerable<Lecturer> ILecturer.GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Lecturers.ToList();
         }
 
         Lecturer ILecturer.GetById(int id)
         {
-            throw new NotImplementedException();
+            Lecturer res = _dbContext.Lecturers.Find(id);
+            if (res != null)
+            {
+                return res;
+            }
+            else throw new Exception("Record not found");
         }
 
         void ILecturer.Update(Lecturer lecturer)
         {
-            throw new NotImplementedException();
+            _dbContext.SaveChanges();
         }
     }
 }
