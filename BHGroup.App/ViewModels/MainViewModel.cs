@@ -1,4 +1,7 @@
-﻿using BHGroup.App.Public.Core;
+﻿using Autofac.Core;
+using BHGroup.App.Public.Core;
+using BHGroup.BL;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace BHGroup.App.ViewModels
@@ -43,14 +46,22 @@ namespace BHGroup.App.ViewModels
         {
             ModeButton = "./Public/Image/sun.png";
             MyButtonStyle = (Style)Application.Current.FindResource("MenuButtonTheme");
-
-            HomeVM = new HomeVM();
-            StudentVM = new StudentVM();
-            LecturerVM = new LecturerVM();
-            ClassVM = new ClassVM();
-            CourseVM = new CourseVM();
+            InitRequredBM();
+            InitCommand();
             CurrentView = HomeVM;
-
+            
+        }
+        private void InitRequredBM()
+        {
+            var services = DIHelper.Get().Services;
+            HomeVM = services.GetRequiredService<HomeVM>();
+            StudentVM = services.GetRequiredService<StudentVM>();
+            LecturerVM = services.GetRequiredService<LecturerVM>();
+            ClassVM = services.GetRequiredService<ClassVM>();
+            CourseVM = services.GetRequiredService<CourseVM>();
+        }
+        private void InitCommand()
+        {
             HomeCommand = new RelayCommand(ExecuteHomeCommand, CanExecuteHomeCommand);
             StudentCommand = new RelayCommand(ExecuteStudentCommand, CanExecuteStudentCommand);
             LecturerCommand = new RelayCommand(ExecuteLecturerCommand, CanExecuteLecturerCommand);

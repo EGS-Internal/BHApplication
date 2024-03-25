@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BHGroup.BL
 {
-    internal class BLLecturer : ILecturer
+    public class BLLecturer : ILecturer
     {
         void ILecturer.Add(Lecturer lecturer)
         {
