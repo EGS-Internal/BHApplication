@@ -147,6 +147,8 @@ namespace BHGroup.App.ViewModels
                 DefaultDictionary["DefaultTextBoxText"] = Application.Current.FindResource("DarkTextBoxText");
                 DefaultDictionary["DefaultSearchBoxBackGround"] = Application.Current.FindResource("DarkSearchBoxBackGround");
                 DefaultDictionary["DefaultAppBackground"] = Application.Current.FindResource("DarkAppBackground");
+                DefaultDictionary["DefaultButtonBackGround"] = Application.Current.FindResource("DarkButtonBackGround");
+                DefaultDictionary["DefaultCustomDataGrid"] = Application.Current.FindResource("DarkCustomDataGrid");
             }
             else
             {
@@ -157,6 +159,8 @@ namespace BHGroup.App.ViewModels
                 DefaultDictionary["DefaultTextBoxText"] = Application.Current.FindResource("LightTextBoxText");
                 DefaultDictionary["DefaultSearchBoxBackGround"] = Application.Current.FindResource("LightSearchBoxBackGround");
                 DefaultDictionary["DefaultAppBackground"] = Application.Current.FindResource("LightAppBackground");
+                DefaultDictionary["DefaultButtonBackGround"] = Application.Current.FindResource("LightButtonBackGround");
+                DefaultDictionary["DefaultCustomDataGrid"] = Application.Current.FindResource("LightCustomDataGrid");
             }
         }
     }

@@ -17,6 +17,7 @@ namespace BHGroup.DAL.Entities
         [StringLength(50)]
         [Column("first_name")]
         public string FirstName { get; set; }
+
         public EGender Gender { get; set; }
         [Required]
         [StringLength(8)]
