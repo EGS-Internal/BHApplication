@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:BHGroup.App.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <Grid>
         <StackPanel Background="Transparent">
-            <TextBlock Text="Student" 
+            <TextBlock Text="Course" 
                        FontSize="20" 
                        Style="{DynamicResource DefaultText}"/>
         </StackPanel>

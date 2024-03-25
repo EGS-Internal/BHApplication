@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BHGroup.App.Public.Core;
+using BHGroup.App.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +26,7 @@ namespace BHGroup.App.Views
         public StudentView()
         {
             InitializeComponent();
+            DataContext = DIHelper.Get().Services.GetRequiredService<StudentVM>();
         }
     }
 }
