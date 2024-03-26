@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using BHGroup.App.Public.Core;
+using Microsoft.Extensions.DependencyInjection;
 namespace BHGroup.App.Views
 {
     /// <summary>
@@ -23,6 +24,7 @@ namespace BHGroup.App.Views
         public LecturerView()
         {
             InitializeComponent();
+            DataContext = DIHelper.Get().Services.GetRequiredService<Data>
         }
     }
 }
