@@ -25,7 +25,7 @@ namespace BHGroup.BL
 
     IEnumerable<Student> IStudent.GetAll()
     {
-        throw new NotImplementedException();
+        return _dbContext.Students.ToList();
     }
 
     Student IStudent.GetById(int id)

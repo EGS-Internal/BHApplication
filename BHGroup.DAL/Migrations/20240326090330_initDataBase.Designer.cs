@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BHGroup.DAL.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20240325102617_reconfigEnrollment")]
-    partial class reconfigEnrollment
+    [Migration("20240326090330_initDataBase")]
+    partial class initDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

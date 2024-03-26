@@ -23,8 +23,8 @@ namespace BHGroup.App.ViewModels
     {
         private readonly IStudent _studentContext;
         private AddStudentWindow _addStudentWindow { get; set; }
-        private ObservableCollection<CustomStudent> _students { get; set; }
-        public ObservableCollection<CustomStudent> Students
+        private List<CustomStudent> _students { get; set; }
+        public List<CustomStudent> Students
         {
             get { return _students; }
             set { _students = value; OnPropertyChanged(); }
@@ -63,14 +63,19 @@ namespace BHGroup.App.ViewModels
         public StudentViewModel()
         {
             _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
-            Students = new ObservableCollection<CustomStudent>() { 
-                new CustomStudent() { 
-                    LastName = "Binh",FirstName = "Vu",DateOfBirth = DateTime.Now,Gender = Person.EGender.Male,JoinDate = DateTime.Now,Status = Person.EStatus.Active,StudentCode = 123,
-                },
-                new CustomStudent() {
-                    LastName = "Binh 2",FirstName = "Vu 2",DateOfBirth = DateTime.Now,Gender = Person.EGender.Male,JoinDate = DateTime.Now,Status = Person.EStatus.Inactive,StudentCode = 456,
-                },
-            };
+            Students = _studentContext.GetAll().Select(s =>
+            {
+                return new CustomStudent()
+                {
+                    FirstName = s.FirstName,
+                    LastName = s.LastName,
+                    StudentCode = s.StudentCode,
+                    DateOfBirth = s.DateOfBirth,
+                    Gender = s.Gender,
+                    JoinDate = s.JoinDate,
+                    Status = s.Status
+                };
+            }).ToList();
             AddStudentCommand = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
             DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);

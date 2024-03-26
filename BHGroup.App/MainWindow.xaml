@@ -54,7 +54,7 @@
                                  Style="{Binding MyButtonStyle}"
                                  Command="{Binding HomeCommand}"
                                  HorizontalAlignment="Stretch"
-                                 Panel.ZIndex="0"/>  
+                                 Panel.ZIndex="0"/>
                 </Grid>
                 <Grid>
                     <Image Style="{StaticResource NavIcon}" 
@@ -82,18 +82,9 @@
                            Source="./Public/Image/presentation.png"/>
                     <RadioButton Content="Classes"
                                  Style="{Binding MyButtonStyle}"
-                                 Command="{Binding ClassCommand}"/>  
+                                 Command="{Binding ClassCommand}"/>
                 </Grid>
             </StackPanel>
-            <TextBox Width="250"
-                     Height="40"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Left"
-                     Margin="5"
-                     Grid.Column="1"
-                     Style="{StaticResource TextBoxTheme}">
-                
-            </TextBox>
             <Button Command="{Binding ThemeCommand}" HorizontalAlignment="Right" Width="25" Height="25" Margin="0 0 70 0" Grid.Column="1">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
