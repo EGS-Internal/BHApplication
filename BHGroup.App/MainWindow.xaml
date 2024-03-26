@@ -59,7 +59,7 @@
                 <Grid>
                     <Image Style="{StaticResource NavIcon}" 
                            Source="./Public/Image/baseline_person_black_24dp.png" />
-                    <RadioButton Content="Stutdents"
+                    <RadioButton Content="Students"
                                  Style="{Binding MyButtonStyle}"
                                  Command="{Binding StudentCommand}"/>
                 </Grid>

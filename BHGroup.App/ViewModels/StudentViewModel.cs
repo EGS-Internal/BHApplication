@@ -90,7 +90,28 @@ namespace BHGroup.App.ViewModels
             _addStudentWindow.ShowDialog();
             if(_addStudentWindow.StudentToAdd != null)
             {
-                Students.Add(_addStudentWindow.StudentToAdd);
+                _studentContext.Add(new Student()
+                {
+                    FirstName = _addStudentWindow.StudentToAdd.FirstName,
+                    LastName = _addStudentWindow.StudentToAdd.LastName,
+                    DateOfBirth = _addStudentWindow.StudentToAdd.DateOfBirth,
+                    Gender = _addStudentWindow.StudentToAdd.Gender,
+                    JoinDate = _addStudentWindow.StudentToAdd.JoinDate,
+                    Status = _addStudentWindow.StudentToAdd.Status
+                });
+                Students = _studentContext.GetAll().Select(s =>
+                {
+                    return new CustomStudent()
+                    {
+                        FirstName = s.FirstName,
+                        LastName = s.LastName,
+                        StudentCode = s.StudentCode,
+                        DateOfBirth = s.DateOfBirth,
+                        Gender = s.Gender,
+                        JoinDate = s.JoinDate,
+                        Status = s.Status
+                    };
+                }).ToList();
             }
         }
         private bool CanExecuteDeleteStudentCommand(object parameters)
@@ -111,7 +132,20 @@ namespace BHGroup.App.ViewModels
             MessageBoxResult result = MessageBox.Show("You sure'bout that?", "Delete Confirm",MessageBoxButton.YesNo, MessageBoxImage.Question);
             if(result == MessageBoxResult.Yes)
             {
-                Students.Remove(SelectedItem);
+                _studentContext.Delete(SelectedItem.StudentCode);
+                Students = _studentContext.GetAll().Select(s =>
+                {
+                    return new CustomStudent()
+                    {
+                        FirstName = s.FirstName,
+                        LastName = s.LastName,
+                        StudentCode = s.StudentCode,
+                        DateOfBirth = s.DateOfBirth,
+                        Gender = s.Gender,
+                        JoinDate = s.JoinDate,
+                        Status = s.Status
+                    };
+                }).ToList();
                 SelectedItem = null;
             }
         }
