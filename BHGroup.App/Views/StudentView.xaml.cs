@@ -28,5 +28,15 @@ namespace BHGroup.App.Views
             InitializeComponent();
             DataContext = DIHelper.Get().Services.GetRequiredService<StudentVM>();
         }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void DataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
