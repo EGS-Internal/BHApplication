@@ -23,8 +23,8 @@ namespace BHGroup.App.ViewModels
     {
         private readonly IStudent _studentContext;
         private AddStudentWindow _addStudentWindow { get; set; }
-        private ObservableCollection<CustomStudent> _students { get; set; }
-        public ObservableCollection<CustomStudent> Students
+        private List<CustomStudent> _students { get; set; }
+        public List<CustomStudent> Students
         {
             get { return _students; }
             set { _students = value; OnPropertyChanged(); }
@@ -40,6 +40,21 @@ namespace BHGroup.App.ViewModels
                 _selectedItem = value; 
                 OnPropertyChanged(); 
                 DeleteStudentCommand.OnCanExecuteChanged();
+                EditStudentCommand.OnCanExecuteChanged();
+            }
+        }
+        private bool _isButtonEnabled;
+
+        public bool IsButtonEnabled
+        {
+            get { return _isButtonEnabled; }
+            set
+            {
+                if (_isButtonEnabled != value)
+                {
+                    _isButtonEnabled = value;
+                    OnPropertyChanged();
+                }
             }
         }
         public RelayCommand AddStudentCommand {  get; private set; }
@@ -48,14 +63,19 @@ namespace BHGroup.App.ViewModels
         public StudentViewModel()
         {
             _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
-            Students = new ObservableCollection<CustomStudent>() { 
-                new CustomStudent() { 
-                    LastName = "Binh",FirstName = "Vu",DateOfBirth = DateTime.Now,Gender = Person.EGender.male,JoinDate = DateTime.Now,Status = Person.EStatus.active,StudentCode = 123,
-                },
-                new CustomStudent() {
-                    LastName = "Binh 2",FirstName = "Vu 2",DateOfBirth = DateTime.Now,Gender = Person.EGender.male,JoinDate = DateTime.Now,Status = Person.EStatus.inactive,StudentCode = 456,
-                },
-            };
+            Students = _studentContext.GetAll().Select(s =>
+            {
+                return new CustomStudent()
+                {
+                    FirstName = s.FirstName,
+                    LastName = s.LastName,
+                    StudentCode = s.StudentCode,
+                    DateOfBirth = s.DateOfBirth,
+                    Gender = s.Gender,
+                    JoinDate = s.JoinDate,
+                    Status = s.Status
+                };
+            }).ToList();
             AddStudentCommand = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
             DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
@@ -70,17 +90,40 @@ namespace BHGroup.App.ViewModels
             _addStudentWindow.ShowDialog();
             if(_addStudentWindow.StudentToAdd != null)
             {
-                Students.Add(_addStudentWindow.StudentToAdd);
+                _studentContext.Add(new Student()
+                {
+                    FirstName = _addStudentWindow.StudentToAdd.FirstName,
+                    LastName = _addStudentWindow.StudentToAdd.LastName,
+                    DateOfBirth = _addStudentWindow.StudentToAdd.DateOfBirth,
+                    Gender = _addStudentWindow.StudentToAdd.Gender,
+                    JoinDate = _addStudentWindow.StudentToAdd.JoinDate,
+                    Status = _addStudentWindow.StudentToAdd.Status
+                });
+                Students = _studentContext.GetAll().Select(s =>
+                {
+                    return new CustomStudent()
+                    {
+                        FirstName = s.FirstName,
+                        LastName = s.LastName,
+                        StudentCode = s.StudentCode,
+                        DateOfBirth = s.DateOfBirth,
+                        Gender = s.Gender,
+                        JoinDate = s.JoinDate,
+                        Status = s.Status
+                    };
+                }).ToList();
             }
         }
         private bool CanExecuteDeleteStudentCommand(object parameters)
         {
             if (SelectedItem != null)
             {
+                IsButtonEnabled = true;
                 return true;
             }
             else
-            { 
+            {
+                IsButtonEnabled = false;
                 return false; 
             }
         }
@@ -89,13 +132,35 @@ namespace BHGroup.App.ViewModels
             MessageBoxResult result = MessageBox.Show("You sure'bout that?", "Delete Confirm",MessageBoxButton.YesNo, MessageBoxImage.Question);
             if(result == MessageBoxResult.Yes)
             {
-                Students.Remove(SelectedItem);
+                _studentContext.Delete(SelectedItem.StudentCode);
+                Students = _studentContext.GetAll().Select(s =>
+                {
+                    return new CustomStudent()
+                    {
+                        FirstName = s.FirstName,
+                        LastName = s.LastName,
+                        StudentCode = s.StudentCode,
+                        DateOfBirth = s.DateOfBirth,
+                        Gender = s.Gender,
+                        JoinDate = s.JoinDate,
+                        Status = s.Status
+                    };
+                }).ToList();
                 SelectedItem = null;
             }
         }
         private bool CanExecuteEditStudentCommand(object parameters)
         {
-            return true;
+            if (SelectedItem != null)
+            {
+                IsButtonEnabled = true;
+                return true;
+            }
+            else
+            {
+                IsButtonEnabled = false;
+                return false;
+            }
         }
         private void ExecuteEditStudentCommand(object parameters)
         {

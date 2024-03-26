@@ -38,8 +38,7 @@ namespace BHGroup.App.Views.StudentWindow
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if(DOB.Text == "" || FirstName.Text == "" || StudentCode.Text == "" ||
-                Gender.Text == "" || Status.Text == "" || JoinDate.Text == "")
+            if(DOB.Text == "" || FirstName.Text == "" || Gender.Text == "" || Status.Text == "" || JoinDate.Text == "")
             {
                 MessageBox.Show("Please fill in every required field","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
             }
@@ -51,11 +50,10 @@ namespace BHGroup.App.Views.StudentWindow
                 {
                     FirstName = FirstName.Text,
                     LastName = LastName.Text,
-                    StudentCode = int.Parse(StudentCode.Text),
                     DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
-                    Gender = Gender.Text == "Male" ? Person.EGender.male : Person.EGender.female,
+                    Gender = Gender.Text == "Male" ? Person.EGender.Male : Person.EGender.Female,
                     JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
-                    Status = Status.Text == "Active" ? Person.EStatus.active : Person.EStatus.inactive,
+                    Status = Status.Text == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
                 };
                 this.Close();
             }

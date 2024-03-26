@@ -63,4 +63,48 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="{x:Type Button}"
+           x:Key="PageButton">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="30" Style="{DynamicResource DefaultButtonBackGround}">
+                            <TextBlock Text="{TemplateBinding Property=Content}" 
+                                       FontSize="10" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       Style="{DynamicResource DefaultText}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+        </Style.Setters>
+    </Style>
+    <Style TargetType="{x:Type Button}"
+           x:Key="FunctionButton">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Property=Background}" Style="{DynamicResource DefaultButtonBackGround}" CornerRadius="10">
+                            <TextBlock Text="{TemplateBinding Property=Content}"
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       Style="{DynamicResource DefaultText}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="30"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

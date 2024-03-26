@@ -15,17 +15,23 @@ namespace BHGroup.BL
     
     void IStudent.Add(Student student)
     {
-        throw new NotImplementedException();
+            _dbContext.Students.Add(student);
+            _dbContext.SaveChanges();
     }
 
     void IStudent.Delete(int id)
     {
-        throw new NotImplementedException();
+            var studentToRemove = _dbContext.Students.Find(id);
+            if(studentToRemove != null)
+            {
+                _dbContext.Students.Remove(studentToRemove);
+                _dbContext.SaveChanges();
+            }
     }
 
     IEnumerable<Student> IStudent.GetAll()
     {
-        throw new NotImplementedException();
+        return _dbContext.Students.ToList();
     }
 
     Student IStudent.GetById(int id)
