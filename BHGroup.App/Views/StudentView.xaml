@@ -11,26 +11,6 @@
         <viewModel:StudentViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
-        <Style TargetType="{x:Type Button}"
-               x:Key="PageButton">
-            <Style.Setters>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border CornerRadius="30" Style="{DynamicResource DefaultButtonBackGround}">
-                                <TextBlock Text="{TemplateBinding Property=Content}" 
-                                           FontSize="10" 
-                                           HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center"
-                                           Style="{DynamicResource DefaultText}"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Width" Value="40"/>
-                <Setter Property="Height" Value="40"/>
-            </Style.Setters>
-        </Style>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
     <Grid>
@@ -72,42 +52,23 @@
                             HorizontalAlignment="Right"
                             Margin="0 0 50 0 ">
                     </Button>
-                    <Button Command="{Binding AddStudentCommand}" Width="50" Height="30" Margin="600 0 0 0">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border Background="Green" CornerRadius="10">
-                                    <TextBlock Text="Add" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"
-                                               Style="{DynamicResource DefaultText}"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button Command="{Binding EditStudentCommand}" Width="50" Height="30" Margin="450 0 0 0" >
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border Background="Gold" CornerRadius="10">
-                                    <TextBlock Text="Edit" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"
-                                               Style="{DynamicResource DefaultText}"/> 
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button Command="{Binding DeleteStudentCommand}" Width="50" Height="30" Margin="300 0 0 0">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border Background="Red" Style="{DynamicResource DefaultButtonBackGround}" CornerRadius="10">
-                                    <TextBlock Text="Delete" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center"
-                                               Style="{DynamicResource DefaultText}"/> 
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                    <Button Command="{Binding AddStudentCommand}" 
+                            Style="{StaticResource FunctionButton}"
+                            Margin="600 0 0 0"
+                            Content="Add"
+                            Background="#32CD32"/>
+                    <Button Command="{Binding EditStudentCommand}" 
+                            Style="{StaticResource FunctionButton}"
+                            IsEnabled="{Binding IsButtonEnabled}"
+                            Margin="450 0 0 0"
+                            Content="Edit"
+                            Background="Gold"/>
+                    <Button Command="{Binding DeleteStudentCommand}" 
+                            Style="{DynamicResource FunctionButton}"
+                            IsEnabled="{Binding IsButtonEnabled}"
+                            Margin="300 0 0 0"
+                            Content="Delete"
+                            Background="Red"/>
                     <Border HorizontalAlignment="Left" Grid.Row="1">
                         <DataGrid Width="680" 
                                   Style="{DynamicResource DefaultCustomDataGrid}"

@@ -40,6 +40,21 @@ namespace BHGroup.App.ViewModels
                 _selectedItem = value; 
                 OnPropertyChanged(); 
                 DeleteStudentCommand.OnCanExecuteChanged();
+                EditStudentCommand.OnCanExecuteChanged();
+            }
+        }
+        private bool _isButtonEnabled;
+
+        public bool IsButtonEnabled
+        {
+            get { return _isButtonEnabled; }
+            set
+            {
+                if (_isButtonEnabled != value)
+                {
+                    _isButtonEnabled = value;
+                    OnPropertyChanged();
+                }
             }
         }
         public RelayCommand AddStudentCommand {  get; private set; }
@@ -50,10 +65,10 @@ namespace BHGroup.App.ViewModels
             _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
             Students = new ObservableCollection<CustomStudent>() { 
                 new CustomStudent() { 
-                    LastName = "Binh",FirstName = "Vu",DateOfBirth = DateTime.Now,Gender = Person.EGender.male,JoinDate = DateTime.Now,Status = Person.EStatus.active,StudentCode = 123,
+                    LastName = "Binh",FirstName = "Vu",DateOfBirth = DateTime.Now,Gender = Person.EGender.Male,JoinDate = DateTime.Now,Status = Person.EStatus.Active,StudentCode = 123,
                 },
                 new CustomStudent() {
-                    LastName = "Binh 2",FirstName = "Vu 2",DateOfBirth = DateTime.Now,Gender = Person.EGender.male,JoinDate = DateTime.Now,Status = Person.EStatus.inactive,StudentCode = 456,
+                    LastName = "Binh 2",FirstName = "Vu 2",DateOfBirth = DateTime.Now,Gender = Person.EGender.Male,JoinDate = DateTime.Now,Status = Person.EStatus.Inactive,StudentCode = 456,
                 },
             };
             AddStudentCommand = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
@@ -77,10 +92,12 @@ namespace BHGroup.App.ViewModels
         {
             if (SelectedItem != null)
             {
+                IsButtonEnabled = true;
                 return true;
             }
             else
-            { 
+            {
+                IsButtonEnabled = false;
                 return false; 
             }
         }
@@ -95,7 +112,16 @@ namespace BHGroup.App.ViewModels
         }
         private bool CanExecuteEditStudentCommand(object parameters)
         {
-            return true;
+            if (SelectedItem != null)
+            {
+                IsButtonEnabled = true;
+                return true;
+            }
+            else
+            {
+                IsButtonEnabled = false;
+                return false;
+            }
         }
         private void ExecuteEditStudentCommand(object parameters)
         {
