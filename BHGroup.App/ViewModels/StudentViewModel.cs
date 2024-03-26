@@ -1,7 +1,9 @@
 ﻿using BHGroup.App.Public.Core;
+using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,18 +15,18 @@ using System.Windows;
 
 namespace BHGroup.App.ViewModels
 {
-    class CustomStudent : Student
+    public class CustomStudent : Student
     {
         public string FullName { get { return $"{FirstName} {LastName}"; } }
     }
-    class StudentVM : ObservableObject
+    class StudentViewModel : ObservableObject
     {
         private readonly IStudent studentContext;
         private ObservableCollection<CustomStudent> students { get; set; }
         private CustomStudent selectedItem { get; set; }
         private bool editVisibility {  get; set; }
         private bool deleteVisibility { get; set; }
-
+        private AddStudentWindow addStudentWindow { get; set; }
         public ObservableCollection<CustomStudent> Students
         {
             get { return students; }
@@ -61,7 +63,7 @@ namespace BHGroup.App.ViewModels
         public RelayCommand AddStudent {  get; private set; }
         public RelayCommand DeleteStudent {  get; private set; }
         public RelayCommand EditStudent { get; private set; }
-        public StudentVM()
+        public StudentViewModel()
         {
             studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
             Students = new ObservableCollection<CustomStudent>() { 
@@ -82,12 +84,9 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteAddStudentCommand(object parameters)
         {
-            if(SelectedItem != null) 
-                Students.Add(SelectedItem);
-            else
-            {
-                MessageBox.Show("Chọn một thằng học sinh đi ní", "The fuck bro?",MessageBoxButton.OK, MessageBoxImage.Question);
-            }
+            addStudentWindow = new AddStudentWindow();
+            addStudentWindow.ShowDialog();
+            Students.Add(addStudentWindow.StudentToAdd);
         }
         private bool CanExecuteDeleteStudentCommand(object parameters)
         {

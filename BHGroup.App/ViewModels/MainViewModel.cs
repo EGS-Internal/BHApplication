@@ -35,11 +35,11 @@ namespace BHGroup.App.ViewModels
         public RelayCommand ClassCommand { get; private set; }
         public RelayCommand CourseCommand { get; private set; }
         public RelayCommand ThemeCommand { get; private set; }
-        private HomeVM HomeVM { get; set; }
-        private StudentVM StudentVM { get; set; }
-        private LecturerVM LecturerVM { get; set; }
-        private ClassVM ClassVM { get; set; }
-        private CourseVM CourseVM { get; set; }
+        private HomeViewModel HomeVM { get; set; }
+        private StudentViewModel StudentVM { get; set; }
+        private LecturerViewModel LecturerVM { get; set; }
+        private ClassViewModel ClassVM { get; set; }
+        private CourseViewModel CourseVM { get; set; }
 
         private bool flag = true;
         public MainViewModel()
@@ -54,11 +54,11 @@ namespace BHGroup.App.ViewModels
         private void InitRequredBM()
         {
             var services = DIHelper.Get().Services;
-            HomeVM = services.GetRequiredService<HomeVM>();
-            StudentVM = services.GetRequiredService<StudentVM>();
-            LecturerVM = services.GetRequiredService<LecturerVM>();
-            ClassVM = services.GetRequiredService<ClassVM>();
-            CourseVM = services.GetRequiredService<CourseVM>();
+            HomeVM = services.GetRequiredService<HomeViewModel>();
+            StudentVM = services.GetRequiredService<StudentViewModel>();
+            LecturerVM = services.GetRequiredService<LecturerViewModel>();
+            ClassVM = services.GetRequiredService<ClassViewModel>();
+            CourseVM = services.GetRequiredService<CourseViewModel>();
         }
         private void InitCommand()
         {
