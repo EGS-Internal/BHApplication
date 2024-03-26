@@ -8,9 +8,10 @@ using System.Windows;
 
 namespace BHGroup.App.ViewModels
 {
-    class HomeVM : ObservableObject
+    class HomeViewModel : ObservableObject
     {
-        public HomeVM() {
+        public HomeViewModel() {
+
         } 
     }
 }
