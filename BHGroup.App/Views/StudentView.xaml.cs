@@ -26,7 +26,7 @@ namespace BHGroup.App.Views
         public StudentView()
         {
             InitializeComponent();
-            DataContext = DIHelper.Get().Services.GetRequiredService<StudentVM>();
+            DataContext = DIHelper.Get().Services.GetRequiredService<StudentViewModel>();
         }
     }
 }

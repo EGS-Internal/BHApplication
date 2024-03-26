@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BHGroup.App.ViewModels
 {
-    class ClassVM : ObservableObject
+    class ClassViewModel : ObservableObject
     {
     }
 }
