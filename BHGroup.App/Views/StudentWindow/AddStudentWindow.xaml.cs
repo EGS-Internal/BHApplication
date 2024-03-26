@@ -38,18 +38,27 @@ namespace BHGroup.App.Views.StudentWindow
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            var dob = DOB.Text.Split("/").Select(d => int.Parse(d)).ToArray();
-            StudentToAdd = new CustomStudent()
+            if(DOB.Text == "" || FirstName.Text == "" || StudentCode.Text == "" ||
+                Gender.Text == "" || Status.Text == "" || JoinDate.Text == "")
             {
-                FirstName = FirstName.Text,
-                LastName = LastName.Text,
-                StudentCode = int.Parse(StudentCode.Text),
-                DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
-                Gender = Gender.Text == "Male" ? Person.EGender.male : Person.EGender.female,
-                JoinDate = new DateTime(),
-                Status = Status.Text == "Active" ? Person.EStatus.active : Person.EStatus.inactive,
-            };
-            this.Close();
+                MessageBox.Show("Please fill in every required field","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+            }
+            else
+            {
+                var dob = DOB.Text.Split("/").Select(d => int.Parse(d)).ToArray();
+                var joinDate = JoinDate.Text.Split("/").Select(d => int.Parse(d)).ToArray();
+                StudentToAdd = new CustomStudent()
+                {
+                    FirstName = FirstName.Text,
+                    LastName = LastName.Text,
+                    StudentCode = int.Parse(StudentCode.Text),
+                    DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
+                    Gender = Gender.Text == "Male" ? Person.EGender.male : Person.EGender.female,
+                    JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
+                    Status = Status.Text == "Active" ? Person.EStatus.active : Person.EStatus.inactive,
+                };
+                this.Close();
+            }
         }
     }
 }
