@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BHGroup.DAL.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20240322080416_finalUpdate")]
-    partial class finalUpdate
+    [Migration("20240325102617_reconfigEnrollment")]
+    partial class reconfigEnrollment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BHGroup.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class finalUpdate : Migration
+    public partial class reconfigEnrollment : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

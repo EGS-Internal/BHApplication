@@ -1,5 +1,7 @@
 ﻿using BHGroup.App.Public.Core;
 using BHGroup.DAL.Entities;
+using BHGroup.DAL;
+using Microsoft.Extensions.DependencyInjection;
 namespace BHGroup.BL
 {
     public class BLStudent : IStudent

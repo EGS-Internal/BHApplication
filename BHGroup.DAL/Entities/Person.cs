@@ -6,9 +6,8 @@ namespace BHGroup.DAL.Entities
 
     public class Person
     {
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] // auto increment
-        public enum EStatus { active, inactive}
-        public enum EGender { male,female}
+        public enum EStatus { Active, Inactive}
+        public enum EGender { Male,Female}
         [Required]
         [Column("last_name")]
         [StringLength(50)]
@@ -26,7 +25,7 @@ namespace BHGroup.DAL.Entities
         public DateTime JoinDate { get; set; }
         [Required]
         [Column("status")]
-        public EStatus Status { get; set; } //assume true is active and false is inactive
+        public EStatus Status { get; set; } 
 
     }
 }
