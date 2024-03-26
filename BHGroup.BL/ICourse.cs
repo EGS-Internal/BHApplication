@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BHGroup.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BHGroup.BL
 {
@@ -13,6 +14,6 @@ namespace BHGroup.BL
         public IEnumerable<Course> GetAll();
         public void Add(Course course);
         public void Update(Course course);
-        public void Delete(int id);
+        public void Delete(Course course);
     }
 }

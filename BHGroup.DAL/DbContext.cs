@@ -6,7 +6,7 @@ using System.Configuration;
 
 namespace BHGroup.DAL
 {
-    internal class DBContext : DbContext
+    public class DBContext : DbContext
     {
 
         public DbSet<Student> Students { get; set; }
@@ -14,9 +14,7 @@ namespace BHGroup.DAL
         public DbSet<Course> Courses { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; } 
         
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //}
+      
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
