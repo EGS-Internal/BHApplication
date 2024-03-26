@@ -72,7 +72,7 @@
                             HorizontalAlignment="Right"
                             Margin="0 0 50 0 ">
                     </Button>
-                    <Button Command="{Binding AddStudent}" Width="50" Height="30" Margin="600 0 0 0">
+                    <Button Command="{Binding AddStudentCommand}" Width="50" Height="30" Margin="600 0 0 0">
                         <Button.Template>
                             <ControlTemplate>
                                 <Border Background="Green" CornerRadius="10">
@@ -84,7 +84,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Command="{Binding EditStudent}" Width="50" Height="30" Margin="450 0 0 0" Visibility="{Binding EditVisibility,Converter={StaticResource BoolToVis}}">
+                    <Button Command="{Binding EditStudentCommand}" Width="50" Height="30" Margin="450 0 0 0" >
                         <Button.Template>
                             <ControlTemplate>
                                 <Border Background="Gold" CornerRadius="10">
@@ -96,7 +96,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Command="{Binding DeleteStudent}" Width="50" Height="30" Margin="300 0 0 0" Visibility="{Binding DeleteVisibility,Converter={StaticResource BoolToVis}}">
+                    <Button Command="{Binding DeleteStudentCommand}" Width="50" Height="30" Margin="300 0 0 0">
                         <Button.Template>
                             <ControlTemplate>
                                 <Border Background="Red" Style="{DynamicResource DefaultButtonBackGround}" CornerRadius="10">

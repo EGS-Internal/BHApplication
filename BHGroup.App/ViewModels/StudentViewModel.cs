@@ -21,51 +21,33 @@ namespace BHGroup.App.ViewModels
     }
     class StudentViewModel : ObservableObject
     {
-        private readonly IStudent studentContext;
-        private ObservableCollection<CustomStudent> students { get; set; }
-        private CustomStudent selectedItem { get; set; }
-        private bool editVisibility {  get; set; }
-        private bool deleteVisibility { get; set; }
-        private AddStudentWindow addStudentWindow { get; set; }
+        private readonly IStudent _studentContext;
+        private AddStudentWindow _addStudentWindow { get; set; }
+        private ObservableCollection<CustomStudent> _students { get; set; }
         public ObservableCollection<CustomStudent> Students
         {
-            get { return students; }
-            set { students = value; OnPropertyChanged(); }
+            get { return _students; }
+            set { _students = value; OnPropertyChanged(); }
         }
+        private CustomStudent _selectedItem { get; set; }
         public CustomStudent SelectedItem
         {
-            get => selectedItem;
+            get
+            {
+                return _selectedItem;
+            }
             set { 
-                selectedItem = value; 
+                _selectedItem = value; 
                 OnPropertyChanged(); 
-                if(value != null)
-                {
-                    EditVisibility = true;
-                    DeleteVisibility = true;
-                }
-                else
-                {
-                    EditVisibility = false;
-                    DeleteVisibility = false;
-                }
+                DeleteStudentCommand.OnCanExecuteChanged();
             }
         }
-        public bool EditVisibility
-        {
-            get { return editVisibility; }
-            set {  editVisibility = value; OnPropertyChanged(); }
-        }
-        public bool DeleteVisibility
-        {
-            get { return deleteVisibility; }
-            set { deleteVisibility = value; OnPropertyChanged(); }
-        }
-        public RelayCommand AddStudent {  get; private set; }
-        public RelayCommand DeleteStudent {  get; private set; }
-        public RelayCommand EditStudent { get; private set; }
+        public RelayCommand AddStudentCommand {  get; private set; }
+        public RelayCommand DeleteStudentCommand {  get; private set; }
+        public RelayCommand EditStudentCommand { get; private set; }
         public StudentViewModel()
         {
-            studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
+            _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
             Students = new ObservableCollection<CustomStudent>() { 
                 new CustomStudent() { 
                     LastName = "Binh",FirstName = "Vu",DateOfBirth = DateTime.Now,Gender = Person.EGender.male,JoinDate = DateTime.Now,Status = Person.EStatus.active,StudentCode = 123,
@@ -74,9 +56,9 @@ namespace BHGroup.App.ViewModels
                     LastName = "Binh 2",FirstName = "Vu 2",DateOfBirth = DateTime.Now,Gender = Person.EGender.male,JoinDate = DateTime.Now,Status = Person.EStatus.inactive,StudentCode = 456,
                 },
             };
-            AddStudent = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
-            DeleteStudent = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
-            EditStudent = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
+            AddStudentCommand = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
+            DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
+            EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
         }
         private bool CanExecuteAddStudentCommand(object parameters)
         {
@@ -84,13 +66,23 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteAddStudentCommand(object parameters)
         {
-            addStudentWindow = new AddStudentWindow();
-            addStudentWindow.ShowDialog();
-            Students.Add(addStudentWindow.StudentToAdd);
+            _addStudentWindow = new AddStudentWindow();
+            _addStudentWindow.ShowDialog();
+            if(_addStudentWindow.StudentToAdd != null)
+            {
+                Students.Add(_addStudentWindow.StudentToAdd);
+            }
         }
         private bool CanExecuteDeleteStudentCommand(object parameters)
         {
-            return true;
+            if (SelectedItem != null)
+            {
+                return true;
+            }
+            else
+            { 
+                return false; 
+            }
         }
         private void ExecuteDeleteStudentCommand(object parameters)
         {
