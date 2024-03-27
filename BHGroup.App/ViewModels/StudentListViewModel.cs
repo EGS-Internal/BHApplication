@@ -84,7 +84,7 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteOpenAddStudentWindowCommand(object parameters)
         {
-            var _addStudentWindow = new AddStudentView();
+            var _addStudentWindow = new AddEditStudentView();
             var result = _addStudentWindow.ShowDialog();
             Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
         }

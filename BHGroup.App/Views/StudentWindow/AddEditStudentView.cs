@@ -18,12 +18,12 @@ using System.Windows.Shapes;
 namespace BHGroup.App.Views.StudentWindow
 {
     /// <summary>
-    /// Interaction logic for AddStudentView.xaml
+    /// Interaction logic for AddEditStudentView.xaml
     /// </summary>
-    public partial class AddStudentView : Window
+    public partial class AddEditStudentView : Window
     {
         public StudentModel StudentToAdd { get; set; }
-        public AddStudentView()
+        public AddEditStudentView()
         {
             InitializeComponent();
         }
