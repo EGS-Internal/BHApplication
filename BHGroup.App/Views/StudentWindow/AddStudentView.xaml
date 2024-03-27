@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BHGroup.App.Views.StudentWindow"
-        xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels"
+        xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels.StudentViewModel"
         mc:Ignorable="d"
         Title="AddStudentWindow" Height="550" Width="500"
         Background="Transparent"
@@ -13,7 +13,7 @@
         AllowsTransparency="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.DataContext>
-        <viewModel:StudentListViewModel/>
+        <viewModel:StudentAddEditViewModel/>
     </Window.DataContext>
     <Border  Style="{DynamicResource DefaultAppBackground}" CornerRadius="20" BorderThickness="5" BorderBrush="Black">
         <Grid>
@@ -52,7 +52,7 @@
                     <TextBox x:Name="FirstName"
                              Width="400"
                              Height="25"
-                             Text="{Binding StudentToAdd.InputFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding StudentInputObject.InputFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -65,7 +65,7 @@
                     <TextBox x:Name="LastName"
                              Width="400"
                              Height="25"
-                             Text="{Binding StudentToAdd.InputLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding StudentInputObject.InputLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -76,7 +76,7 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <DatePicker x:Name="DOB" Width="400" Height="25"
-                                Text="{Binding StudentToAdd.InputDOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding StudentInputObject.InputDOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -87,7 +87,7 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <DatePicker x:Name="JoinDate" Width="400" Height="25"
-                                Text="{Binding StudentToAdd.InputJoinDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding StudentInputObject.InputJoinDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -98,7 +98,7 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <ComboBox x:Name="Gender" Width="400" Height="25" 
-                              Text="{Binding StudentToAdd.InputGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                              Text="{Binding StudentInputObject.InputGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ComboBoxItem>Male</ComboBoxItem>
                         <ComboBoxItem>Female</ComboBoxItem>
                     </ComboBox>
@@ -112,7 +112,7 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <ComboBox x:Name="Status" Width="400" Height="25"
-                              Text="{Binding StudentToAdd.InputStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                              Text="{Binding StudentInputObject.InputStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ComboBoxItem>Active</ComboBoxItem>
                         <ComboBoxItem>Inactive</ComboBoxItem>
                     </ComboBox>
