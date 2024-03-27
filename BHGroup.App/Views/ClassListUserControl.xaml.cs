@@ -18,11 +18,11 @@ using Microsoft.Extensions.DependencyInjection;
 namespace BHGroup.App.Views
 {
     /// <summary>
-    /// Interaction logic for LecturerView.xaml
+    /// Interaction logic for ClassListUserControl.xaml
     /// </summary>
-    public partial class LecturerView : UserControl
+    public partial class ClassListUserControl : UserControl
     {
-        public LecturerView()
+        public ClassListUserControl()
         {
             InitializeComponent();
             DataContext = DIHelper.Get().Services.GetRequiredService<LecturerViewModel>;

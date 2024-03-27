@@ -14,21 +14,22 @@
                 <ResourceDictionary Source="Public/Theme/DefaultTheme.xaml"/>
                 <ResourceDictionary Source="Public/Theme/LightTheme.xaml"/>
                 <ResourceDictionary Source="Public/Theme/DarkTheme.xaml"/>
+                <ResourceDictionary Source="Public/Theme/InputTextTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type viewModel:HomeVM}">
+            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:StudentVM}">
-                <view:StudentView/>
+            <DataTemplate DataType="{x:Type viewModel:StudentListViewModel}">
+                <view:StudentListUserControl/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:LecturerVM}">
-                <view:LecturerView/>
+            <DataTemplate DataType="{x:Type viewModel:LecturerListViewModel}">
+                <view:LecturerListUserControl/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:ClassVM}">
-                <view:ClassView/>
+            <DataTemplate DataType="{x:Type viewModel:ClassListViewModel}">
+                <view:ClassListUserControl/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:CourseVM}">
-                <view:CourseView/>
+            <DataTemplate DataType="{x:Type viewModel:CourseListViewModel}">
+                <view:CourseListUserControl/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,4 +1,4 @@
-﻿using BHGroup.App.ViewModels;
+﻿
 using BHGroup.BL;
 using BHGroup.DAL;
 using Microsoft.EntityFrameworkCore;
@@ -31,13 +31,7 @@ namespace BHGroup.App.Public.Core
             services.AddSingleton<IStudent, BLStudent>();
             services.AddSingleton<ICourse, BLCourse>();
             services.AddSingleton<ILecturer, BLLecturer>();
-            services.AddTransient<MainViewModel, MainViewModel>();
-            services.AddTransient<HomeViewModel, HomeViewModel>();
-            services.AddTransient<StudentListViewModel, StudentListViewModel>();
-            services.AddTransient<LecturerListViewModel, LecturerListViewModel>();
-            services.AddTransient<CourseListViewModel, CourseListViewModel>();
-            services.AddTransient<ClassListViewModel, ClassListViewModel>();
-          
+            services.AddSingleton<DBContext, DBContext>();
             return services.BuildServiceProvider();
         }
     }

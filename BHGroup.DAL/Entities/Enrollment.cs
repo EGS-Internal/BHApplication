@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BHGroup.DAL.Entities
 {
-    public enum Grades {A,B,C,D,F };
+    public enum EGrades {A = 4,B =3 ,C= 2,D = 1,F= 0};
     [Table("enrollments")]
     public class Enrollment
     {
@@ -24,7 +24,7 @@ namespace BHGroup.DAL.Entities
         public Course Course { get; set; }
         [AllowNull]
         [Column("grade")]
-        public Grades Grade { get; set; }
+        public EGrades Grade { get; set; }
         [StringLength(5)]
         [Required]
         [Column("semester")]

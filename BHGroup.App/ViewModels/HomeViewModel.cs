@@ -1,17 +1,17 @@
 ﻿using BHGroup.App.Public.Core;
-using BHGroup.BL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+
 namespace BHGroup.App.ViewModels
 {
-    class CourseVM : ObservableObject
+    class HomeViewModel : ObservableObject
     {
-        private readonly ICourse course;
-        //public CourseVM(ICourse course) { 
-        //    this.course = course;
-        //}
+        public HomeViewModel() {
+
+        } 
     }
 }

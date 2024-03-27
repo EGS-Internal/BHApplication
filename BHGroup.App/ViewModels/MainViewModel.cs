@@ -35,11 +35,11 @@ namespace BHGroup.App.ViewModels
         public RelayCommand ClassCommand { get; private set; }
         public RelayCommand CourseCommand { get; private set; }
         public RelayCommand ThemeCommand { get; private set; }
-        private HomeVM HomeVM { get; set; }
-        private StudentVM StudentVM { get; set; }
-        private LecturerVM LecturerVM { get; set; }
-        private ClassVM ClassVM { get; set; }
-        private CourseVM CourseVM { get; set; }
+        private HomeViewModel HomeVM { get; set; }
+        private StudentListViewModel StudentVM { get; set; }
+        private LecturerListViewModel LecturerVM { get; set; }
+        private ClassListViewModel ClassVM { get; set; }
+        private CourseListViewModel CourseVM { get; set; }
 
         private bool flag = true;
         public MainViewModel()
@@ -54,11 +54,11 @@ namespace BHGroup.App.ViewModels
         private void InitRequredBM()
         {
             var services = DIHelper.Get().Services;
-            HomeVM = services.GetRequiredService<HomeVM>();
-            StudentVM = services.GetRequiredService<StudentVM>();
-            LecturerVM = services.GetRequiredService<LecturerVM>();
-            ClassVM = services.GetRequiredService<ClassVM>();
-            CourseVM = services.GetRequiredService<CourseVM>();
+            HomeVM = services.GetRequiredService<HomeViewModel>();
+            StudentVM = services.GetRequiredService<StudentListViewModel>();
+            LecturerVM = services.GetRequiredService<LecturerListViewModel>();
+            ClassVM = services.GetRequiredService<ClassListViewModel>();
+            CourseVM = services.GetRequiredService<CourseListViewModel>();
         }
         private void InitCommand()
         {
@@ -147,6 +147,8 @@ namespace BHGroup.App.ViewModels
                 DefaultDictionary["DefaultTextBoxText"] = Application.Current.FindResource("DarkTextBoxText");
                 DefaultDictionary["DefaultSearchBoxBackGround"] = Application.Current.FindResource("DarkSearchBoxBackGround");
                 DefaultDictionary["DefaultAppBackground"] = Application.Current.FindResource("DarkAppBackground");
+                DefaultDictionary["DefaultButtonBackGround"] = Application.Current.FindResource("DarkButtonBackGround");
+                DefaultDictionary["DefaultCustomDataGrid"] = Application.Current.FindResource("DarkCustomDataGrid");
             }
             else
             {
@@ -157,6 +159,8 @@ namespace BHGroup.App.ViewModels
                 DefaultDictionary["DefaultTextBoxText"] = Application.Current.FindResource("LightTextBoxText");
                 DefaultDictionary["DefaultSearchBoxBackGround"] = Application.Current.FindResource("LightSearchBoxBackGround");
                 DefaultDictionary["DefaultAppBackground"] = Application.Current.FindResource("LightAppBackground");
+                DefaultDictionary["DefaultButtonBackGround"] = Application.Current.FindResource("LightButtonBackGround");
+                DefaultDictionary["DefaultCustomDataGrid"] = Application.Current.FindResource("LightCustomDataGrid");
             }
         }
     }

@@ -19,14 +19,14 @@ using System.Windows.Shapes;
 namespace BHGroup.App.Views
 {
     /// <summary>
-    /// Interaction logic for StudentView.xaml
+    /// Interaction logic for CourseListUserControl.xaml
     /// </summary>
-    public partial class StudentView : UserControl
+    public partial class StudentListUserControl : UserControl
     {
-        public StudentView()
+        public StudentListUserControl()
         {
             InitializeComponent();
-            DataContext = DIHelper.Get().Services.GetRequiredService<StudentVM>();
+            DataContext = DIHelper.Get().Services.GetRequiredService<StudentListViewModel>();
         }
     }
    
