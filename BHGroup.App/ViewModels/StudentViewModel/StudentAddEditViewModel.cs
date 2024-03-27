@@ -1,5 +1,6 @@
 ﻿using BHGroup.App.Models;
 using BHGroup.App.Public.Core;
+using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,6 +64,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             InitCommandAndContext();
             StudentInputObject = new StudentModel();
             AddVisibility = true;
+
         }
         public StudentAddEditViewModel(int studentCode)
         {
@@ -86,6 +88,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
         }
         private void ExecuteAddStudentCommand(object parameters)
         {
+            var view = (AddEditStudentView)parameters;
             var inputFirstName = StudentInputObject.InputFirstName;
             var inputLastName = StudentInputObject.InputLastName;
             var inputDOB = StudentInputObject.InputDOB;
@@ -111,6 +114,8 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                     JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
                     Status = inputStatus == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
                 });
+                view.DialogResult = true;
+                view.Close();
             }
         }
         private bool CanExecuteEditStudentCommand(object parameters)
@@ -119,6 +124,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
         }
         private void ExecuteEditStudentCommand(object parameters)
         {
+            var view = (AddEditStudentView)parameters;
             var inputFirstName = StudentInputObject.InputFirstName;
             var inputLastName = StudentInputObject.InputLastName;
             var inputDOB = StudentInputObject.InputDOB;
@@ -148,6 +154,8 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                         JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
                         Status = inputStatus == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
                     });
+                    view.DialogResult = true;
+                    view.Close();
                 }
             }
         }

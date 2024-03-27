@@ -51,8 +51,9 @@ namespace BHGroup.BL
 
         void IStudent.Update(Student student)
         {
-            _dbContext.Students.Update(student);
+            _dbContext.Update(student);
             _dbContext.SaveChanges();
+            _dbContext.Entry(student).State = EntityState.Detached;
         }
     }
 }

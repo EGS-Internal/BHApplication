@@ -4,6 +4,7 @@ using BHGroup.App.ViewModels.StudentViewModel;
 using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -86,7 +87,9 @@ namespace BHGroup.App.ViewModels
         private void ExecuteOpenAddStudentWindowCommand(object parameters)
         {
             var addStudentView = new AddEditStudentView();
-            if(addStudentView.ShowDialog() == true)
+            var AddStudentViewModel = new StudentAddEditViewModel();
+            addStudentView.DataContext = AddStudentViewModel;
+            if (addStudentView.ShowDialog() == true)
             {
                 Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
             }  
