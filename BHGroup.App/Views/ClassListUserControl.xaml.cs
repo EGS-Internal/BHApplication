@@ -25,7 +25,7 @@ namespace BHGroup.App.Views
         public ClassListUserControl()
         {
             InitializeComponent();
-            DataContext = DIHelper.Get().Services.GetRequiredService<LecturerViewModel>;
+            DataContext = DIHelper.Get().Services.GetRequiredService<LecturerListViewModel>;
         }
 
         //public void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
