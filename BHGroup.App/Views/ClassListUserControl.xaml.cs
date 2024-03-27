@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace BHGroup.App.Views
 {
     /// <summary>
-    /// Interaction logic for CourseView.xaml
+    /// Interaction logic for ClassListUserControl.xaml
     /// </summary>
-    public partial class CourseView : UserControl
+    public partial class ClassListUserControl : UserControl
     {
-        public CourseView()
+        public ClassListUserControl()
         {
             InitializeComponent();
         }

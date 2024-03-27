@@ -50,8 +50,9 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <TextBox x:Name="FirstName"
-                            Width="400"
-                             Height="25"/>
+                             Width="400"
+                             Height="25"
+                             Text="{Binding StudentToAdd.InputFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -62,8 +63,9 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <TextBox x:Name="LastName"
-                            Width="400"
-                             Height="25"/>
+                             Width="400"
+                             Height="25"
+                             Text="{Binding StudentToAdd.InputLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -73,7 +75,8 @@
                                    Margin="40 0 0 10 "/>            
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
-                    <DatePicker x:Name="DOB" Width="400" Height="25"/>
+                    <DatePicker x:Name="DOB" Width="400" Height="25"
+                                Text="{Binding StudentToAdd.InputDOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -83,7 +86,8 @@
                                    Margin="40 0 0 10 "/>    
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
-                    <DatePicker x:Name="JoinDate" Width="400" Height="25"/>
+                    <DatePicker x:Name="JoinDate" Width="400" Height="25"
+                                Text="{Binding StudentToAdd.InputJoinDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -93,7 +97,8 @@
                                    Margin="40 0 0 10 "/>    
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
-                    <ComboBox x:Name="Gender" Width="400" Height="25">
+                    <ComboBox x:Name="Gender" Width="400" Height="25" 
+                              Text="{Binding StudentToAdd.InputGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ComboBoxItem>Male</ComboBoxItem>
                         <ComboBoxItem>Female</ComboBoxItem>
                     </ComboBox>
@@ -106,12 +111,13 @@
                                    Margin="40 0 0 10 "/>    
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
-                    <ComboBox x:Name="Status" Width="400" Height="25">
+                    <ComboBox x:Name="Status" Width="400" Height="25"
+                              Text="{Binding StudentToAdd.InputStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ComboBoxItem>Active</ComboBoxItem>
                         <ComboBoxItem>Inactive</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
-                <Button Click="Add_Click" Width="80" Height="40" Margin="0 30 0 0">
+                <Button Command="{Binding AddStudentCommand}" Click="Add_Click" Width="80" Height="40" Margin="0 30 0 0">
                     <Button.Template>
                         <ControlTemplate>
                             <Border CornerRadius="10" Width="80" Background="#32CD32">

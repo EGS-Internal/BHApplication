@@ -1,4 +1,5 @@
-﻿using BHGroup.App.Public.Core;
+﻿using BHGroup.App.Models;
+using BHGroup.App.Public.Core;
 using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
@@ -12,39 +13,88 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Animation;
 
 namespace BHGroup.App.ViewModels
 {
-    public class CustomStudent : Student
-    {
-        public string FullName { get { return $"{FirstName} {LastName}"; } }
-    }
     class StudentViewModel : ObservableObject
     {
         private readonly IStudent _studentContext;
         private AddStudentWindow _addStudentWindow { get; set; }
-        private List<CustomStudent> _students { get; set; }
-        public List<CustomStudent> Students
+
+        private List<StudentModel> _students { get; set; }
+        public List<StudentModel> Students
         {
             get { return _students; }
             set { _students = value; OnPropertyChanged(); }
         }
-        private CustomStudent _selectedItem { get; set; }
-        public CustomStudent SelectedItem
+
+        private StudentModel _selectedItem { get; set; }
+        public StudentModel SelectedItem
         {
             get
             {
                 return _selectedItem;
             }
-            set { 
-                _selectedItem = value; 
-                OnPropertyChanged(); 
+            set {
+                _selectedItem = value;
+                OnPropertyChanged();
                 DeleteStudentCommand.OnCanExecuteChanged();
                 EditStudentCommand.OnCanExecuteChanged();
             }
         }
-        private bool _isButtonEnabled;
 
+        private StudentInputModel _studentToAdd { get; set; }
+        public StudentInputModel StudentToAdd {
+            get { return _studentToAdd; }
+            set { _studentToAdd = value; OnPropertyChanged(); }
+        }
+
+        
+        private string _inputFirstName {  get; set; }
+        public string InputFirstName
+        {
+            get { return _inputFirstName; }
+            set { _inputFirstName = value; OnPropertyChanged(); }
+        }
+
+        private string _inputLastName { get; set; }
+        public string InputLastName
+        {
+            get { return _inputLastName; }
+            set { _inputLastName = value; OnPropertyChanged();  }
+        }
+
+        private string _inputDOB {  get; set; }
+        public string InputDOB
+        {
+            get { return _inputDOB; }
+            set { _inputDOB = value; OnPropertyChanged(); }
+        }
+
+        private string _inputJoinDate { get; set; }
+        public string InputJoinDate
+        {
+            get { return _inputJoinDate; }
+            set { _inputJoinDate = value; OnPropertyChanged(); } 
+        }
+
+        public string _inputGender { get; set; }
+        public string InputGender
+        {
+            get { return _inputGender; }
+            set { _inputGender = value; OnPropertyChanged(); }
+        }
+
+        public string _inputStatus {  get; set; }   
+        public string InputStatus
+        {
+            get { return _inputStatus; }
+            set { _inputStatus = value; OnPropertyChanged(); } 
+        }
+
+
+        private bool _isButtonEnabled;
         public bool IsButtonEnabled
         {
             get { return _isButtonEnabled; }
@@ -57,63 +107,59 @@ namespace BHGroup.App.ViewModels
                 }
             }
         }
-        public RelayCommand AddStudentCommand {  get; private set; }
+
+        public RelayCommand OpenAddStudentViewCommand {  get; private set; }
         public RelayCommand DeleteStudentCommand {  get; private set; }
         public RelayCommand EditStudentCommand { get; private set; }
+        public RelayCommand AddStudentCommand { get; private set; }
+
         public StudentViewModel()
         {
             _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
-            Students = _studentContext.GetAll().Select(s =>
-            {
-                return new CustomStudent()
-                {
-                    FirstName = s.FirstName,
-                    LastName = s.LastName,
-                    StudentCode = s.StudentCode,
-                    DateOfBirth = s.DateOfBirth,
-                    Gender = s.Gender,
-                    JoinDate = s.JoinDate,
-                    Status = s.Status
-                };
-            }).ToList();
-            AddStudentCommand = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
+            Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+            OpenAddStudentViewCommand = new RelayCommand(ExecuteOpenAddStudentWindowCommand, CanExecuteOpenAddStudentWindowCommand);
             DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
+            AddStudentCommand = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
+            StudentToAdd = new StudentInputModel();
         }
-        private bool CanExecuteAddStudentCommand(object parameters)
+
+        private bool CanExecuteOpenAddStudentWindowCommand(object parameters)
         {
             return true;
         }
-        private void ExecuteAddStudentCommand(object parameters)
+        private void ExecuteOpenAddStudentWindowCommand(object parameters)
         {
             _addStudentWindow = new AddStudentWindow();
-            _addStudentWindow.ShowDialog();
-            if(_addStudentWindow.StudentToAdd != null)
-            {
-                _studentContext.Add(new Student()
-                {
-                    FirstName = _addStudentWindow.StudentToAdd.FirstName,
-                    LastName = _addStudentWindow.StudentToAdd.LastName,
-                    DateOfBirth = _addStudentWindow.StudentToAdd.DateOfBirth,
-                    Gender = _addStudentWindow.StudentToAdd.Gender,
-                    JoinDate = _addStudentWindow.StudentToAdd.JoinDate,
-                    Status = _addStudentWindow.StudentToAdd.Status
-                });
-                Students = _studentContext.GetAll().Select(s =>
-                {
-                    return new CustomStudent()
-                    {
-                        FirstName = s.FirstName,
-                        LastName = s.LastName,
-                        StudentCode = s.StudentCode,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        JoinDate = s.JoinDate,
-                        Status = s.Status
-                    };
-                }).ToList();
-            }
+            var result = _addStudentWindow.ShowDialog();
+            //if(_addStudentWindow.StudentToAdd != null)
+            //{
+            //    _studentContext.Add(new Student()
+            //    {
+            //        FirstName = _addStudentWindow.StudentToAdd.FirstName,
+            //        LastName = _addStudentWindow.StudentToAdd.LastName,
+            //        DateOfBirth = _addStudentWindow.StudentToAdd.DateOfBirth,
+            //        Gender = _addStudentWindow.StudentToAdd.Gender,
+            //        JoinDate = _addStudentWindow.StudentToAdd.JoinDate,
+            //        Status = _addStudentWindow.StudentToAdd.Status
+            //    });
+            //    Students = _studentContext.GetAll().Select(s =>
+            //    {
+            //        return new StudentModel()
+            //        {
+            //            FirstName = s.FirstName,
+            //            LastName = s.LastName,
+            //            StudentCode = s.StudentCode,
+            //            DateOfBirth = s.DateOfBirth,
+            //            Gender = s.Gender,
+            //            JoinDate = s.JoinDate,
+            //            Status = s.Status
+            //        };
+            //    }).ToList();
+            //}
+            
         }
+
         private bool CanExecuteDeleteStudentCommand(object parameters)
         {
             if (SelectedItem != null)
@@ -133,22 +179,11 @@ namespace BHGroup.App.ViewModels
             if(result == MessageBoxResult.Yes)
             {
                 _studentContext.Delete(SelectedItem.StudentCode);
-                Students = _studentContext.GetAll().Select(s =>
-                {
-                    return new CustomStudent()
-                    {
-                        FirstName = s.FirstName,
-                        LastName = s.LastName,
-                        StudentCode = s.StudentCode,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        JoinDate = s.JoinDate,
-                        Status = s.Status
-                    };
-                }).ToList();
+                Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
                 SelectedItem = null;
             }
         }
+
         private bool CanExecuteEditStudentCommand(object parameters)
         {
             if (SelectedItem != null)
@@ -165,6 +200,20 @@ namespace BHGroup.App.ViewModels
         private void ExecuteEditStudentCommand(object parameters)
         {
 
+        }
+
+        private bool CanExecuteAddStudentCommand(object parameters) {
+            return true;
+        }
+        private void ExecuteAddStudentCommand(object parameters)
+        {
+            var test1 = InputFirstName;
+            var test2 = InputLastName;
+            var test3 = InputDOB;
+            var test4 = InputJoinDate;
+            var test5 = InputStatus;
+            var test6 = InputGender;
+            var test7 = StudentToAdd;
         }
     }
 }
