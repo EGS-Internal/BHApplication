@@ -29,4 +29,6 @@ namespace BHGroup.App.Views
             DataContext = DIHelper.Get().Services.GetRequiredService<StudentListViewModel>();
         }
     }
+   
+
 }

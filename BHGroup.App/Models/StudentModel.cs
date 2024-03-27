@@ -37,7 +37,6 @@ namespace BHGroup.App.Models
         public DAL.Entities.Person.EStatus Status { get; set; }
         public string FullName { get { return $"{FirstName} {LastName}"; } }
 
-
         private string _inputFirstName { get; set; }
         public string InputFirstName
         {
