@@ -36,7 +36,10 @@ namespace BHGroup.BL
 
     Student IStudent.GetById(int id)
     {
-        throw new NotImplementedException();
+           var result = _dbContext.Students.Find(id);
+            if(result != null)
+                return result;
+            return null;
     }
 
     IEnumerable<Student> IStudent.GetByName()

@@ -1,5 +1,6 @@
 ﻿using BHGroup.App.Models;
 using BHGroup.App.Public.Core;
+using BHGroup.App.ViewModels.StudentViewModel;
 using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
@@ -84,9 +85,11 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteOpenAddStudentWindowCommand(object parameters)
         {
-            var _addStudentWindow = new AddEditStudentView();
-            var result = _addStudentWindow.ShowDialog();
-            Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+            var addStudentView = new AddEditStudentView();
+            if(addStudentView.ShowDialog() == true)
+            {
+                Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+            }  
         }
 
         private bool CanExecuteDeleteStudentCommand(object parameters)
@@ -128,7 +131,13 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteEditStudentCommand(object parameters)
         {
-
+            var addStudentView = new AddEditStudentView();
+            var AddStudentViewModel = new StudentAddEditViewModel(SelectedItem.StudentCode);
+            addStudentView.DataContext = AddStudentViewModel;
+            if (addStudentView.ShowDialog() == true)
+            {
+                Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+            }
         }
         #endregion
     }

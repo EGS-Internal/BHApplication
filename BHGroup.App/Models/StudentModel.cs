@@ -18,6 +18,7 @@ namespace BHGroup.App.Models
         }
         public StudentModel(Student student)
         {
+            this.StudentCode = student.StudentCode;
             this.FirstName = student.FirstName;
             this.LastName = student.LastName;
             this.DateOfBirth = student.DateOfBirth;
