@@ -2,6 +2,8 @@
 using BHGroup.DAL.Entities;
 using BHGroup.DAL;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+
 namespace BHGroup.BL
 {
     public class BLStudent : IStudent
@@ -13,40 +15,45 @@ namespace BHGroup.BL
             _dbContext = DIHelper.Get().Services.GetRequiredService<DBContext>();
         }
     
-    void IStudent.Add(Student student)
-    {
-            _dbContext.Students.Add(student);
-            _dbContext.SaveChanges();
-    }
-
-    void IStudent.Delete(int id)
-    {
-            var studentToRemove = _dbContext.Students.Find(id);
-            if(studentToRemove != null)
-            {
-                _dbContext.Students.Remove(studentToRemove);
+        void IStudent.Add(Student student)
+        {
+                _dbContext.Students.Add(student);
                 _dbContext.SaveChanges();
-            }
-    }
+        }
 
-    IEnumerable<Student> IStudent.GetAll()
-    {
-        return _dbContext.Students.ToList();
-    }
+        void IStudent.Delete(int id)
+        {
+                var studentToRemove = _dbContext.Students.Find(id);
+                if(studentToRemove != null)
+                {
+                    _dbContext.Students.Remove(studentToRemove);
+                    _dbContext.SaveChanges();
+                }
+        }
 
-    Student IStudent.GetById(int id)
-    {
-        throw new NotImplementedException();
-    }
+        IEnumerable<Student> IStudent.GetAll()
+        {
+            return _dbContext.Students.AsNoTracking().ToList();
+        }
 
-    IEnumerable<Student> IStudent.GetByName()
-    {
-        throw new NotImplementedException();
-    }
+        Student IStudent.GetById(int id)
+        {
+               var result = _dbContext.Students.AsNoTracking().FirstOrDefault(s => s.StudentCode == id);
+                if(result != null)
+                    return result;
+                return null;
+        }
 
-    void IStudent.Update(Student student)
-    {
-        throw new NotImplementedException();
+        IEnumerable<Student> IStudent.GetByName()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IStudent.Update(Student student)
+        {
+            _dbContext.Update(student);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(student).State = EntityState.Detached;
+        }
     }
-}
 }
