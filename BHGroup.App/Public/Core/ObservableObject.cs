@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BHGroup.App.Public.Core
 {
-    class ObservableObject : INotifyPropertyChanged
+    public class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string member = null)

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BHGroup.App.Models
 {
-    public class StudentModel : Student
+    public class StudentModel : ObservableObject
     {
         public StudentModel()
         {
@@ -16,14 +16,10 @@ namespace BHGroup.App.Models
         }
         public StudentModel(Student student)
         {
-            this.FirstName = student.FirstName;
-            this.LastName = student.LastName;
-            this.DateOfBirth = student.DateOfBirth;
-            this.Gender = student.Gender;
-            this.JoinDate = student.JoinDate;
-            this.Status = student.Status;
+            //this.FullName = student.FirstName + " " + student.LastName;
+
         }
-        public string FullName { get { return $"{FirstName} {LastName}"; } }
+        //public string FullName { get { return $"{FirstName} {LastName}"; } }
 
     }
 }

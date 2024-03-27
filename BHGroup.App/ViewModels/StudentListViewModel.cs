@@ -44,11 +44,11 @@ namespace BHGroup.App.ViewModels
             }
         }
 
-        private StudentInputModel _studentToAdd { get; set; }
-        public StudentInputModel StudentToAdd {
-            get { return _studentToAdd; }
-            set { _studentToAdd = value; OnPropertyChanged(); }
-        }
+        //private StudentInputModel _studentToAdd { get; set; }
+        //public StudentInputModel StudentToAdd {
+        //    get { return _studentToAdd; }
+        //    set { _studentToAdd = value; OnPropertyChanged(); }
+        //}
 
         
         private string _inputFirstName {  get; set; }
@@ -100,6 +100,7 @@ namespace BHGroup.App.ViewModels
             get { return _isButtonEnabled; }
             set
             {
+                //if it has already set, keep the original value and not notice on change
                 if (_isButtonEnabled != value)
                 {
                     _isButtonEnabled = value;
@@ -121,7 +122,7 @@ namespace BHGroup.App.ViewModels
             DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
             AddStudentCommand = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
-            StudentToAdd = new StudentInputModel();
+            //StudentToAdd = new StudentInputModel();
         }
 
         private bool CanExecuteOpenAddStudentWindowCommand(object parameters)
@@ -159,7 +160,7 @@ namespace BHGroup.App.ViewModels
             //}
             
         }
-
+        //Check if any students are selected
         private bool CanExecuteDeleteStudentCommand(object parameters)
         {
             if (SelectedItem != null)
@@ -173,17 +174,18 @@ namespace BHGroup.App.ViewModels
                 return false; 
             }
         }
+        //Run the Delete Student Command 
         private void ExecuteDeleteStudentCommand(object parameters)
         {
-            MessageBoxResult result = MessageBox.Show("You sure'bout that?", "Delete Confirm",MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(result == MessageBoxResult.Yes)
-            {
-                _studentContext.Delete(SelectedItem.StudentCode);
-                Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
-                SelectedItem = null;
-            }
+            //MessageBoxResult result = MessageBox.Show("You sure'bout that?", "Delete Confirm",MessageBoxButton.YesNo, MessageBoxImage.Question);
+            //if(result == MessageBoxResult.Yes)
+            //{
+            //    _studentContext.Delete(SelectedItem);
+            //    Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+            //    SelectedItem = null;
+            //}
         }
-
+        //
         private bool CanExecuteEditStudentCommand(object parameters)
         {
             if (SelectedItem != null)
@@ -213,7 +215,7 @@ namespace BHGroup.App.ViewModels
             var test4 = InputJoinDate;
             var test5 = InputStatus;
             var test6 = InputGender;
-            var test7 = StudentToAdd;
+            //var test7 = StudentToAdd;
         }
     }
 }
