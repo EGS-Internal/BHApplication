@@ -7,11 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 namespace BHGroup.App.ViewModels
 {
-    class CourseViewModel : ObservableObject
+    class CourseListViewModel : ObservableObject
     {
-        private readonly ICourse course;
-        //public CourseViewModel(ICourse course) { 
-        //    this.course = course;
-        //}
+        public CourseListViewModel()
+        {
+        }
     }
 }

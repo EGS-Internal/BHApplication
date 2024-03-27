@@ -17,10 +17,10 @@ using System.Windows.Media.Animation;
 
 namespace BHGroup.App.ViewModels
 {
-    class StudentViewModel : ObservableObject
+    class StudentListViewModel : ObservableObject
     {
         private readonly IStudent _studentContext;
-        private AddStudentWindow _addStudentWindow { get; set; }
+        private AddStudentView _addStudentWindow { get; set; }
 
         private List<StudentModel> _students { get; set; }
         public List<StudentModel> Students
@@ -113,7 +113,7 @@ namespace BHGroup.App.ViewModels
         public RelayCommand EditStudentCommand { get; private set; }
         public RelayCommand AddStudentCommand { get; private set; }
 
-        public StudentViewModel()
+        public StudentListViewModel()
         {
             _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
             Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
@@ -130,7 +130,7 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteOpenAddStudentWindowCommand(object parameters)
         {
-            _addStudentWindow = new AddStudentWindow();
+            _addStudentWindow = new AddStudentView();
             var result = _addStudentWindow.ShowDialog();
             //if(_addStudentWindow.StudentToAdd != null)
             //{

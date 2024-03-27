@@ -8,7 +8,7 @@
              xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels"
              d:DesignHeight="500" d:DesignWidth="700">
     <UserControl.DataContext>
-        <viewModel:StudentViewModel/>
+        <viewModel:StudentListViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
