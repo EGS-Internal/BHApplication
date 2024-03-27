@@ -33,10 +33,10 @@ namespace BHGroup.App.Public.Core
             services.AddSingleton<ILecturer, BLLecturer>();
             services.AddTransient<MainViewModel, MainViewModel>();
             services.AddTransient<HomeViewModel, HomeViewModel>();
-            services.AddTransient<StudentViewModel, StudentViewModel>();
-            services.AddTransient<LecturerViewModel, LecturerViewModel>();
-            services.AddTransient<CourseViewModel, CourseViewModel>();
-            services.AddTransient<ClassViewModel, ClassViewModel>();
+            services.AddTransient<StudentListViewModel, StudentListViewModel>();
+            services.AddTransient<LecturerListViewModel, LecturerListViewModel>();
+            services.AddTransient<CourseListViewModel, CourseListViewModel>();
+            services.AddTransient<ClassListViewModel, ClassListViewModel>();
           
             return services.BuildServiceProvider();
         }

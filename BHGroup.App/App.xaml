@@ -19,17 +19,17 @@
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:StudentViewModel}">
-                <view:StudentView/>
+            <DataTemplate DataType="{x:Type viewModel:StudentListViewModel}">
+                <view:StudentListUserControl/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:LecturerViewModel}">
-                <view:LecturerView/>
+            <DataTemplate DataType="{x:Type viewModel:LecturerListViewModel}">
+                <view:LecturerListUserControl/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:ClassViewModel}">
-                <view:ClassView/>
+            <DataTemplate DataType="{x:Type viewModel:ClassListViewModel}">
+                <view:ClassListUserControl/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:CourseViewModel}">
-                <view:CourseView/>
+            <DataTemplate DataType="{x:Type viewModel:CourseListViewModel}">
+                <view:CourseListUserControl/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

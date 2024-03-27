@@ -1,7 +1,4 @@
-﻿using BHGroup.App.Public.Core;
-using BHGroup.App.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +16,13 @@ using System.Windows.Shapes;
 namespace BHGroup.App.Views
 {
     /// <summary>
-    /// Interaction logic for StudentView.xaml
+    /// Interaction logic for CourseListUserControl.xaml
     /// </summary>
-    public partial class StudentView : UserControl
+    public partial class CourseListUserControl : UserControl
     {
-        public StudentView()
+        public CourseListUserControl()
         {
             InitializeComponent();
-            DataContext = DIHelper.Get().Services.GetRequiredService<StudentViewModel>();
         }
     }
 }

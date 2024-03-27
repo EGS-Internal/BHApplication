@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BHGroup.App.Views.StudentView"
+﻿<UserControl x:Class="BHGroup.App.Views.StudentListUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,7 +8,7 @@
              xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels"
              d:DesignHeight="500" d:DesignWidth="700">
     <UserControl.DataContext>
-        <viewModel:StudentViewModel/>
+        <viewModel:StudentListViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -52,7 +52,7 @@
                             HorizontalAlignment="Right"
                             Margin="0 0 50 0 ">
                     </Button>
-                    <Button Command="{Binding AddStudentCommand}" 
+                    <Button Command="{Binding OpenAddStudentViewCommand}" 
                             Style="{StaticResource FunctionButton}"
                             Margin="600 0 0 0"
                             Content="Add"
