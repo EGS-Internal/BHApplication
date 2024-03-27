@@ -44,55 +44,11 @@ namespace BHGroup.App.ViewModels
             }
         }
 
-        private StudentInputModel _studentToAdd { get; set; }
-        public StudentInputModel StudentToAdd {
+        private StudentModel _studentToAdd { get; set; }
+        public StudentModel StudentToAdd {
             get { return _studentToAdd; }
             set { _studentToAdd = value; OnPropertyChanged(); }
         }
-
-        
-        private string _inputFirstName {  get; set; }
-        public string InputFirstName
-        {
-            get { return _inputFirstName; }
-            set { _inputFirstName = value; OnPropertyChanged(); }
-        }
-
-        private string _inputLastName { get; set; }
-        public string InputLastName
-        {
-            get { return _inputLastName; }
-            set { _inputLastName = value; OnPropertyChanged();  }
-        }
-
-        private string _inputDOB {  get; set; }
-        public string InputDOB
-        {
-            get { return _inputDOB; }
-            set { _inputDOB = value; OnPropertyChanged(); }
-        }
-
-        private string _inputJoinDate { get; set; }
-        public string InputJoinDate
-        {
-            get { return _inputJoinDate; }
-            set { _inputJoinDate = value; OnPropertyChanged(); } 
-        }
-
-        public string _inputGender { get; set; }
-        public string InputGender
-        {
-            get { return _inputGender; }
-            set { _inputGender = value; OnPropertyChanged(); }
-        }
-
-        public string _inputStatus {  get; set; }   
-        public string InputStatus
-        {
-            get { return _inputStatus; }
-            set { _inputStatus = value; OnPropertyChanged(); } 
-        }
-
 
         private bool _isButtonEnabled;
         public bool IsButtonEnabled
@@ -121,7 +77,7 @@ namespace BHGroup.App.ViewModels
             DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
             AddStudentCommand = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
-            StudentToAdd = new StudentInputModel();
+            StudentToAdd = new StudentModel();
         }
 
         private bool CanExecuteOpenAddStudentWindowCommand(object parameters)
@@ -132,32 +88,20 @@ namespace BHGroup.App.ViewModels
         {
             _addStudentWindow = new AddStudentView();
             var result = _addStudentWindow.ShowDialog();
-            //if(_addStudentWindow.StudentToAdd != null)
-            //{
-            //    _studentContext.Add(new Student()
-            //    {
-            //        FirstName = _addStudentWindow.StudentToAdd.FirstName,
-            //        LastName = _addStudentWindow.StudentToAdd.LastName,
-            //        DateOfBirth = _addStudentWindow.StudentToAdd.DateOfBirth,
-            //        Gender = _addStudentWindow.StudentToAdd.Gender,
-            //        JoinDate = _addStudentWindow.StudentToAdd.JoinDate,
-            //        Status = _addStudentWindow.StudentToAdd.Status
-            //    });
-            //    Students = _studentContext.GetAll().Select(s =>
-            //    {
-            //        return new StudentModel()
-            //        {
-            //            FirstName = s.FirstName,
-            //            LastName = s.LastName,
-            //            StudentCode = s.StudentCode,
-            //            DateOfBirth = s.DateOfBirth,
-            //            Gender = s.Gender,
-            //            JoinDate = s.JoinDate,
-            //            Status = s.Status
-            //        };
-            //    }).ToList();
-            //}
-            
+            Students = _studentContext.GetAll().Select(s =>
+            {
+                return new StudentModel()
+                {
+                    FirstName = s.FirstName,
+                    LastName = s.LastName,
+                    StudentCode = s.StudentCode,
+                    DateOfBirth = s.DateOfBirth,
+                    Gender = s.Gender,
+                    JoinDate = s.JoinDate,
+                    Status = s.Status
+                };
+            }).ToList();
+
         }
 
         private bool CanExecuteDeleteStudentCommand(object parameters)
@@ -207,13 +151,32 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteAddStudentCommand(object parameters)
         {
-            var test1 = InputFirstName;
-            var test2 = InputLastName;
-            var test3 = InputDOB;
-            var test4 = InputJoinDate;
-            var test5 = InputStatus;
-            var test6 = InputGender;
-            var test7 = StudentToAdd;
+            var inputFirstName = StudentToAdd.InputFirstName;
+            var inputLastName = StudentToAdd.InputLastName;
+            var inputDOB = StudentToAdd.InputDOB;
+            var inputJoinDate = StudentToAdd.InputJoinDate;
+            var inputGender = StudentToAdd._inputGender;
+            var inputStatus = StudentToAdd.InputStatus;
+
+            if (inputFirstName == null || inputLastName == null || inputDOB == null ||
+                inputJoinDate == null || inputGender == null || inputStatus == null)
+            {
+                MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                var dob = inputDOB.Split("/").Select(d => int.Parse(d)).ToArray();
+                var joinDate = inputJoinDate.Split("/").Select(d => int.Parse(d)).ToArray();
+                _studentContext.Add(new Student()
+                {
+                    FirstName = inputFirstName,
+                    LastName = inputLastName,
+                    DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
+                    Gender = inputGender == "Male" ? Person.EGender.Male : Person.EGender.Female,
+                    JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
+                    Status = inputStatus == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
+                });
+            }
         }
     }
 }

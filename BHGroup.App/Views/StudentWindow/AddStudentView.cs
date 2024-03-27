@@ -39,25 +39,6 @@ namespace BHGroup.App.Views.StudentWindow
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            //if(DOB.Text == "" || FirstName.Text == "" || Gender.Text == "" || Status.Text == "" || JoinDate.Text == "")
-            //{
-            //    MessageBox.Show("Please fill in every required field","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
-            //}
-            //else
-            //{
-            //    var dob = DOB.Text.Split("/").Select(d => int.Parse(d)).ToArray();
-            //    var joinDate = JoinDate.Text.Split("/").Select(d => int.Parse(d)).ToArray();
-            //    StudentToAdd = new CustomStudent()
-            //    {
-            //        FirstName = FirstName.Text,
-            //        LastName = LastName.Text,
-            //        DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
-            //        Gender = Gender.Text == "Male" ? Person.EGender.Male : Person.EGender.Female,
-            //        JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
-            //        Status = Status.Text == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
-            //    };
-            //    this.Close();
-            //}
             this.Close();
         }
     }
