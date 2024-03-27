@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BHGroup.App.Views.StudentWindow"
         xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels.StudentViewModel"
-        xmlns:converter="clr-namespace:BHGroup.App.Public.Coverter"
+        xmlns:converter="clr-namespace:BHGroup.App.Public.Converter"
         mc:Ignorable="d"
         Title="AddStudentWindow" Height="550" Width="500"
         Background="Transparent"

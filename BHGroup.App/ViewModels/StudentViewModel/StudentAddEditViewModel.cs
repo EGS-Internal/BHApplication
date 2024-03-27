@@ -69,6 +69,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             InitCommandAndContext();
             var editStudent = _studentContext.GetById(studentCode);
             StudentInputObject = new StudentModel() { 
+                StudentCode = editStudent.StudentCode,
                 InputFirstName = editStudent.FirstName,
                 InputLastName = editStudent.LastName,
                 InputDOB = editStudent.DateOfBirth.ToString(),
@@ -132,17 +133,22 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             }
             else
             {
-                var dob = inputDOB.Split("/").Select(d => int.Parse(d)).ToArray();
-                var joinDate = inputJoinDate.Split("/").Select(d => int.Parse(d)).ToArray();
-                //_studentContext.Add(new Student()
-                //{
-                //    FirstName = inputFirstName,
-                //    LastName = inputLastName,
-                //    DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
-                //    Gender = inputGender == "Male" ? Person.EGender.Male : Person.EGender.Female,
-                //    JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
-                //    Status = inputStatus == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
-                //});
+                var result = MessageBox.Show("You sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result == MessageBoxResult.Yes)
+                {
+                    var dob = inputDOB.Split("/").Select(d => int.Parse(d)).ToArray();
+                    var joinDate = inputJoinDate.Split("/").Select(d => int.Parse(d)).ToArray();
+                    _studentContext.Update(new Student()
+                    {
+                        StudentCode = StudentInputObject.StudentCode,
+                        FirstName = inputFirstName,
+                        LastName = inputLastName,
+                        DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
+                        Gender = inputGender == "Male" ? Person.EGender.Male : Person.EGender.Female,
+                        JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
+                        Status = inputStatus == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
+                    });
+                }
             }
         }
     }

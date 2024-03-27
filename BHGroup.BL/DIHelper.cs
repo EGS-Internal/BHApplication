@@ -31,7 +31,7 @@ namespace BHGroup.App.Public.Core
             services.AddSingleton<IStudent, BLStudent>();
             services.AddSingleton<ICourse, BLCourse>();
             services.AddSingleton<ILecturer, BLLecturer>();
-            services.AddSingleton<DBContext, DBContext>();
+            services.AddScoped<DBContext, DBContext>();
             return services.BuildServiceProvider();
         }
     }

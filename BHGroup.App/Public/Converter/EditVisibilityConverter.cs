@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace BHGroup.App.Public.Coverter
+namespace BHGroup.App.Public.Converter
 {
     class EditVisibilityConverter : IValueConverter
     {
