@@ -39,6 +39,8 @@ namespace BHGroup.App.ViewModels
             {
                 _selectedItem = value;
                 OnPropertyChanged();
+                DeleteLecturerCommand.OnCanExecuteChanged();
+                EditLecturerCommand.OnCanExecuteChanged();
             }
         }
 
@@ -53,8 +55,7 @@ namespace BHGroup.App.ViewModels
             {
                 _lecturer = value;
                 OnPropertyChanged();
-                DeleteLecturerCommand.OnCanExecuteChanged();
-                EditLecturerCommand.OnCanExecuteChanged();
+                
             }
         }
         public LecturerListViewModel()
@@ -62,8 +63,8 @@ namespace BHGroup.App.ViewModels
             _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
             Lecturers = _lecturerContext.GetAll().Select(s => new LecturerModel(s)).ToList();
             //OpenAddLecturerViewCommand = new RelayCommand(ExecuteAddLecturerWindowCommand, CanExecuteAddLecturerWindowCommand);
-            DeleteLecturerCommand = new RelayCommand(ExecuteDeleteLecturerCommand, CanExecuteDeleteLecturerCommand);
-            //EditLecturerCommand = new RelayCommand(ExecuteEditLecturerCommand, CanExecuteEditLecturerCommand);
+            DeleteLecturerCommand = new RelayCommand(ExecuteDeleteLecturerCommand, CanExecuteLecturerCommand);
+            EditLecturerCommand = new RelayCommand(ExecuteEditLecturerCommand, CanExecuteLecturerCommand);
             //AddLecturerCommand = new RelayCommand(ExecuteAddLecturerCommand, CanExecuteAddLecturerCommand);
             //StudentToAdd = new StudentInputModel();
         }
@@ -127,7 +128,7 @@ namespace BHGroup.App.ViewModels
             }
         }
 
-        private bool CanExecuteEditStudentCommand(object parameters)
+        private bool CanExecuteLecturerCommand(object parameters)
         {
             if (SelectedItem != null)
             {
@@ -145,7 +146,7 @@ namespace BHGroup.App.ViewModels
         public RelayCommand EditLecturerCommand { get; private set; }
         public RelayCommand AddLecturerCommand { get; private set; }
 
-        private void ExecuteEditStudentCommand(object parameters)
+        private void ExecuteEditLecturerCommand(object parameters)
         {
 
         }
