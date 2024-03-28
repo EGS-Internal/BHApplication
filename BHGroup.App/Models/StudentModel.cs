@@ -7,10 +7,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace BHGroup.App.Models
 {
-    public class StudentModel : ObservableObject
+    public class StudentModel : ObservableObject, IDataErrorInfo
     {
         public StudentModel()
         {
@@ -80,5 +81,59 @@ namespace BHGroup.App.Models
             set { _inputStatus = value; OnPropertyChanged(); }
         }
 
+        #region Validation
+        public Dictionary<string,string> ErrorsColection { get; private set; } = new Dictionary<string,string>();
+
+        public string Error => string.Empty;
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case "InputFirstName":
+                        if (string.IsNullOrWhiteSpace(InputFirstName))
+                            error = "First name cannot be empty.";
+                        break;
+
+                    case "InputLastName":
+                        if (string.IsNullOrWhiteSpace(InputLastName))
+                            error = "Last name cannot be empty.";
+                        break;
+
+                    case "InputDOB":
+                        if (string.IsNullOrWhiteSpace(InputDOB))
+                            error = "Date of birth cannot be empty.";
+                        break;
+
+                    case "InputJoinDate":
+                        if (string.IsNullOrWhiteSpace(InputJoinDate))
+                            error = "Join Date cannot be empty.";
+                        break;
+
+                    case "InputGender":
+                        if (string.IsNullOrWhiteSpace(InputGender))
+                            error = "Gender cannot be empty.";
+                        break;
+
+                    case "InputStatus":
+                        if (string.IsNullOrWhiteSpace(InputStatus))
+                            error = "Status cannot be empty.";
+                        break;
+                }
+                if (ErrorsColection.ContainsKey(columnName))
+                {
+                    ErrorsColection[columnName] = error;
+                }else if (error != string.Empty)
+                {
+                    ErrorsColection.Add(columnName, error);
+                }
+                OnPropertyChanged("ErrorsColection");
+                return error;
+            }
+        }
+        #endregion
     }
 }

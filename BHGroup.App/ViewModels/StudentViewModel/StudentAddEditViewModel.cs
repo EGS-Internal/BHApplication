@@ -6,6 +6,7 @@ using BHGroup.DAL.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +52,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
         #region Command
         public RelayCommand AddStudentCommand { get; private set; }
         public RelayCommand EditStudentCommand { get; private set; }
+
         #endregion
 
         private void InitCommandAndContext()
@@ -82,6 +84,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             AddVisibility = false;
         }
 
+        #region Command events
         private bool CanExecuteAddStudentCommand(object parameters)
         {
             return true;
@@ -159,5 +162,6 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                 }
             }
         }
+        #endregion
     }
 }

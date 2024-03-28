@@ -19,6 +19,7 @@ namespace BHGroup.BL
         {
                 _dbContext.Students.Add(student);
                 _dbContext.SaveChanges();
+                _dbContext.Entry(student).State = EntityState.Detached;
         }
 
         void IStudent.Delete(int id)
