@@ -1,7 +1,6 @@
 ﻿using BHGroup.App.Models;
 using BHGroup.App.Public.Core;
 using BHGroup.App.Views.LecturerWindow;
-using BHGroup.App.Views.LecturerWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,12 +55,12 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
         private void ExecuteAddLecturerCommand(object parameters)
         {
             var view = (AddEditLecturerView)parameters;
-            var inputFirstName = LecturerInputObject.InputFirstName;
-            var inputLastName = LecturerInputObject.InputLastName;
-            var inputDOB = LecturerInputObject.InputDOB;
-            var inputJoinDate = LecturerInputObject.InputJoinDate;
-            var inputGender = LecturerInputObject.InputGender;
-            var inputStatus = LecturerInputObject.InputStatus;
+            var inputFirstName = LecturerInputObject.FirstName;
+            var inputLastName = LecturerInputObject.LastName;
+            var inputDOB = LecturerInputObject.DateOfBirth;
+            var inputJoinDate = LecturerInputObject.JoinDate;
+            var inputGender = LecturerInputObject.Gender;
+            var inputStatus = LecturerInputObject.Status;
 
             if (inputFirstName == null || inputLastName == null || inputDOB == null ||
                 inputJoinDate == null || inputGender == null || inputStatus == null)
@@ -70,20 +69,27 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
             }
             else
             {
-                var dob = inputDOB.Split("/").Select(d => int.Parse(d)).ToArray();
-                var joinDate = inputJoinDate.Split("/").Select(d => int.Parse(d)).ToArray();
+                //var dob = inputDOB.Split("/").Select(d => int.Parse(d)).ToArray();
+                //var joinDate = inputJoinDate.Split("/").Select(d => int.Parse(d)).ToArray();
                 _lecturerContext.Add(new Lecturer()
                 {
                     FirstName = inputFirstName,
                     LastName = inputLastName,
-                    DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
-                    Gender = inputGender == "Male" ? Person.EGender.Male : Person.EGender.Female,
-                    JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
-                    Status = inputStatus == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
+                    DateOfBirth = inputDOB,
+                    Gender = inputGender.ToString() == "Male" ? Person.EGender.Male : Person.EGender.Female,
+                    JoinDate = inputJoinDate,
+                    Status = inputStatus.ToString() == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
                 });
                 view.DialogResult = true;
                 view.Close();
             }
+        }
+
+        public LecturerAddEditViewModel()
+        {
+            InitCommandAndContext();
+            LecturerInputObject = new LecturerModel();
+            AddVisibility = true;
         }
         public LecturerAddEditViewModel(int Staffcode)
         {
@@ -92,13 +98,14 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
             LecturerInputObject = new LecturerModel()
             {
                 StaffCode = editLecturer.StaffCode,
-                InputFirstName = editLecturer.FirstName,
-                InputLastName = editLecturer.LastName,
-                InputDOB = editLecturer.DateOfBirth.ToString(),
-                InputJoinDate = editLecturer.JoinDate.ToString(),
-                InputGender = editLecturer.Gender.ToString(),
-                InputStatus = editLecturer.Status.ToString(),
+                FirstName = editLecturer.FirstName,
+                LastName = editLecturer.LastName,
+                DateOfBirth = editLecturer.DateOfBirth,
+                JoinDate = editLecturer.JoinDate,
+                Gender = editLecturer.Gender,
+                Status = editLecturer.Status,
             };
+            AddVisibility = false;
         }
         private bool CanExecuteEditLecturerCommand(object parameter)
         {
@@ -107,12 +114,12 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
         private void ExecuteEditLecturerCommand(object parameters)
         {
             var view = (AddEditLecturerView)parameters;
-            var inputFirstName = LecturerInputObject.InputFirstName;
-            var inputLastName = LecturerInputObject.InputLastName;
-            var inputDOB = LecturerInputObject.InputDOB;
-            var inputJoinDate = LecturerInputObject.InputJoinDate;
-            var inputGender = LecturerInputObject.InputGender;
-            var inputStatus = LecturerInputObject.InputStatus;
+            var inputFirstName = LecturerInputObject.FirstName;
+            var inputLastName = LecturerInputObject.LastName;
+            var inputDOB = LecturerInputObject.DateOfBirth;
+            var inputJoinDate = LecturerInputObject.JoinDate;
+            var inputGender = LecturerInputObject.Gender;
+            var inputStatus = LecturerInputObject.Status;
 
             if (inputFirstName == null || inputLastName == null || inputDOB == null ||
                 inputJoinDate == null || inputGender == null || inputStatus == null)
@@ -124,17 +131,17 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
                 var result = MessageBox.Show("You sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var dob = inputDOB.Split("/").Select(d => int.Parse(d)).ToArray();
-                    var joinDate = inputJoinDate.Split("/").Select(d => int.Parse(d)).ToArray();
+                    //var dob = inputDOB.Split("/").Select(d => int.Parse(d)).ToArray();
+                    //var joinDate = inputJoinDate.Split("/").Select(d => int.Parse(d)).ToArray();
                     _lecturerContext.Update(new Lecturer()
                     {
                         StaffCode = LecturerInputObject.StaffCode,
                         FirstName = inputFirstName,
                         LastName = inputLastName,
-                        DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
-                        Gender = inputGender == "Male" ? Person.EGender.Male : Person.EGender.Female,
-                        JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
-                        Status = inputStatus == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
+                        DateOfBirth = inputDOB,
+                        Gender = inputGender == DAL.Entities.Person.EGender.Male? Person.EGender.Male : DAL.Entities.Person.EGender.Female,
+                        JoinDate = inputJoinDate,
+                        Status = inputStatus == DAL.Entities.Person.EStatus.Active ? Person.EStatus.Active : DAL.Entities.Person.EStatus.Inactive,
                     });
                     view.DialogResult = true;
                     view.Close();

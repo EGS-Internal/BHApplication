@@ -13,14 +13,8 @@ namespace BHGroup.BL
         }
         void ILecturer.Add(Lecturer lecturer)
         {
-            if (_dbContext.Lecturers.Find(lecturer.StaffCode) != null)
-            {
-                _dbContext.Lecturers.Add(lecturer);
-            }
-            else
-            {
-                _dbContext.Lecturers.Update(lecturer);
-            }
+            
+            _dbContext.Lecturers.Add(lecturer);
             _dbContext.SaveChanges();
         }
 
