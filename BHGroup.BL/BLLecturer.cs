@@ -1,6 +1,7 @@
 ﻿using BHGroup.App.Public.Core;
 using BHGroup.DAL;
 using BHGroup.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 namespace BHGroup.BL
 {
@@ -16,6 +17,7 @@ namespace BHGroup.BL
             
             _dbContext.Lecturers.Add(lecturer);
             _dbContext.SaveChanges();
+            _dbContext.Entry(lecturer).State = EntityState.Detached;
         }
 
         void ILecturer.Delete(int id)
@@ -34,22 +36,22 @@ namespace BHGroup.BL
 
         IEnumerable<Lecturer> ILecturer.GetAll()
         {
-            return _dbContext.Lecturers.ToList();
+            return _dbContext.Lecturers.AsNoTracking().ToList();
         }
 
         Lecturer ILecturer.GetById(int id)
         {
-            Lecturer res = _dbContext.Lecturers.Find(id);
-            if (res != null)
-            {
-                return res;
-            }
-            else throw new Exception("Record not found");
+            var result = _dbContext.Lecturers.AsNoTracking().FirstOrDefault(s => s.StaffCode == id);
+            if (result != null)
+                return result;
+            return null;
         }
 
         void ILecturer.Update(Lecturer lecturer)
         {
+            _dbContext.Update(lecturer);
             _dbContext.SaveChanges();
+            _dbContext.Entry(lecturer).State = EntityState.Detached;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace BHGroup.App.Public.Core
             services.AddTransient<LecturerListViewModel, LecturerListViewModel>();
             services.AddTransient<CourseListViewModel, CourseListViewModel>();
             services.AddTransient<ClassListViewModel, ClassListViewModel>();
-          
+            //services.AddScoped<DBContext, DBContext>();
             return services.BuildServiceProvider();
         }
     }
