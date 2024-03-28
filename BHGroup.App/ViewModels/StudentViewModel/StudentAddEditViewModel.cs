@@ -59,6 +59,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             AddStudentCommand = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
         }
+        //constructor
         public StudentAddEditViewModel()
         {
             InitCommandAndContext();

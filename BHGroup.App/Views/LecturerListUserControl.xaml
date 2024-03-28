@@ -10,6 +10,7 @@
     <UserControl.DataContext>
         <viewModel:LecturerListViewModel/>
     </UserControl.DataContext>
+    
     <Grid>
         <StackPanel Background="Transparent">
             <TextBlock Text="Lecturer" 
@@ -37,39 +38,39 @@
                              Style="{StaticResource TextBoxTheme}">
                         </TextBox>
                     </StackPanel>
+                    <Button Command="{Binding OpenAddLecturerViewCommand}" 
+                            Style="{StaticResource FunctionButton}"
+                            Margin="600 0 0 0"
+                            Content="Add"
+                            Background="#32CD32"/>
+                    <Button Command="{Binding AddLecturerCommand}" 
+                            Style="{StaticResource FunctionButton}"
+                            IsEnabled="{Binding IsButtonEnabled}"
+                            Margin="450 0 0 0"
+                            Content="Edit"
+                            Background="Gold"/>
+                    <Button Command="{Binding DeleteLecturerCommand}" 
+                            Style="{DynamicResource FunctionButton}"
+                            IsEnabled="{Binding IsButtonEnabled}"
+                            Margin="300 0 0 0"
+                            Content="Delete"
+                            Background="Red"/>  
                     <Border HorizontalAlignment="Left" Grid.Row="1">
                         <DataGrid Width="680" 
                                   Style="{DynamicResource DefaultCustomDataGrid}"
-                                  AutoGenerateColumns="True"
+                                  
                                   ItemsSource="{Binding Lecturers}"
-                                  IsReadOnly="True">
-                            <DataGrid.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="VerticalAlignment" Value = "Top"/>
-                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                                    <Setter Property="TextBlock.MaxWidth" Value="250"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="FontFamily" Value="Arial"/>
-                                    <Setter Property="FontSize" Value="12"/>
-                                </Style>
-                            </DataGrid.CellStyle>
-                            <!--<DataGrid.Columns>
-                                <DataGridTextColumn IsReadOnly="True" Header="StaffCode" Binding="{Binding StaffCode}">
-                                </DataGridTextColumn>
-                                <DataGridTextColumn  IsReadOnly="True" Header="Name" Binding="{Binding Fullname}">
-                                    <DataGridTextColumn.CellStyle>
-                                        <Style TargetType="DataGridCell">
-                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                                            <Setter Property="TextBlock.MaxWidth" Value="250"/>
-                                        </Style>
-                                    </DataGridTextColumn.CellStyle>
-                                </DataGridTextColumn>
+                                  SelectedItem="{Binding SelectedItem}"
+                                  IsReadOnly="True"
+                                  SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn IsReadOnly="True" Header="StaffCode" Binding="{Binding StaffCode}"/>
+                                <DataGridTextColumn IsReadOnly="True" Width="300" Header="Name" Binding="{Binding FullName}"/>
                                 <DataGridTextColumn IsReadOnly="True" Header="Date Of Birth" Binding="{Binding DateOfBirth}"/>
                                 <DataGridTextColumn Width="100" IsReadOnly="True" Header="Gender" Binding="{Binding Gender}"/>
                                 <DataGridTextColumn Width="100" IsReadOnly="True" Header="Status" Binding="{Binding Status}"/>
                                 <DataGridTextColumn IsReadOnly="True" Header="Join Date" Binding="{Binding JoinDate}"/>
-                            </DataGrid.Columns>-->
+                            </DataGrid.Columns>
                         </DataGrid>
                     </Border>
                 </Grid>

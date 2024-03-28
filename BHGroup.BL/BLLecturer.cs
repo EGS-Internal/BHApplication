@@ -28,7 +28,10 @@ namespace BHGroup.BL
         {
             Lecturer result = _dbContext.Lecturers.Find(id);
             if (result != null)
+            {
                 _dbContext.Lecturers.Remove(result);
+                _dbContext.SaveChanges();
+            }
             else
             {
                 throw new Exception("Delete failed: record not found!");

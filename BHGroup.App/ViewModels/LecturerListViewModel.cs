@@ -1,10 +1,12 @@
 ﻿using BHGroup.App.Models;
 using BHGroup.App.Public.Core;
+using BHGroup.App.ViewModels.LecturerViewModel;
+using BHGroup.App.ViewModels.StudentViewModel;
+using BHGroup.App.Views.LecturerWindow;
+using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Windows;
 using System.Windows;
-using BHGroup.App.Views.LecturerWindow;
 
 namespace BHGroup.App.ViewModels
 {
@@ -14,9 +16,21 @@ namespace BHGroup.App.ViewModels
         private readonly ILecturer _lecturerContext;
         //private AddLecturerView _addLecturerWindow { get; set; }
         //
-        private List<LecturerModel> _lecturer { get; set; }
+        private List<LecturerModel> lecturers { get; set; }
+        public List<LecturerModel> Lecturers
+        {
+            get
+            {
+                return lecturers;
+            }
+            set
+            {
+                lecturers = value;
+                OnPropertyChanged();
+            }
+        }
 
-        private LecturerModel _selectedItem;
+        private LecturerModel selectedItem;
         private bool _isButtonEnabled;
         public bool IsButtonEnabled
         {
@@ -34,28 +48,14 @@ namespace BHGroup.App.ViewModels
         public LecturerModel SelectedItem
         {
             get
-            { return _selectedItem; }
+            { return selectedItem; }
             set
             {
-                _selectedItem = value;
+                selectedItem = value;
                 OnPropertyChanged();
                 DeleteLecturerCommand.OnCanExecuteChanged();
                 EditLecturerCommand.OnCanExecuteChanged();
-            }
-        }
 
-
-        public List<LecturerModel> Lecturers
-        {
-            get
-            {
-                return _lecturer;
-            }
-            set
-            {
-                _lecturer = value;
-                OnPropertyChanged();
-                
             }
         }
         public LecturerListViewModel()
@@ -63,46 +63,24 @@ namespace BHGroup.App.ViewModels
             _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
             Lecturers = _lecturerContext.GetAll().Select(s => new LecturerModel(s)).ToList();
             //OpenAddLecturerViewCommand = new RelayCommand(ExecuteAddLecturerWindowCommand, CanExecuteAddLecturerWindowCommand);
-            DeleteLecturerCommand = new RelayCommand(ExecuteDeleteLecturerCommand, CanExecuteLecturerCommand);
-            EditLecturerCommand = new RelayCommand(ExecuteEditLecturerCommand, CanExecuteLecturerCommand);
-            //AddLecturerCommand = new RelayCommand(ExecuteAddLecturerCommand, CanExecuteAddLecturerCommand);
-            //StudentToAdd = new StudentInputModel();
+            DeleteLecturerCommand = new RelayCommand(ExecuteDeleteLecturerCommand, CanExecuteDeleteLecturerCommand);
+            EditLecturerCommand = new RelayCommand(ExecuteEditLecturerCommand, CanExecuteEditLecturerCommand);
         }
-        private bool CanExecuteOpenAddStudentWindowCommand(object parameters)
+        private bool CanExecuteOpenAddLecturerWindowCommand(object parameters)
         {
             return true;
         }
-        //private void ExecuteOpenAddLecturerWindowCommand(object parameters)
-        //{
-        //    _addLecturerWindow = new AddLecturerView();
-        //    var result = _addLecturerWindow.ShowDialog();
-        //    if (_addLecturerWindow.StudentToAdd != null)
-        //    {
-        //        _studentContext.Add(new Student()
-        //        {
-        //            FirstName = _addLecturerWindow.StudentToAdd.FirstName,
-        //            LastName = _addLecturerWindow.StudentToAdd.LastName,
-        //            DateOfBirth = _addLecturerWindow.StudentToAdd.DateOfBirth,
-        //            Gender = _addLecturerWindow.StudentToAdd.Gender,
-        //            JoinDate = _addLecturerWindow.StudentToAdd.JoinDate,
-        //            Status = _addLecturerWindow.StudentToAdd.Status
-        //        });
-        //        Students = _studentContext.GetAll().Select(s =>
-        //        {
-        //            return new StudentModel()
-        //            {
-        //                FirstName = s.FirstName,
-        //                LastName = s.LastName,
-        //                StudentCode = s.StudentCode,
-        //                DateOfBirth = s.DateOfBirth,
-        //                Gender = s.Gender,
-        //                JoinDate = s.JoinDate,
-        //                Status = s.Status
-        //            };
-        //        }).ToList();
-        //    }
-        //}
-        
+        private void ExecuteOpenAddStudentWindowCommand(object parameters)
+        {
+            var addStudentView = new AddEditStudentView();
+            var AddStudentViewModel = new StudentAddEditViewModel();
+            addStudentView.DataContext = AddStudentViewModel;
+            if (addStudentView.ShowDialog() == true)
+            {
+                Lecturers = _lecturerContext.GetAll().Select(s => new LecturerModel(s)).ToList();
+            }
+        }
+
 
         private bool CanExecuteDeleteLecturerCommand(object parameters)
         {
@@ -119,7 +97,7 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteDeleteLecturerCommand(object parameters)
         {
-            MessageBoxResult result = MessageBox.Show("You sure'bout that?", "Delete Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("okay?", "Delete Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 _lecturerContext.Delete(SelectedItem.StaffCode);
@@ -128,7 +106,7 @@ namespace BHGroup.App.ViewModels
             }
         }
 
-        private bool CanExecuteLecturerCommand(object parameters)
+        private bool CanExecuteEditLecturerCommand(object parameters)
         {
             if (SelectedItem != null)
             {
@@ -141,17 +119,19 @@ namespace BHGroup.App.ViewModels
                 return false;
             }
         }
+
+
         public RelayCommand OpenAddLecturerViewCommand { get; private set; }
         public RelayCommand DeleteLecturerCommand { get; private set; }
         public RelayCommand EditLecturerCommand { get; private set; }
-        public RelayCommand AddLecturerCommand { get; private set; }
 
         private void ExecuteEditLecturerCommand(object parameters)
         {
-
+            var addLecturerView = new AddEditLecturerView();
+            var addLecturerViewModel = new LecturerAddEditViewModel(SelectedItem.StaffCode);
         }
 
-        private bool CanExecuteAddStudentCommand(object parameters)
+        private bool CanExecuteAddLecturerCommand(object parameters)
         {
             return true;
         }
