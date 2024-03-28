@@ -55,6 +55,7 @@ namespace BHGroup.App.ViewModels
             }
             set
             {
+                //if it has already set, keep the original value and not notice on change
                 if (_isButtonEnabled != value)
                 {
                     _isButtonEnabled = value;
@@ -93,7 +94,7 @@ namespace BHGroup.App.ViewModels
                 Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
             }  
         }
-
+        //Check if any students are selected
         private bool CanExecuteDeleteStudentCommand(object parameters)
         {
             if (SelectedItem != null)
@@ -107,6 +108,7 @@ namespace BHGroup.App.ViewModels
                 return false;
             }
         }
+        //Run the Delete Student Command 
         private void ExecuteDeleteStudentCommand(object parameters)
         {
             MessageBoxResult result = MessageBox.Show("You sure'bout that?", "Delete Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -117,7 +119,7 @@ namespace BHGroup.App.ViewModels
                 SelectedItem = null;
             }
         }
-
+        //
         private bool CanExecuteEditStudentCommand(object parameters)
         {
             if (SelectedItem != null)

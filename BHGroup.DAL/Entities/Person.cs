@@ -6,8 +6,18 @@ namespace BHGroup.DAL.Entities
 
     public class Person
     {
-        public enum EStatus { Active, Inactive}
-        public enum EGender { Male,Female}
+        public enum EGender
+        {
+            Male,
+            Female,
+        }
+
+        public enum EStatus
+        {
+            Active,
+            Inactive
+        }
+
         [Required]
         [Column("last_name")]
         [StringLength(50)]
