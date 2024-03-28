@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:BHGroup.App.Views.StudentWindow"
         xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels.StudentViewModel"
         xmlns:converter="clr-namespace:BHGroup.App.Public.Converter"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="AddStudentWindow" Height="550" Width="500"
         Background="Transparent"
@@ -22,7 +23,10 @@
         <converter:AddVisibilityConverter x:Key="AddVis" />
         <converter:EditVisibilityConverter x:Key="EditVis" />
     </Window.Resources>
-    <Border  Style="{DynamicResource DefaultAppBackground}" CornerRadius="20" BorderThickness="5" BorderBrush="Black">
+    <Border  Style="{DynamicResource DefaultAppBackground}" 
+             CornerRadius="20" 
+             BorderThickness="5" 
+             BorderBrush="Black">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -70,7 +74,8 @@
                     <TextBox x:Name="FirstName"
                              Width="400"
                              Height="25"
-                             Text="{Binding StudentInputObject.InputFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding StudentInputObject.InputFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding StudentInputObject.ErrorsColection[InputFirstName]}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -83,7 +88,8 @@
                     <TextBox x:Name="LastName"
                              Width="400"
                              Height="25"
-                             Text="{Binding StudentInputObject.InputLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding StudentInputObject.InputLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding StudentInputObject.ErrorsColection[InputLastName]}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -94,7 +100,9 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <DatePicker x:Name="DOB" Width="400" Height="25"
-                                Text="{Binding StudentInputObject.InputDOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                DisplayDateEnd="{x:Static sys:DateTime.Today}"
+                                Text="{Binding StudentInputObject.InputDOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                ToolTip="{Binding StudentInputObject.ErrorsColection[InputDOB]}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -105,7 +113,8 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <DatePicker x:Name="JoinDate" Width="400" Height="25"
-                                Text="{Binding StudentInputObject.InputJoinDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                Text="{Binding StudentInputObject.InputJoinDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                ToolTip="{Binding StudentInputObject.ErrorsColection[InputJoinDate]}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -116,9 +125,9 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <ComboBox x:Name="Gender" Width="400" Height="25" 
-                              Text="{Binding StudentInputObject.InputGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <ComboBoxItem>Male</ComboBoxItem>
-                        <ComboBoxItem>Female</ComboBoxItem>
+                              ItemsSource="{Binding GenderOptionSource}"
+                              SelectedItem="{Binding StudentInputObject.InputGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              ToolTip="{Binding StudentInputObject.ErrorsColection[InputGender]}">
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
@@ -130,9 +139,9 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <ComboBox x:Name="Status" Width="400" Height="25"
-                              Text="{Binding StudentInputObject.InputStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <ComboBoxItem>Active</ComboBoxItem>
-                        <ComboBoxItem>Inactive</ComboBoxItem>
+                              ItemsSource="{Binding StatusOptionSource}"
+                              SelectedItem="{Binding StudentInputObject.InputStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              ToolTip="{Binding StudentInputObject.ErrorsColection[InputStatus]}">
                     </ComboBox>
                 </StackPanel>
                 <Grid>

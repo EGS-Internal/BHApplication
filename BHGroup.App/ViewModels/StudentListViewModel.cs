@@ -70,7 +70,6 @@ namespace BHGroup.App.ViewModels
         public RelayCommand DeleteStudentCommand { get; private set; }
         public RelayCommand EditStudentCommand { get; private set; }
         #endregion
-
         public StudentListViewModel()
         {
             _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();

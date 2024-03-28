@@ -6,10 +6,12 @@ using BHGroup.DAL.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static BHGroup.DAL.Entities.Person;
 
 namespace BHGroup.App.ViewModels.StudentViewModel
 {
@@ -47,10 +49,19 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             }
         }
         #endregion
-
+        public List<EStatus> StatusOptionSource { get; set; } = new List<EStatus>() { 
+            EStatus.Active,
+            EStatus.Inactive,
+        };
+        public List<EGender> GenderOptionSource { get; set; } = new List<EGender>() 
+        {
+            EGender.Male, 
+            EGender.Female,
+        };
         #region Command
         public RelayCommand AddStudentCommand { get; private set; }
         public RelayCommand EditStudentCommand { get; private set; }
+
         #endregion
 
         private void InitCommandAndContext()
@@ -76,12 +87,13 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                 InputLastName = editStudent.LastName,
                 InputDOB = editStudent.DateOfBirth.ToString(),
                 InputJoinDate = editStudent.JoinDate.ToString(),
-                InputGender = editStudent.Gender.ToString(),
-                InputStatus = editStudent.Status.ToString(),
+                InputGender = editStudent.Gender,
+                InputStatus = editStudent.Status,
             };
             AddVisibility = false;
         }
 
+        #region Command events
         private bool CanExecuteAddStudentCommand(object parameters)
         {
             return true;
@@ -96,8 +108,8 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             var inputGender = StudentInputObject._inputGender;
             var inputStatus = StudentInputObject.InputStatus;
 
-            if (inputFirstName == null || inputLastName == null || inputDOB == null ||
-                inputJoinDate == null || inputGender == null || inputStatus == null)
+            if (inputFirstName == null || inputLastName == null || 
+                inputDOB == null || inputJoinDate == null)
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -110,9 +122,9 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                     FirstName = inputFirstName,
                     LastName = inputLastName,
                     DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
-                    Gender = inputGender == "Male" ? Person.EGender.Male : Person.EGender.Female,
+                    Gender = inputGender ,
                     JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
-                    Status = inputStatus == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
+                    Status = inputStatus,
                 });
                 view.DialogResult = true;
                 view.Close();
@@ -132,8 +144,8 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             var inputGender = StudentInputObject._inputGender;
             var inputStatus = StudentInputObject.InputStatus;
 
-            if (inputFirstName == null || inputLastName == null || inputDOB == null ||
-                inputJoinDate == null || inputGender == null || inputStatus == null)
+            if (inputFirstName == null || inputLastName == null || 
+                inputDOB == null || inputJoinDate == null)
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -150,14 +162,15 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                         FirstName = inputFirstName,
                         LastName = inputLastName,
                         DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
-                        Gender = inputGender == "Male" ? Person.EGender.Male : Person.EGender.Female,
+                        Gender = inputGender,
                         JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
-                        Status = inputStatus == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
+                        Status = inputStatus,
                     });
                     view.DialogResult = true;
                     view.Close();
                 }
             }
         }
+        #endregion
     }
 }
