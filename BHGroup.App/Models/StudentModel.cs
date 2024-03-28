@@ -15,7 +15,6 @@ namespace BHGroup.App.Models
     {
         public StudentModel()
         {
-
         }
         public StudentModel(Student student)
         {
@@ -67,15 +66,15 @@ namespace BHGroup.App.Models
             set { _inputJoinDate = value; OnPropertyChanged(); }
         }
 
-        public string _inputGender { get; set; }
-        public string InputGender
+        public DAL.Entities.Person.EGender _inputGender { get; set; }
+        public DAL.Entities.Person.EGender InputGender
         {
             get { return _inputGender; }
             set { _inputGender = value; OnPropertyChanged(); }
         }
 
-        public string _inputStatus { get; set; }
-        public string InputStatus
+        public DAL.Entities.Person.EStatus _inputStatus { get; set; }
+        public DAL.Entities.Person.EStatus InputStatus
         {
             get { return _inputStatus; }
             set { _inputStatus = value; OnPropertyChanged(); }
@@ -112,16 +111,7 @@ namespace BHGroup.App.Models
                         if (string.IsNullOrWhiteSpace(InputJoinDate))
                             error = "Join Date cannot be empty.";
                         break;
-
-                    case "InputGender":
-                        if (string.IsNullOrWhiteSpace(InputGender))
-                            error = "Gender cannot be empty.";
-                        break;
-
-                    case "InputStatus":
-                        if (string.IsNullOrWhiteSpace(InputStatus))
-                            error = "Status cannot be empty.";
-                        break;
+                   
                 }
                 if (ErrorsColection.ContainsKey(columnName))
                 {

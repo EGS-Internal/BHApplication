@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:BHGroup.App.Views.StudentWindow"
         xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels.StudentViewModel"
         xmlns:converter="clr-namespace:BHGroup.App.Public.Converter"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="AddStudentWindow" Height="550" Width="500"
         Background="Transparent"
@@ -99,6 +100,7 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <DatePicker x:Name="DOB" Width="400" Height="25"
+                                DisplayDateEnd="{x:Static sys:DateTime.Today}"
                                 Text="{Binding StudentInputObject.InputDOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                 ToolTip="{Binding StudentInputObject.ErrorsColection[InputDOB]}"/>
                 </StackPanel>
@@ -123,10 +125,9 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <ComboBox x:Name="Gender" Width="400" Height="25" 
-                              Text="{Binding StudentInputObject.InputGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              ItemsSource="{Binding GenderOptionSource}"
+                              SelectedItem="{Binding StudentInputObject.InputGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                               ToolTip="{Binding StudentInputObject.ErrorsColection[InputGender]}">
-                        <ComboBoxItem>Male</ComboBoxItem>
-                        <ComboBoxItem>Female</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
@@ -138,10 +139,9 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <ComboBox x:Name="Status" Width="400" Height="25"
-                              Text="{Binding StudentInputObject.InputStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              ItemsSource="{Binding StatusOptionSource}"
+                              SelectedItem="{Binding StudentInputObject.InputStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                               ToolTip="{Binding StudentInputObject.ErrorsColection[InputStatus]}">
-                        <ComboBoxItem>Active</ComboBoxItem>
-                        <ComboBoxItem>Inactive</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
                 <Grid>
