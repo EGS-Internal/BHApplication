@@ -56,6 +56,10 @@ namespace BHGroup.App.ViewModels
             }
             set
             {
+                if(value == string.Empty)
+                {
+                    Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+                }
                 _searchInput = value;
                 OnPropertyChanged();
             }
@@ -147,7 +151,15 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteSearchCommand(object parameters)
         {
-            var test = SearchInput;
+            if (SearchInput != null)
+            {
+                var result = _studentContext.GetByName(SearchInput);
+                Students = result.Select(s => new StudentModel(s)).ToList();
+            }
+            else
+            {
+                Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+            }
         }
         #endregion
     }
