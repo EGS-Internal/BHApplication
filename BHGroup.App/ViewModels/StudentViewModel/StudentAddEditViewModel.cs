@@ -84,12 +84,12 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             var editStudent = _studentContext.GetById(studentCode);
             StudentInputObject = new StudentModel() { 
                 StudentCode = editStudent.StudentCode,
-                InputFirstName = editStudent.FirstName,
-                InputLastName = editStudent.LastName,
-                InputDOB = editStudent.DateOfBirth.ToString(),
-                InputJoinDate = editStudent.JoinDate.ToString(),
-                InputGender = editStudent.Gender,
-                InputStatus = editStudent.Status,
+                FirstName = editStudent.FirstName,
+                LastName = editStudent.LastName,
+                DateOfBirth = editStudent.DateOfBirth,
+                JoinDate = editStudent.JoinDate,
+                Gender = editStudent.Gender,
+                Status = editStudent.Status,
             };
             AddVisibility = false;
         }
@@ -102,12 +102,12 @@ namespace BHGroup.App.ViewModels.StudentViewModel
         private void ExecuteAddStudentCommand(object parameters)
         {
             var view = (AddEditStudentView)parameters;
-            var inputFirstName = StudentInputObject.InputFirstName;
-            var inputLastName = StudentInputObject.InputLastName;
-            var inputDOB = StudentInputObject.InputDOB;
-            var inputJoinDate = StudentInputObject.InputJoinDate;
-            var inputGender = StudentInputObject.InputGender;
-            var inputStatus = StudentInputObject.InputStatus;
+            var inputFirstName = StudentInputObject.FirstName;
+            var inputLastName = StudentInputObject.LastName;
+            var inputDOB = StudentInputObject.DateOfBirth;
+            var inputJoinDate = StudentInputObject.JoinDate;
+            var inputGender = StudentInputObject.Gender;
+            var inputStatus = StudentInputObject.Status;
 
             if (inputFirstName == null || inputLastName == null || 
                 inputDOB == null || inputJoinDate == null)
@@ -120,9 +120,9 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                 {
                     FirstName = inputFirstName,
                     LastName = inputLastName,
-                    DateOfBirth = DateTime.Parse(inputDOB, CultureInfo.InvariantCulture),
+                    DateOfBirth = inputDOB,
                     Gender = inputGender ,
-                    JoinDate = DateTime.Parse(inputJoinDate,CultureInfo.InvariantCulture),
+                    JoinDate = inputJoinDate,
                     Status = inputStatus,
                 });
                 view.DialogResult = true;
@@ -136,12 +136,12 @@ namespace BHGroup.App.ViewModels.StudentViewModel
         private void ExecuteEditStudentCommand(object parameters)
         {
             var view = (AddEditStudentView)parameters;
-            var inputFirstName = StudentInputObject.InputFirstName;
-            var inputLastName = StudentInputObject.InputLastName;
-            var inputDOB = StudentInputObject.InputDOB;
-            var inputJoinDate = StudentInputObject.InputJoinDate;
-            var inputGender = StudentInputObject.InputGender;
-            var inputStatus = StudentInputObject.InputStatus;
+            var inputFirstName = StudentInputObject.FirstName;
+            var inputLastName = StudentInputObject.LastName;
+            var inputDOB = StudentInputObject.DateOfBirth;
+            var inputJoinDate = StudentInputObject.JoinDate;
+            var inputGender = StudentInputObject.Gender;
+            var inputStatus = StudentInputObject.Status;
 
             if (inputFirstName == null || inputLastName == null || 
                 inputDOB == null || inputJoinDate == null)
@@ -158,9 +158,9 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                         StudentCode = StudentInputObject.StudentCode,
                         FirstName = inputFirstName,
                         LastName = inputLastName,
-                        DateOfBirth = DateTime.Parse(inputDOB, CultureInfo.InvariantCulture),
+                        DateOfBirth = inputDOB,
                         Gender = inputGender,
-                        JoinDate = DateTime.Parse(inputJoinDate, CultureInfo.InvariantCulture),
+                        JoinDate = inputJoinDate,
                         Status = inputStatus,
                     });
                     view.DialogResult = true;
