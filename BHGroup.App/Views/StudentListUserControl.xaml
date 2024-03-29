@@ -74,14 +74,14 @@
                                   Style="{DynamicResource DefaultCustomDataGrid}"
                                   ItemsSource="{Binding Students}"
                                   SelectedItem="{Binding SelectedItem}"
-                                  SelectionMode="Single">
+                                  SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged">
                             <DataGrid.Columns>
                                 <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding StudentCode}"/>
                                 <DataGridTextColumn Width="150" IsReadOnly="True" Header="Name" Binding="{Binding FullName}"/>
-                                <DataGridTextColumn IsReadOnly="True" Header="Date Of Birth" Binding="{Binding DateOfBirth}"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Date Of Birth" Binding="{Binding DisplayDateOfBirth}"/>
                                 <DataGridTextColumn Width="100" IsReadOnly="True" Header="Gender" Binding="{Binding Gender}"/>
                                 <DataGridTextColumn Width="100" IsReadOnly="True" Header="Status" Binding="{Binding Status}"/>
-                                <DataGridTextColumn IsReadOnly="True" Header="Join Date" Binding="{Binding JoinDate}"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Join Date" Binding="{Binding DisplayJoinDate}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Border>

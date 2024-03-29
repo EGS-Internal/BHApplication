@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -105,7 +106,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             var inputLastName = StudentInputObject.InputLastName;
             var inputDOB = StudentInputObject.InputDOB;
             var inputJoinDate = StudentInputObject.InputJoinDate;
-            var inputGender = StudentInputObject._inputGender;
+            var inputGender = StudentInputObject.InputGender;
             var inputStatus = StudentInputObject.InputStatus;
 
             if (inputFirstName == null || inputLastName == null || 
@@ -115,15 +116,13 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             }
             else
             {
-                var dob = inputDOB.Split("/").Select(d => int.Parse(d)).ToArray();
-                var joinDate = inputJoinDate.Split("/").Select(d => int.Parse(d)).ToArray();
                 _studentContext.Add(new Student()
                 {
                     FirstName = inputFirstName,
                     LastName = inputLastName,
-                    DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
+                    DateOfBirth = DateTime.Parse(inputDOB, CultureInfo.InvariantCulture),
                     Gender = inputGender ,
-                    JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
+                    JoinDate = DateTime.Parse(inputJoinDate,CultureInfo.InvariantCulture),
                     Status = inputStatus,
                 });
                 view.DialogResult = true;
@@ -141,7 +140,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             var inputLastName = StudentInputObject.InputLastName;
             var inputDOB = StudentInputObject.InputDOB;
             var inputJoinDate = StudentInputObject.InputJoinDate;
-            var inputGender = StudentInputObject._inputGender;
+            var inputGender = StudentInputObject.InputGender;
             var inputStatus = StudentInputObject.InputStatus;
 
             if (inputFirstName == null || inputLastName == null || 
@@ -154,16 +153,14 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                 var result = MessageBox.Show("You sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var dob = inputDOB.Split("/").Select(d => int.Parse(d)).ToArray();
-                    var joinDate = inputJoinDate.Split("/").Select(d => int.Parse(d)).ToArray();
                     _studentContext.Update(new Student()
                     {
                         StudentCode = StudentInputObject.StudentCode,
                         FirstName = inputFirstName,
                         LastName = inputLastName,
-                        DateOfBirth = new DateTime(dob[2], dob[1], dob[0]),
+                        DateOfBirth = DateTime.Parse(inputDOB, CultureInfo.InvariantCulture),
                         Gender = inputGender,
-                        JoinDate = new DateTime(joinDate[2], joinDate[1], joinDate[0]),
+                        JoinDate = DateTime.Parse(inputJoinDate, CultureInfo.InvariantCulture),
                         Status = inputStatus,
                     });
                     view.DialogResult = true;

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace BHGroup.App.Models
 {
@@ -32,9 +33,12 @@ namespace BHGroup.App.Models
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public DAL.Entities.Person.EGender Gender { get; set; }
+        public DAL.Entities.Person.EStatus Status { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime JoinDate { get; set; }
-        public DAL.Entities.Person.EStatus Status { get; set; }
+
+        public string DisplayDateOfBirth => DateOfBirth.ToString(CultureInfo.InvariantCulture);
+        public string DisplayJoinDate => JoinDate.ToString(CultureInfo.InvariantCulture);
         public string FullName { get { return $"{FirstName} {LastName}"; } }
 
         private string _inputFirstName { get; set; }
