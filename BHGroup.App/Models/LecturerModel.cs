@@ -1,52 +1,104 @@
 ﻿using BHGroup.App.Public.Core;
 using BHGroup.DAL.Entities;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BHGroup.App.Models
 {
     public class LecturerModel : ObservableObject
     {
-        private int staffcode;
-        private string fullname;
-        private DateTime dateofbirth;
-        private BHGroup.DAL.Entities.Person.EGender gender;
-        private DateTime joindate;
-        private  BHGroup.DAL.Entities.Person.EStatus status;
+        private int staffCode;
         public int StaffCode
         {
-            get { return staffcode; }
-            set { staffcode = value; }
+            get
+            {
+                return staffCode;
+            }
+            set
+            {
+                staffCode = value;
+                OnPropertyChanged();
+            }
         }
-        public string Fullname
+        private string lastName
         {
-            get { return fullname; }
-            set { fullname = value; }
+            get
+            {
+                return lastName;
+            }
+            set
+            {
+                lastName = value;
+                OnPropertyChanged();
+            }
         }
+        public string LastName { get; set; }
+        private string firstName;
+        public string FirstName
+        {
+            get
+            {
+                return firstName;
+            }
+            set
+            {
+                firstName = value;
+                OnPropertyChanged();
+
+            }
+        }
+        private DAL.Entities.Person.EGender gender;
+        public DAL.Entities.Person.EGender Gender
+        {
+            get
+            {
+                return gender;
+            }
+            set
+            {
+                gender = value;
+                OnPropertyChanged();
+            }
+        }
+        private DateTime dateOfBirth;
         public DateTime DateOfBirth
         {
-            get { return dateofbirth; }
-            set { dateofbirth = value; }
+            get
+            {
+                return dateOfBirth;
+            }
+            set
+            {
+                dateOfBirth = value;
+                OnPropertyChanged();
+            }
         }
-        public  BHGroup.DAL.Entities.Person.EGender Gender
-        {
-            get { return gender; }
-            set { gender = value; }
-        }
-        public BHGroup.DAL.Entities.Person.EStatus Status
-        {
-            get { return status; }
-            set { status = value; }
-        }
+        private DateTime joinDate;
         public DateTime JoinDate
         {
-            get { return joindate; } 
-            set { joindate = value; }
+            get
+            {
+                return joinDate;
+            }
+            set
+            {
+                joinDate = value;
+                OnPropertyChanged();
+            }
         }
+        private DAL.Entities.Person.EStatus status;
+        public DAL.Entities.Person.EStatus Status
+        {
+            get
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
+                OnPropertyChanged();
+            }
+        }
+        public string FullName { get { return $"{FirstName} {LastName}"; } }
+
         public LecturerModel()
         {
 
@@ -54,12 +106,14 @@ namespace BHGroup.App.Models
         public LecturerModel(Lecturer lecturer)
         {
             this.StaffCode = lecturer.StaffCode;
-            this.Fullname = lecturer.FirstName + " " + lecturer.LastName;
+            this.FirstName = lecturer.FirstName;
+            this.LastName = lecturer.LastName;
             this.DateOfBirth = lecturer.DateOfBirth;
             this.Gender = lecturer.Gender;
             this.JoinDate = lecturer.JoinDate;
             this.Status = lecturer.Status;
         }
+
 
     }
 }

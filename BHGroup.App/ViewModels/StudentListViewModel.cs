@@ -7,7 +7,7 @@ using BHGroup.DAL.Entities;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-
+    
 namespace BHGroup.App.ViewModels
 {
     class StudentListViewModel : ObservableObject
