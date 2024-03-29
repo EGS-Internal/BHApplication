@@ -7,14 +7,17 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Globalization;
 
 namespace BHGroup.App.Models
 {
-    public class StudentModel : ObservableObject
+    public class StudentModel : ObservableObject, IDataErrorInfo
     {
         public StudentModel()
         {
-
+            DateOfBirth = DateTime.Today;
+            JoinDate = DateTime.Today; 
         }
         public StudentModel(Student student)
         {
@@ -27,57 +30,131 @@ namespace BHGroup.App.Models
             this.Status = student.Status;
         }
 
-
         public int StudentCode { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public DAL.Entities.Person.EGender Gender { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public DateTime JoinDate { get; set; }
-        public DAL.Entities.Person.EStatus Status { get; set; }
+
+        private string _lastName;
+        public string LastName
+        {
+            get
+            {
+                return _lastName;
+            }
+            set
+            {
+                _lastName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _firstName;
+        public string FirstName
+        {
+            get
+            {
+                return _firstName;
+            }
+            set
+            {
+                _firstName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DAL.Entities.Person.EGender _gender;
+        public DAL.Entities.Person.EGender Gender
+        {
+            get
+            {
+                return _gender;
+            }
+            set
+            {
+                _gender = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DAL.Entities.Person.EStatus _status;
+        public DAL.Entities.Person.EStatus Status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                _status = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime _dateOfBirth;
+        public DateTime DateOfBirth
+        {
+            get
+            {
+                return _dateOfBirth;
+            }
+            set
+            {
+                _dateOfBirth = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime _joinDate;
+        public DateTime JoinDate
+        {
+            get
+            {
+                return _joinDate;
+            }
+            set
+            {
+                _joinDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string DisplayDateOfBirth => DateOfBirth.ToString(CultureInfo.CurrentCulture).Split(" ")[0];
+        public string DisplayJoinDate => JoinDate.ToString(CultureInfo.CurrentCulture).Split(" ")[0];
         public string FullName { get { return $"{FirstName} {LastName}"; } }
 
-        private string _inputFirstName { get; set; }
-        public string InputFirstName
-        {
-            get { return _inputFirstName; }
-            set { _inputFirstName = value; OnPropertyChanged(); }
-        }
 
-        private string _inputLastName { get; set; }
-        public string InputLastName
-        {
-            get { return _inputLastName; }
-            set { _inputLastName = value; OnPropertyChanged(); }
-        }
+        #region Validation
+        public Dictionary<string,string> ErrorsColection { get; private set; } = new Dictionary<string,string>();
 
-        private string _inputDOB { get; set; }
-        public string InputDOB
-        {
-            get { return _inputDOB; }
-            set { _inputDOB = value; OnPropertyChanged(); }
-        }
+        public string Error => string.Empty;
 
-        private string _inputJoinDate { get; set; }
-        public string InputJoinDate
+        public string this[string columnName]
         {
-            get { return _inputJoinDate; }
-            set { _inputJoinDate = value; OnPropertyChanged(); }
-        }
+            get
+            {
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case "FirstName":
+                        if (string.IsNullOrWhiteSpace(FirstName))
+                            error = "First name cannot be empty.";
+                        break;
 
-        public string _inputGender { get; set; }
-        public string InputGender
-        {
-            get { return _inputGender; }
-            set { _inputGender = value; OnPropertyChanged(); }
+                    case "LastName":
+                        if (string.IsNullOrWhiteSpace(LastName))
+                            error = "Last name cannot be empty.";
+                        break;
+                   
+                }
+                if (ErrorsColection.ContainsKey(columnName))
+                {
+                    ErrorsColection[columnName] = error;
+                }else if (error != string.Empty)
+                {
+                    ErrorsColection.Add(columnName, error);
+                }
+                OnPropertyChanged("ErrorsColection");
+                return error;
+            }
         }
-
-        public string _inputStatus { get; set; }
-        public string InputStatus
-        {
-            get { return _inputStatus; }
-            set { _inputStatus = value; OnPropertyChanged(); }
-        }
-
+        #endregion
     }
 }
