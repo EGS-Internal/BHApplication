@@ -17,19 +17,19 @@ namespace BHGroup.BL
     
         void IStudent.Add(Student student)
         {
-                _dbContext.Students.Add(student);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(student).State = EntityState.Detached;
+            _dbContext.Students.Add(student);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(student).State = EntityState.Detached;
         }
 
         void IStudent.Delete(int id)
         {
-                var studentToRemove = _dbContext.Students.Find(id);
-                if(studentToRemove != null)
-                {
-                    _dbContext.Students.Remove(studentToRemove);
-                    _dbContext.SaveChanges();
-                }
+            var studentToRemove = _dbContext.Students.Find(id);
+            if(studentToRemove != null)
+            {
+                _dbContext.Students.Remove(studentToRemove);
+                _dbContext.SaveChanges();
+            }
         }
 
         IEnumerable<Student> IStudent.GetAll()
@@ -39,15 +39,21 @@ namespace BHGroup.BL
 
         Student IStudent.GetById(int id)
         {
-               var result = _dbContext.Students.AsNoTracking().FirstOrDefault(s => s.StudentCode == id);
-                if(result != null)
-                    return result;
-                return null;
+            var result = _dbContext.Students.AsNoTracking().FirstOrDefault(s => s.StudentCode == id);
+            if(result != null)
+                return result;
+            return null;
         }
 
-        IEnumerable<Student> IStudent.GetByName()
+        IEnumerable<Student> IStudent.GetByName(string name)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.Students
+                .AsNoTracking()
+                .Where(s => s.FirstName.Contains(name)
+                         || s.LastName.Contains(name)
+                         //|| $"{s.FirstName} {s.LastName}".Contains(name)
+                       );
+            return result;
         }
 
         void IStudent.Update(Student student)

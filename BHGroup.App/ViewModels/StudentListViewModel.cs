@@ -47,20 +47,21 @@ namespace BHGroup.App.ViewModels
             }
         }
 
-        private bool _isButtonEnabled;
-        public bool IsButtonEnabled
+        private string _searchInput;
+        public string SearchInput
         {
-            get { 
-                return _isButtonEnabled; 
+            get
+            {
+                return _searchInput; 
             }
             set
             {
-                //if it has already set, keep the original value and not notice on change
-                if (_isButtonEnabled != value)
+                if(value == string.Empty)
                 {
-                    _isButtonEnabled = value;
-                    OnPropertyChanged();
+                    Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
                 }
+                _searchInput = value;
+                OnPropertyChanged();
             }
         }
         #endregion
@@ -69,6 +70,7 @@ namespace BHGroup.App.ViewModels
         public RelayCommand OpenAddStudentViewCommand { get; private set; }
         public RelayCommand DeleteStudentCommand { get; private set; }
         public RelayCommand EditStudentCommand { get; private set; }
+        public RelayCommand SearchCommand { get; private set; }
         #endregion
         public StudentListViewModel()
         {
@@ -77,9 +79,11 @@ namespace BHGroup.App.ViewModels
             OpenAddStudentViewCommand = new RelayCommand(ExecuteOpenAddStudentWindowCommand, CanExecuteOpenAddStudentWindowCommand);
             DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
+            SearchCommand = new RelayCommand(ExecuteSearchCommand, CanExecuteSearchCommand);
         }
 
         #region Command Events
+
         private bool CanExecuteOpenAddStudentWindowCommand(object parameters)
         {
             return true;
@@ -94,17 +98,16 @@ namespace BHGroup.App.ViewModels
                 Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
             }  
         }
+
         //Check if any students are selected
         private bool CanExecuteDeleteStudentCommand(object parameters)
         {
             if (SelectedItem != null)
             {
-                IsButtonEnabled = true;
                 return true;
             }
             else
             {
-                IsButtonEnabled = false;
                 return false;
             }
         }
@@ -119,17 +122,15 @@ namespace BHGroup.App.ViewModels
                 SelectedItem = null;
             }
         }
-        //
+
         private bool CanExecuteEditStudentCommand(object parameters)
         {
             if (SelectedItem != null)
             {
-                IsButtonEnabled = true;
                 return true;
             }
             else
             {
-                IsButtonEnabled = false;
                 return false;
             }
         }
@@ -139,6 +140,23 @@ namespace BHGroup.App.ViewModels
             var AddStudentViewModel = new StudentAddEditViewModel(SelectedItem.StudentCode);
             addStudentView.DataContext = AddStudentViewModel;
             if (addStudentView.ShowDialog() == true)
+            {
+                Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+            }
+        }
+
+        private bool CanExecuteSearchCommand(object parameters)
+        {
+            return true;
+        }
+        private void ExecuteSearchCommand(object parameters)
+        {
+            if (SearchInput != null)
+            {
+                var result = _studentContext.GetByName(SearchInput);
+                Students = result.Select(s => new StudentModel(s)).ToList();
+            }
+            else
             {
                 Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
             }

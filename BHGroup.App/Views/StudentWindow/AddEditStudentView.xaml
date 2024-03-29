@@ -74,8 +74,8 @@
                     <TextBox x:Name="FirstName"
                              Width="400"
                              Height="25"
-                             Text="{Binding StudentInputObject.InputFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                             ToolTip="{Binding StudentInputObject.ErrorsColection[InputFirstName]}"/>
+                             Text="{Binding StudentInputObject.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding StudentInputObject.ErrorsColection[FirstName]}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -88,8 +88,8 @@
                     <TextBox x:Name="LastName"
                              Width="400"
                              Height="25"
-                             Text="{Binding StudentInputObject.InputLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                             ToolTip="{Binding StudentInputObject.ErrorsColection[InputLastName]}"/>
+                             Text="{Binding StudentInputObject.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding StudentInputObject.ErrorsColection[LastName]}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -101,8 +101,8 @@
                     </StackPanel>
                     <DatePicker x:Name="DOB" Width="400" Height="25"
                                 DisplayDateEnd="{x:Static sys:DateTime.Today}"
-                                Text="{Binding StudentInputObject.InputDOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                                ToolTip="{Binding StudentInputObject.ErrorsColection[InputDOB]}"/>
+                                SelectedDate="{Binding StudentInputObject.DateOfBirth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                ToolTip="{Binding StudentInputObject.ErrorsColection[DateOfBirth]}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -113,8 +113,8 @@
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
                     <DatePicker x:Name="JoinDate" Width="400" Height="25"
-                                Text="{Binding StudentInputObject.InputJoinDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                                ToolTip="{Binding StudentInputObject.ErrorsColection[InputJoinDate]}"/>
+                                SelectedDate="{Binding StudentInputObject.JoinDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                ToolTip="{Binding StudentInputObject.ErrorsColection[JoinDate]}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
@@ -126,8 +126,8 @@
                     </StackPanel>
                     <ComboBox x:Name="Gender" Width="400" Height="25" 
                               ItemsSource="{Binding GenderOptionSource}"
-                              SelectedItem="{Binding StudentInputObject.InputGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                              ToolTip="{Binding StudentInputObject.ErrorsColection[InputGender]}">
+                              SelectedItem="{Binding StudentInputObject.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              ToolTip="{Binding StudentInputObject.ErrorsColection[Gender]}">
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
@@ -140,8 +140,8 @@
                     </StackPanel>
                     <ComboBox x:Name="Status" Width="400" Height="25"
                               ItemsSource="{Binding StatusOptionSource}"
-                              SelectedItem="{Binding StudentInputObject.InputStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                              ToolTip="{Binding StudentInputObject.ErrorsColection[InputStatus]}">
+                              SelectedItem="{Binding StudentInputObject.Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              ToolTip="{Binding StudentInputObject.ErrorsColection[Status]}">
                     </ComboBox>
                 </StackPanel>
                 <Grid>
