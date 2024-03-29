@@ -28,6 +28,11 @@ namespace BHGroup.App.Views
             InitializeComponent();
             DataContext = DIHelper.Get().Services.GetRequiredService<StudentListViewModel>();
         }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
    
 

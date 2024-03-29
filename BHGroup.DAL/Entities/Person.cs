@@ -40,5 +40,9 @@ namespace BHGroup.DAL.Entities
         [DefaultValue(EStatus.Active)]
         public EStatus Status { get; set; } 
 
+        [Required]
+        [Column("deleteStatus")]
+        public int DeleteStatus { get; set; } = 0; // 1 is deleted
+
     }
 }
