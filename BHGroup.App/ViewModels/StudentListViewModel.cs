@@ -17,16 +17,30 @@ namespace BHGroup.App.ViewModels
         #endregion
 
         #region Binding properties
-        private List<StudentModel> _students { get; set; }
-        public List<StudentModel> Students
+        private List<StudentModel> _studentsList { get; set; }
+        public List<StudentModel> StudentList
         {
             get
             {
-                return _students;
+                return _studentsList;
             }
             set
             {
-                _students = value; 
+                _studentsList = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        private List<StudentModel> _studentsListDisplay { get; set; }
+        public List<StudentModel> StudentListDisplay
+        {
+            get
+            {
+                return _studentsListDisplay;
+            }
+            set
+            {
+                _studentsListDisplay = value;
                 OnPropertyChanged();
             }
         }
@@ -58,7 +72,11 @@ namespace BHGroup.App.ViewModels
             {
                 if(value == string.Empty)
                 {
-                    Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+                    StudentListDisplay = StudentList;
+                }
+                else
+                {
+                    StudentListDisplay = StudentList.Where(s => s.FullName.Contains(value) || s.StudentCode.ToString().Contains(value)).ToList();
                 }
                 _searchInput = value;
                 OnPropertyChanged();
@@ -75,7 +93,8 @@ namespace BHGroup.App.ViewModels
         public StudentListViewModel()
         {
             _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
-            Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+            StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+            StudentListDisplay = StudentList;
             OpenAddStudentViewCommand = new RelayCommand(ExecuteOpenAddStudentWindowCommand, CanExecuteOpenAddStudentWindowCommand);
             DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
@@ -95,7 +114,8 @@ namespace BHGroup.App.ViewModels
             addStudentView.DataContext = AddStudentViewModel;
             if (addStudentView.ShowDialog() == true)
             {
-                Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+                StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+                StudentListDisplay = StudentList;
             }  
         }
 
@@ -118,7 +138,7 @@ namespace BHGroup.App.ViewModels
             if (result == MessageBoxResult.Yes)
             {
                 _studentContext.Delete(SelectedItem.StudentCode);
-                Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+                StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
                 SelectedItem = null;
             }
         }
@@ -141,7 +161,8 @@ namespace BHGroup.App.ViewModels
             addStudentView.DataContext = AddStudentViewModel;
             if (addStudentView.ShowDialog() == true)
             {
-                Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+                StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+                StudentListDisplay = StudentList.Where(s => s.FullName.Contains(SearchInput) || s.StudentCode.ToString().Contains(SearchInput)).ToList();
             }
         }
 
@@ -154,11 +175,11 @@ namespace BHGroup.App.ViewModels
             if (SearchInput != null)
             {
                 var result = _studentContext.GetByName(SearchInput);
-                Students = result.Select(s => new StudentModel(s)).ToList();
+                StudentList = result.Select(s => new StudentModel(s)).ToList();
             }
             else
             {
-                Students = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+                StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
             }
         }
         #endregion

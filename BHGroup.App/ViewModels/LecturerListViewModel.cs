@@ -87,7 +87,7 @@ namespace BHGroup.App.ViewModels
         //            JoinDate = _addLecturerWindow.StudentToAdd.JoinDate,
         //            Status = _addLecturerWindow.StudentToAdd.Status
         //        });
-        //        Students = _studentContext.GetAll().Select(s =>
+        //        StudentList = _studentContext.GetAll().Select(s =>
         //        {
         //            return new StudentModel()
         //            {
