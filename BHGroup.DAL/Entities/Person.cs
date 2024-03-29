@@ -36,7 +36,11 @@ namespace BHGroup.DAL.Entities
         public DateTime JoinDate { get; set; }
         [Required]
         [Column("status")]
-        public EStatus Status { get; set; } 
+        public EStatus Status { get; set; }
+
+        [Required]
+        [Column("deleteStatus")]
+        public int DeleteStatus { get; set; } = 0; // 1 is deleted
 
     }
 }

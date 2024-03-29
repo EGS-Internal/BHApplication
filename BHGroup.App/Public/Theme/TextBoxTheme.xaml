@@ -11,7 +11,7 @@
                         <Grid>
                             <Rectangle StrokeThickness="1"/>
                             <TextBox Margin="1"
-                                     Text="{TemplateBinding Text}"
+                                     Text="{Binding Text, ElementName=TextBox}"
                                      BorderThickness="0"
                                      Background="Transparent"
                                      VerticalContentAlignment="Center"
@@ -19,7 +19,7 @@
                                      Style="{DynamicResource DefaultTextBoxText}"
                                      x:Name="SearchBox"/>
                             <TextBlock IsHitTestVisible="False" 
-                                       Text="Search"
+                                       Text="Type something"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        Margin="10 0 0 0"

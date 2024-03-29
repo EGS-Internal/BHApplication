@@ -37,8 +37,14 @@
                                  HorizontalAlignment="Left"
                                  Margin="5"
                                  Grid.Column="1"
+                                 Name="TextBox"
+                                 Text="{Binding SearchInput,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource TextBoxTheme}"> 
                         </TextBox>
+                        <Button Command="{Binding SearchCommand}" 
+                                Style="{DynamicResource FunctionButton}"
+                                Content="Search"
+                                Background="#1E90FF"/>     
                     </StackPanel>
                     <Button Grid.Row="2" 
                             Style="{StaticResource PageButton}"
@@ -59,13 +65,11 @@
                             Background="#32CD32"/>
                     <Button Command="{Binding EditStudentCommand}" 
                             Style="{StaticResource FunctionButton}"
-                            IsEnabled="{Binding IsButtonEnabled}"
                             Margin="450 0 0 0"
                             Content="Edit"
                             Background="Gold"/>
                     <Button Command="{Binding DeleteStudentCommand}" 
                             Style="{DynamicResource FunctionButton}"
-                            IsEnabled="{Binding IsButtonEnabled}"
                             Margin="300 0 0 0"
                             Content="Delete"
                             Background="Red"/>
@@ -78,10 +82,10 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding StudentCode}"/>
                                 <DataGridTextColumn Width="150" IsReadOnly="True" Header="Name" Binding="{Binding FullName}"/>
-                                <DataGridTextColumn IsReadOnly="True" Header="Date Of Birth" Binding="{Binding DisplayDateOfBirth}"/>
+                                <DataGridTextColumn Width="130" IsReadOnly="True" Header="Date Of Birth" Binding="{Binding DisplayDateOfBirth}"/>
                                 <DataGridTextColumn Width="100" IsReadOnly="True" Header="Gender" Binding="{Binding Gender}"/>
                                 <DataGridTextColumn Width="100" IsReadOnly="True" Header="Status" Binding="{Binding Status}"/>
-                                <DataGridTextColumn IsReadOnly="True" Header="Join Date" Binding="{Binding DisplayJoinDate}"/>
+                                <DataGridTextColumn Width="130" IsReadOnly="True" Header="Join Date" Binding="{Binding DisplayJoinDate}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Border>

@@ -109,8 +109,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             var inputGender = StudentInputObject.Gender;
             var inputStatus = StudentInputObject.Status;
 
-            if (inputFirstName == null || inputLastName == null || 
-                inputDOB == null || inputJoinDate == null)
+            if (inputFirstName == null || inputLastName == null)
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -143,8 +142,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             var inputGender = StudentInputObject.Gender;
             var inputStatus = StudentInputObject.Status;
 
-            if (inputFirstName == null || inputLastName == null || 
-                inputDOB == null || inputJoinDate == null)
+            if (inputFirstName == null || inputLastName == null)
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
