@@ -1,5 +1,4 @@
 ﻿using BHGroup.DAL.Entities;
-using System.Security.Cryptography;
 namespace BHGroup.BL
 {
     public interface ILecturer
@@ -9,7 +8,7 @@ namespace BHGroup.BL
         IEnumerable<Lecturer> GetByName(string name);
         void Add(Lecturer lecturer);
         void Update(Lecturer lecturer);
-        
+
         void Delete(int id);
     }
 }

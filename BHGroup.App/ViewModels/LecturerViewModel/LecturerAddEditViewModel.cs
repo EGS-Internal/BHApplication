@@ -79,7 +79,7 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
                     Gender = inputGender.ToString() == "Male" ? Person.EGender.Male : Person.EGender.Female,
                     JoinDate = inputJoinDate,
                     Status = BHGroup.DAL.Entities.Person.EStatus.Active
-                }) ;
+                });
                 view.DialogResult = true;
                 view.Close();
             }
@@ -141,7 +141,7 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
                         FirstName = inputFirstName,
                         LastName = inputLastName,
                         DateOfBirth = inputDOB,
-                        Gender = inputGender == DAL.Entities.Person.EGender.Male? Person.EGender.Male : DAL.Entities.Person.EGender.Female,
+                        Gender = inputGender == DAL.Entities.Person.EGender.Male ? Person.EGender.Male : DAL.Entities.Person.EGender.Female,
                         JoinDate = inputJoinDate,
                         Status = inputStatus == DAL.Entities.Person.EStatus.Active ? Person.EStatus.Active : DAL.Entities.Person.EStatus.Inactive,
                     });

@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BHGroup.DAL.Entities
 {
-    public enum EGrades {A = 4,B =3 ,C= 2,D = 1,F= 0};
+    public enum EGrades { A = 4, B = 3, C = 2, D = 1, F = 0 };
     [Table("enrollments")]
     public class Enrollment
     {
-        
+
         [Column("student_code")]
         [ForeignKey("student_code")]
         public Student Student { get; set; }

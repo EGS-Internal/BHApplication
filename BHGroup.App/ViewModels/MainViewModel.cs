@@ -1,6 +1,4 @@
-﻿using Autofac.Core;
-using BHGroup.App.Public.Core;
-using BHGroup.BL;
+﻿using BHGroup.App.Public.Core;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -14,7 +12,8 @@ namespace BHGroup.App.ViewModels
         public object CurrentView
         {
             get { return _currentView; }
-            set { 
+            set
+            {
                 _currentView = value;
                 OnPropertyChanged();
             }
@@ -22,7 +21,7 @@ namespace BHGroup.App.ViewModels
         public string ModeButton
         {
             get { return _modeButton; }
-            set { _modeButton = value; OnPropertyChanged();}
+            set { _modeButton = value; OnPropertyChanged(); }
         }
         public Style MyButtonStyle
         {
@@ -49,7 +48,7 @@ namespace BHGroup.App.ViewModels
             InitRequredBM();
             InitCommand();
             CurrentView = HomeVM;
-            
+
         }
         private void InitRequredBM()
         {
@@ -91,7 +90,7 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteLecturerCommand(object parameters)
         {
-           LecturerNavigate();
+            LecturerNavigate();
         }
         private bool CanExecuteClassCommand(object parameters)
         {
@@ -109,8 +108,9 @@ namespace BHGroup.App.ViewModels
         {
             CourseNavigate();
         }
-        private bool CanExecuteChangeTheme(object parameters) {
-            return true;        
+        private bool CanExecuteChangeTheme(object parameters)
+        {
+            return true;
         }
         private void ExecuteChangeTheme(object parameters)
         {
@@ -122,7 +122,7 @@ namespace BHGroup.App.ViewModels
         }
         private void StudentNavigate()
         {
-            
+
             CurrentView = StudentVM;
         }
         private void LecturerNavigate()
@@ -137,8 +137,9 @@ namespace BHGroup.App.ViewModels
         {
             CurrentView = CourseVM;
         }
-        private void ChangeTheme() {
-            if(ModeButton == "./Public/Image/brightness.png")
+        private void ChangeTheme()
+        {
+            if (ModeButton == "./Public/Image/brightness.png")
             {
                 ModeButton = "./Public/Image/sun.png";
                 MyButtonStyle = (Style)Application.Current.FindResource("MenuButtonTheme");

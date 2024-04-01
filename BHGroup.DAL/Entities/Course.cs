@@ -1,12 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BHGroup.DAL.Entities
 {
@@ -14,7 +8,7 @@ namespace BHGroup.DAL.Entities
     public class Course
     {
         //[Required]
-        [Key,Column("course_id")]
+        [Key, Column("course_id")]
         public int CourseID { get; set; }
         [Required]
         [Column("course_name")]

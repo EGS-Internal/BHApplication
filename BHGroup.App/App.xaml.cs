@@ -1,10 +1,4 @@
-﻿using Autofac.Core;
-using BHGroup.App.ViewModels;
-using BHGroup.BL;
-using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 
 namespace BHGroup.App
 {

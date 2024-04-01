@@ -63,6 +63,23 @@ namespace BHGroup.App.ViewModels
         }
 
         private LecturerModel selectedItem;
+
+        public LecturerModel SelectedItem
+        {
+            get
+            { return selectedItem; }
+            set
+            {
+                //if (selectedItem != value)
+                //{
+                selectedItem = value;
+                OnPropertyChanged();
+                DeleteLecturerCommand.OnCanExecuteChanged();
+                EditLecturerCommand.OnCanExecuteChanged();
+                //}
+                //else selectedItem = null;
+            }
+        }
         private bool _isButtonEnabled;
         public bool IsButtonEnabled
         {
@@ -74,22 +91,6 @@ namespace BHGroup.App.ViewModels
                     _isButtonEnabled = value;
                     OnPropertyChanged();
                 }
-            }
-        }
-        public LecturerModel SelectedItem
-        {
-            get
-            { return selectedItem; }
-            set
-            {
-                //if (selectedItem != value)
-                //{
-                    selectedItem = value;
-                    OnPropertyChanged();
-                    DeleteLecturerCommand.OnCanExecuteChanged();
-                    EditLecturerCommand.OnCanExecuteChanged();
-                //}
-                //else selectedItem = null;
             }
         }
         #endregion
@@ -181,6 +182,7 @@ namespace BHGroup.App.ViewModels
                 return false;
             }
         }
+
         private void ExecuteEditLecturerCommand(object parameters)
         {
             var addLecturerView = new AddEditLecturerView();
