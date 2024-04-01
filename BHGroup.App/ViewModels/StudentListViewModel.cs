@@ -95,6 +95,7 @@ namespace BHGroup.App.ViewModels
             _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
             StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
             StudentListDisplay = StudentList;
+            SearchInput = string.Empty;
             OpenAddStudentViewCommand = new RelayCommand(ExecuteOpenAddStudentWindowCommand, CanExecuteOpenAddStudentWindowCommand);
             DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
@@ -115,6 +116,7 @@ namespace BHGroup.App.ViewModels
             {
                 StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
                 StudentListDisplay = StudentList;
+                SearchInput = string.Empty;
             }  
         }
 
@@ -138,6 +140,7 @@ namespace BHGroup.App.ViewModels
             {
                 _studentContext.Delete(SelectedItem.StudentCode);
                 StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+                StudentListDisplay = StudentList.Where(s => s.FullName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.StudentCode.ToString().Contains(SearchInput)).ToList();
                 SelectedItem = null;
             }
         }
