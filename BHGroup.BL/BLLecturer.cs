@@ -14,7 +14,7 @@ namespace BHGroup.BL
         }
         void ILecturer.Add(Lecturer lecturer)
         {
-            
+
             _dbContext.Lecturers.Add(lecturer);
             _dbContext.SaveChanges();
             _dbContext.Entry(lecturer).State = EntityState.Detached;
@@ -22,17 +22,15 @@ namespace BHGroup.BL
 
         void ILecturer.Delete(int id)
         {
-            Lecturer result = _dbContext.Lecturers.Find(id);
-            if (result != null)
+            var lecturerToRemove = _dbContext.Lecturers.Find(id);
+            if (lecturerToRemove != null)
             {
-                _dbContext.Lecturers.Remove(result);
+                _dbContext.Lecturers.Remove(lecturerToRemove);
                 _dbContext.SaveChanges();
             }
-            else
-            {
-                throw new Exception("Delete failed: record not found!");
-            }
         }
+
+
 
         IEnumerable<Lecturer> ILecturer.GetAll()
         {
@@ -46,7 +44,14 @@ namespace BHGroup.BL
                 return result;
             return null;
         }
-
+        IEnumerable<Lecturer> ILecturer.GetByName(string name)
+        {
+            var result = _dbContext.Lecturers
+                .AsNoTracking()
+                .Where(s => s.FirstName.Contains(name)
+                         || s.LastName.Contains(name));
+            return result;
+        }
         void ILecturer.Update(Lecturer lecturer)
         {
             _dbContext.Update(lecturer);

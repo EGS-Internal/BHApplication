@@ -1,15 +1,8 @@
-﻿using BHGroup.App.ViewModels;
-using BHGroup.BL;
 using BHGroup.DAL;
 using log4net;
 using Microsoft.EntityFrameworkCore;
+
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BHGroup.App.Public.Core
 {
@@ -22,7 +15,8 @@ namespace BHGroup.App.Public.Core
             dIHelper ??= new DIHelper();
             return dIHelper;
         }
-        public DIHelper() {
+        public DIHelper()
+        {
             Services = ConfigureServices();
         }
         private static IServiceProvider ConfigureServices()

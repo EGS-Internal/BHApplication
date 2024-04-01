@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BHGroup.DAL.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using BHGroup.DAL.Entities;
 
 namespace BHGroup.BL
 {
     public interface ICourse
     {
-        public  Course GetById(int id);
+        public Course GetById(int id);
         public IEnumerable<Course> GetAll();
         public void Add(Course course);
         public void Update(Course course);

@@ -1,20 +1,20 @@
 ﻿using BHGroup.App.Public.Core;
-using BHGroup.DAL.Entities;
 using BHGroup.DAL;
-using Microsoft.Extensions.DependencyInjection;
+using BHGroup.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BHGroup.BL
 {
     public class BLStudent : IStudent
     {
-        
+
         private readonly DBContext _dbContext;
         public BLStudent()
         {
             _dbContext = DIHelper.Get().Services.GetRequiredService<DBContext>();
         }
-    
+
         void IStudent.Add(Student student)
         {
             _dbContext.Students.Add(student);
@@ -25,7 +25,7 @@ namespace BHGroup.BL
         void IStudent.Delete(int id)
         {
             var studentToRemove = _dbContext.Students.Find(id);
-            if(studentToRemove != null)
+            if (studentToRemove != null)
             {
                 _dbContext.Students.Remove(studentToRemove);
                 _dbContext.SaveChanges();
@@ -40,7 +40,7 @@ namespace BHGroup.BL
         Student IStudent.GetById(int id)
         {
             var result = _dbContext.Students.AsNoTracking().FirstOrDefault(s => s.StudentCode == id);
-            if(result != null)
+            if (result != null)
                 return result;
             return null;
         }
