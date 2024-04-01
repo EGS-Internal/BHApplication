@@ -41,10 +41,10 @@
                                  Text="{Binding SearchInput,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource TextBoxTheme}"> 
                         </TextBox>
-                        <Button Command="{Binding SearchCommand}" 
+                        <!--<Button Command="{Binding SearchCommand}" 
                                 Style="{DynamicResource FunctionButton}"
                                 Content="Search"
-                                Background="#1E90FF"/>
+                                Background="#1E90FF"/>-->
                     </StackPanel>
                     <Button Grid.Row="2" 
                             Style="{StaticResource PageButton}"
@@ -76,7 +76,7 @@
                     <Border HorizontalAlignment="Left" Grid.Row="1">
                         <DataGrid Width="680" 
                                   Style="{DynamicResource DefaultCustomDataGrid}"
-                                  ItemsSource="{Binding Students}"
+                                  ItemsSource="{Binding StudentListDisplay}"
                                   SelectedItem="{Binding SelectedItem}"
                                   SelectionMode="Single" SelectionChanged="DataGrid_SelectionChanged">
                             <DataGrid.Columns>

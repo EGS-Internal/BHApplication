@@ -32,18 +32,11 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="9*"/>
             </Grid.RowDefinitions>
-            <Button Click="Button_Close_Click" HorizontalAlignment="Right" Width="20" Height="20" Margin="0 0 10 0" Grid.Column="1">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="red" CornerRadius="40">
-                            <TextBlock Text="X" 
-                                       VerticalAlignment="Center" 
-                                       HorizontalAlignment="Center"
-                                       FontWeight="Bold"/>    
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+            <Button Click="Button_Close_Click" 
+                    HorizontalAlignment="Right" 
+                    Margin="0 0 10 0" 
+                    Grid.Column="1"
+                    Style="{StaticResource Window_Close_Button}"/>  
             <Grid>
                 <TextBlock Style="{DynamicResource DefaultText}"
                            Text="Add Student"
@@ -147,44 +140,18 @@
                 <Grid>
                     <Button Command="{Binding AddStudentCommand}" 
                             CommandParameter="{Binding ElementName=AddEditWindow}"
-                            Click="Add_Click" 
-                            Width="80" 
-                            Height="40" 
-                            Margin="0 30 0 0"
-                            Visibility="{Binding AddVisibility, Converter={StaticResource AddVis}}">  
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border CornerRadius="10" Width="80" Background="#32CD32">
-                                    <TextBlock Text="ADD"
-                                               FontSize="15"
-                                               FontWeight="Bold"
-                                               Foreground="White"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"/>     
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                            Visibility="{Binding AddVisibility, Converter={StaticResource AddVis}}"
+                            Style="{StaticResource FormFunctionButton}"
+                            Background="#32CD32"
+                            Content="ADD"
+                            Margin="0 30 0 0"/>
                     <Button Command="{Binding EditStudentCommand}" 
                             CommandParameter="{Binding ElementName=AddEditWindow}"
-                            Click="Add_Click" 
-                            Width="80" 
-                            Height="40" 
-                            Margin="0 30 0 0"
-                            Visibility="{Binding AddVisibility, Converter={StaticResource EditVis}}">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border CornerRadius="10" Width="80" Background="Gold">
-                                    <TextBlock Text="Edit"
-                                               FontSize="15"
-                                               FontWeight="Bold"
-                                               Foreground="White"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"/> 
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                            Visibility="{Binding AddVisibility, Converter={StaticResource EditVis}}"
+                            Style="{StaticResource FormFunctionButton}"
+                            Background="Gold"
+                            Content="EDIT"
+                            Margin="0 30 0 0"/>
                 </Grid>
             </StackPanel>
         </Grid>
