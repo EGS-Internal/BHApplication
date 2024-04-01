@@ -30,7 +30,6 @@
         <Setter Property="CellStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type DataGridCell}">
-                    <Setter Property="BorderBrush" Value="Bisque"/>
                     <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="BorderBrush" Value="Transparent"/>

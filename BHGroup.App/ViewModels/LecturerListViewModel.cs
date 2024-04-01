@@ -63,6 +63,23 @@ namespace BHGroup.App.ViewModels
         }
 
         private LecturerModel selectedItem;
+
+        public LecturerModel SelectedItem
+        {
+            get
+            { return selectedItem; }
+            set
+            {
+                //if (selectedItem != value)
+                //{
+                selectedItem = value;
+                OnPropertyChanged();
+                DeleteLecturerCommand.OnCanExecuteChanged();
+                EditLecturerCommand.OnCanExecuteChanged();
+                //}
+                //else selectedItem = null;
+            }
+        }
         private bool _isButtonEnabled;
         public bool IsButtonEnabled
         {
@@ -74,22 +91,6 @@ namespace BHGroup.App.ViewModels
                     _isButtonEnabled = value;
                     OnPropertyChanged();
                 }
-            }
-        }
-        public LecturerModel SelectedItem
-        {
-            get
-            { return selectedItem; }
-            set
-            {
-                //if (selectedItem != value)
-                //{
-                    selectedItem = value;
-                    OnPropertyChanged();
-                    DeleteLecturerCommand.OnCanExecuteChanged();
-                    EditLecturerCommand.OnCanExecuteChanged();
-                //}
-                //else selectedItem = null;
             }
         }
         #endregion
@@ -105,7 +106,7 @@ namespace BHGroup.App.ViewModels
             _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
             LecturerList = _lecturerContext.GetAll().Select(s => new LecturerModel(s)).ToList();
             LecturerListDisplay = LecturerList;
-            //SearchInput = string.Empty;
+            SearchInput = string.Empty;
             OpenAddLecturerViewCommand = new RelayCommand(ExecuteOpenAddLecturerWindowCommand, CanExecuteOpenAddLecturerWindowCommand);
             DeleteLecturerCommand = new RelayCommand(ExecuteDeleteLecturerCommand, CanExecuteDeleteLecturerCommand);
             EditLecturerCommand = new RelayCommand(ExecuteEditLecturerCommand, CanExecuteEditLecturerCommand);
@@ -182,9 +183,6 @@ namespace BHGroup.App.ViewModels
             }
         }
 
-        
-
-
         private void ExecuteEditLecturerCommand(object parameters)
         {
             var addLecturerView = new AddEditLecturerView();
@@ -193,6 +191,7 @@ namespace BHGroup.App.ViewModels
             if (addLecturerView.ShowDialog() == true)
             {
                 LecturerList = _lecturerContext.GetAll().Select(s => new LecturerModel(s)).ToList();
+                LecturerListDisplay = LecturerList.Where(s => s.FullName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.StaffCode.ToString().Contains(SearchInput)).ToList();
             }
         }
         #endregion

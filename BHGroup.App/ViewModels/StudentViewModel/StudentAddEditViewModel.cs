@@ -4,13 +4,6 @@ using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using static BHGroup.DAL.Entities.Person;
 
@@ -32,11 +25,11 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             }
             set
             {
-                _studentInputObject = value; 
+                _studentInputObject = value;
                 OnPropertyChanged();
             }
         }
-        private bool addVisibility {  get; set; }
+        private bool addVisibility { get; set; }
         public bool AddVisibility
         {
             get
@@ -45,18 +38,18 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             }
             set
             {
-                addVisibility = value; 
+                addVisibility = value;
                 OnPropertyChanged();
             }
         }
         #endregion
-        public List<EStatus> StatusOptionSource { get; set; } = new List<EStatus>() { 
+        public List<EStatus> StatusOptionSource { get; set; } = new List<EStatus>() {
             EStatus.Active,
             EStatus.Inactive,
         };
-        public List<EGender> GenderOptionSource { get; set; } = new List<EGender>() 
+        public List<EGender> GenderOptionSource { get; set; } = new List<EGender>()
         {
-            EGender.Male, 
+            EGender.Male,
             EGender.Female,
         };
         #region Command
@@ -83,7 +76,8 @@ namespace BHGroup.App.ViewModels.StudentViewModel
         {
             InitCommandAndContext();
             var editStudent = _studentContext.GetById(studentCode);
-            StudentInputObject = new StudentModel() { 
+            StudentInputObject = new StudentModel()
+            {
                 StudentCode = editStudent.StudentCode,
                 FirstName = editStudent.FirstName,
                 LastName = editStudent.LastName,
@@ -121,7 +115,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                     FirstName = inputFirstName,
                     LastName = inputLastName,
                     DateOfBirth = inputDOB,
-                    Gender = inputGender ,
+                    Gender = inputGender,
                     JoinDate = inputJoinDate,
                     Status = inputStatus,
                 });

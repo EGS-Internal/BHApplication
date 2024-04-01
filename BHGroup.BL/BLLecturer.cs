@@ -14,7 +14,7 @@ namespace BHGroup.BL
         }
         void ILecturer.Add(Lecturer lecturer)
         {
-            
+
             _dbContext.Lecturers.Add(lecturer);
             _dbContext.SaveChanges();
             _dbContext.Entry(lecturer).State = EntityState.Detached;
@@ -30,7 +30,7 @@ namespace BHGroup.BL
             }
         }
 
-        
+
 
         IEnumerable<Lecturer> ILecturer.GetAll()
         {

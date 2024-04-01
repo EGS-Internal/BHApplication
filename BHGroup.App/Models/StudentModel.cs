@@ -1,12 +1,5 @@
 ﻿using BHGroup.App.Public.Core;
 using BHGroup.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Globalization;
 
@@ -17,7 +10,7 @@ namespace BHGroup.App.Models
         public StudentModel()
         {
             DateOfBirth = DateTime.Today;
-            JoinDate = DateTime.Today; 
+            JoinDate = DateTime.Today;
         }
         public StudentModel(Student student)
         {
@@ -122,7 +115,7 @@ namespace BHGroup.App.Models
 
 
         #region Validation
-        public Dictionary<string,string> ErrorsColection { get; private set; } = new Dictionary<string,string>();
+        public Dictionary<string, string> ErrorsColection { get; private set; } = new Dictionary<string, string>();
 
         public string Error => string.Empty;
 
@@ -142,12 +135,13 @@ namespace BHGroup.App.Models
                         if (string.IsNullOrWhiteSpace(LastName))
                             error = "Last name cannot be empty.";
                         break;
-                   
+
                 }
                 if (ErrorsColection.ContainsKey(columnName))
                 {
                     ErrorsColection[columnName] = error;
-                }else if (error != string.Empty)
+                }
+                else if (error != string.Empty)
                 {
                     ErrorsColection.Add(columnName, error);
                 }
