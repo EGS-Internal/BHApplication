@@ -82,10 +82,14 @@ namespace BHGroup.App.ViewModels
             { return selectedItem; }
             set
             {
-                selectedItem = value;
-                OnPropertyChanged();
-                DeleteLecturerCommand.OnCanExecuteChanged();
-                EditLecturerCommand.OnCanExecuteChanged();
+                //if (selectedItem != value)
+                //{
+                    selectedItem = value;
+                    OnPropertyChanged();
+                    DeleteLecturerCommand.OnCanExecuteChanged();
+                    EditLecturerCommand.OnCanExecuteChanged();
+                //}
+                //else selectedItem = null;
             }
         }
         #endregion
