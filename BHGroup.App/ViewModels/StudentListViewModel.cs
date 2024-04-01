@@ -76,7 +76,7 @@ namespace BHGroup.App.ViewModels
                 }
                 else
                 {
-                    StudentListDisplay = StudentList.Where(s => s.FullName.Contains(value) || s.StudentCode.ToString().Contains(value)).ToList();
+                    StudentListDisplay = StudentList.Where(s => s.FullName.Contains(value,StringComparison.OrdinalIgnoreCase) || s.StudentCode.ToString().Contains(value)).ToList();
                 }
                 _searchInput = value;
                 OnPropertyChanged();
@@ -102,7 +102,6 @@ namespace BHGroup.App.ViewModels
         }
 
         #region Command Events
-
         private bool CanExecuteOpenAddStudentWindowCommand(object parameters)
         {
             return true;
@@ -162,7 +161,7 @@ namespace BHGroup.App.ViewModels
             if (addStudentView.ShowDialog() == true)
             {
                 StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
-                StudentListDisplay = StudentList.Where(s => s.FullName.Contains(SearchInput) || s.StudentCode.ToString().Contains(SearchInput)).ToList();
+                StudentListDisplay = StudentList.Where(s => s.FullName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.StudentCode.ToString().Contains(SearchInput)).ToList();
             }
         }
 
