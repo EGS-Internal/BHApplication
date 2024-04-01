@@ -82,7 +82,6 @@ namespace BHGroup.App.ViewModels
             }
         }
 
-
         private bool CanExecuteDeleteLecturerCommand(object parameters)
         {
             if (SelectedItem != null)

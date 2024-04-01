@@ -50,9 +50,7 @@ namespace BHGroup.BL
             var result = _dbContext.Students
                 .AsNoTracking()
                 .Where(s => s.FirstName.Contains(name)
-                         || s.LastName.Contains(name)
-                         //|| $"{s.FirstName} {s.LastName}".Contains(name)
-                       );
+                         || s.LastName.Contains(name));
             return result;
         }
 
