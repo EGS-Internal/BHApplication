@@ -29,5 +29,17 @@ namespace BHGroup.App.Views
             InitializeComponent();
             DataContext = DIHelper.Get().Services.GetRequiredService<LecturerListViewModel>();
         }
+        //private void DataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    // Get the clicked item
+        //    var clickedItem = (sender as DataGrid).SelectedItem;
+
+        //    // Check if the clicked item is already selected
+        //    if (clickedItem != null && clickedItem.Equals(dataGrid.SelectedItem))
+        //    {
+        //        // Unselect the item
+        //        dataGrid.SelectedItem = null;
+        //    }
+        //}
     }
 }

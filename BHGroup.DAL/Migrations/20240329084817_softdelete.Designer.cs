@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BHGroup.DAL.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20240329043454_AddDeleteStatusToPerson")]
-    partial class AddDeleteStatusToPerson
+    [Migration("20240329084817_softdelete")]
+    partial class softdelete
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
