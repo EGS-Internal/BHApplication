@@ -4,6 +4,7 @@ using BHGroup.App.ViewModels.StudentViewModel;
 using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
+using log4net;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
@@ -14,6 +15,7 @@ namespace BHGroup.App.ViewModels
     {
         #region Data context & repositories
         private readonly IStudent _studentContext;
+        private readonly ILog _log;
         #endregion
 
         #region Binding properties
@@ -96,6 +98,7 @@ namespace BHGroup.App.ViewModels
             StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
             StudentListDisplay = StudentList;
             SearchInput = string.Empty;
+            _log = DIHelper.Get().Services.GetRequiredService<ILog>();
             OpenAddStudentViewCommand = new RelayCommand(ExecuteOpenAddStudentWindowCommand, CanExecuteOpenAddStudentWindowCommand);
             DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
@@ -117,7 +120,8 @@ namespace BHGroup.App.ViewModels
                 StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
                 StudentListDisplay = StudentList;
                 SearchInput = string.Empty;
-            }  
+            }
+            _log.Info("First Log");
         }
 
         //Check if any students are selected

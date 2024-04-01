@@ -1,6 +1,7 @@
 ﻿using BHGroup.App.ViewModels;
 using BHGroup.BL;
 using BHGroup.DAL;
+using log4net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -37,6 +38,7 @@ namespace BHGroup.App.Public.Core
             services.AddTransient<LecturerListViewModel, LecturerListViewModel>();
             services.AddTransient<CourseListViewModel, CourseListViewModel>();
             services.AddTransient<ClassListViewModel, ClassListViewModel>();
+            services.AddSingleton(LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType));
             //services.AddScoped<DBContext, DBContext>();
             return services.BuildServiceProvider();
         }
