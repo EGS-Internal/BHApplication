@@ -71,7 +71,7 @@ namespace BHGroup.BL
             throw new NotImplementedException();
         }
 
-        
+
 
         IList<Enrollment> IEnrollment.GetAllByCourse(Course course)
         {

@@ -8,7 +8,7 @@ using log4net;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-    
+
 namespace BHGroup.App.ViewModels
 {
     class StudentListViewModel : ObservableObject
@@ -28,7 +28,7 @@ namespace BHGroup.App.ViewModels
             }
             set
             {
-                _studentsList = value; 
+                _studentsList = value;
                 OnPropertyChanged();
             }
         }
@@ -68,17 +68,17 @@ namespace BHGroup.App.ViewModels
         {
             get
             {
-                return _searchInput; 
+                return _searchInput;
             }
             set
             {
-                if(value == string.Empty)
+                if (value == string.Empty)
                 {
                     StudentListDisplay = StudentList;
                 }
                 else
                 {
-                    StudentListDisplay = StudentList.Where(s => s.FullName.Contains(value,StringComparison.OrdinalIgnoreCase) || s.StudentCode.ToString().Contains(value)).ToList();
+                    StudentListDisplay = StudentList.Where(s => s.FullName.Contains(value, StringComparison.OrdinalIgnoreCase) || s.StudentCode.ToString().Contains(value)).ToList();
                 }
                 _searchInput = value;
                 OnPropertyChanged();
@@ -91,7 +91,7 @@ namespace BHGroup.App.ViewModels
         public RelayCommand DeleteStudentCommand { get; private set; }
         public RelayCommand EditStudentCommand { get; private set; }
         public RelayCommand SearchCommand { get; private set; }
-        #endregion
+      
         public StudentListViewModel()
         {
             _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
@@ -104,7 +104,7 @@ namespace BHGroup.App.ViewModels
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
             SearchCommand = new RelayCommand(ExecuteSearchCommand, CanExecuteSearchCommand);
         }
-
+        #endregion
         #region Command Events
         private bool CanExecuteOpenAddStudentWindowCommand(object parameters)
         {

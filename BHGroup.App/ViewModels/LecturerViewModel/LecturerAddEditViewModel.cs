@@ -63,7 +63,7 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
             var inputStatus = LecturerInputObject.Status;
 
             if (inputFirstName == null || inputLastName == null || inputDOB == null ||
-                inputJoinDate == null || inputGender == null || inputStatus == null)
+                inputJoinDate == null || inputGender == null)
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -78,7 +78,7 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
                     DateOfBirth = inputDOB,
                     Gender = inputGender.ToString() == "Male" ? Person.EGender.Male : Person.EGender.Female,
                     JoinDate = inputJoinDate,
-                    Status = inputStatus.ToString() == "Active" ? Person.EStatus.Active : Person.EStatus.Inactive,
+                    Status = BHGroup.DAL.Entities.Person.EStatus.Active
                 });
                 view.DialogResult = true;
                 view.Close();
@@ -89,6 +89,8 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
         {
             InitCommandAndContext();
             LecturerInputObject = new LecturerModel();
+            LecturerInputObject.DateOfBirth = DateTime.Now;
+            LecturerInputObject.JoinDate = DateTime.Now;
             AddVisibility = true;
         }
         public LecturerAddEditViewModel(int Staffcode)
@@ -128,7 +130,7 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
             }
             else
             {
-                var result = MessageBox.Show("You sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                var result = MessageBox.Show("Confirm?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
                     //var dob = inputDOB.Split("/").Select(d => int.Parse(d)).ToArray();
@@ -139,7 +141,7 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
                         FirstName = inputFirstName,
                         LastName = inputLastName,
                         DateOfBirth = inputDOB,
-                        Gender = inputGender == DAL.Entities.Person.EGender.Male? Person.EGender.Male : DAL.Entities.Person.EGender.Female,
+                        Gender = inputGender == DAL.Entities.Person.EGender.Male ? Person.EGender.Male : DAL.Entities.Person.EGender.Female,
                         JoinDate = inputJoinDate,
                         Status = inputStatus == DAL.Entities.Person.EStatus.Active ? Person.EStatus.Active : DAL.Entities.Person.EStatus.Inactive,
                     });

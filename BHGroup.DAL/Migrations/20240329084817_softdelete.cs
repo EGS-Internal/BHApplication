@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace BHGroup.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class initDataBase : Migration
+    public partial class softdelete : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +21,8 @@ namespace BHGroup.DAL.Migrations
                     Gender = table.Column<int>(type: "int", nullable: false),
                     date_of_birth = table.Column<DateTime>(type: "datetime2", maxLength: 8, nullable: false),
                     join_date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    status = table.Column<int>(type: "int", nullable: false)
+                    status = table.Column<int>(type: "int", nullable: false),
+                    deleteStatus = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,7 +40,8 @@ namespace BHGroup.DAL.Migrations
                     Gender = table.Column<int>(type: "int", nullable: false),
                     date_of_birth = table.Column<DateTime>(type: "datetime2", maxLength: 8, nullable: false),
                     join_date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    status = table.Column<int>(type: "int", nullable: false)
+                    status = table.Column<int>(type: "int", nullable: false),
+                    deleteStatus = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
