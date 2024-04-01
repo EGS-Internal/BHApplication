@@ -140,72 +140,18 @@
                 <Grid>
                     <Button Command="{Binding AddStudentCommand}" 
                             CommandParameter="{Binding ElementName=AddEditWindow}"
-                            Click="Add_Click" 
-                            Width="80" 
-                            Height="40" 
-                            Margin="0 30 0 0"
-                            Visibility="{Binding AddVisibility, Converter={StaticResource AddVis}}">  
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border CornerRadius="10" Width="80" Background="#32CD32">
-                                    <TextBlock Text="ADD"
-                                               FontSize="15"
-                                               FontWeight="Bold"
-                                               Foreground="White"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"/>     
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#00BFFF"/>
-                                        <Setter Property="Effect">
-                                            <Setter.Value>
-                                                <DropShadowEffect BlurRadius="10" Color="#00BFFF" ShadowDepth="0"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                            Visibility="{Binding AddVisibility, Converter={StaticResource AddVis}}"
+                            Style="{StaticResource FormFunctionButton}"
+                            Background="#32CD32"
+                            Content="ADD"
+                            Margin="0 30 0 0"/>
                     <Button Command="{Binding EditStudentCommand}" 
                             CommandParameter="{Binding ElementName=AddEditWindow}"
-                            Click="Add_Click" 
-                            Width="80" 
-                            Height="40" 
-                            Margin="0 30 0 0"
-                            Visibility="{Binding AddVisibility, Converter={StaticResource EditVis}}">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border CornerRadius="10" Width="80" Background="Gold">
-                                    <TextBlock Text="Edit"
-                                               FontSize="15"
-                                               FontWeight="Bold"
-                                               Foreground="White"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"/> 
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#00BFFF"/>
-                                        <Setter Property="Effect">
-                                            <Setter.Value>
-                                                <DropShadowEffect BlurRadius="10" Color="#00BFFF" ShadowDepth="0"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                            Visibility="{Binding AddVisibility, Converter={StaticResource EditVis}}"
+                            Style="{StaticResource FormFunctionButton}"
+                            Background="Gold"
+                            Content="EDIT"
+                            Margin="0 30 0 0"/>
                 </Grid>
             </StackPanel>
         </Grid>

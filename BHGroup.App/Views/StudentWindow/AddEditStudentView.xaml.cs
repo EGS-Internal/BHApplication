@@ -36,11 +36,5 @@ namespace BHGroup.App.Views.StudentWindow
         {
             this.Close();
         }
-
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-            //this.DialogResult = true;
-            //this.Close();
-        }
     }
 }
