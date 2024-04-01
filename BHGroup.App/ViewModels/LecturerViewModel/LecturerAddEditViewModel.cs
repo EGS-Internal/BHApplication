@@ -89,6 +89,8 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
         {
             InitCommandAndContext();
             LecturerInputObject = new LecturerModel();
+            LecturerInputObject.DateOfBirth = DateTime.Now;
+            LecturerInputObject.JoinDate = DateTime.Now;
             AddVisibility = true;
         }
         public LecturerAddEditViewModel(int Staffcode)
