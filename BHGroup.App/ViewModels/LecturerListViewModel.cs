@@ -105,7 +105,7 @@ namespace BHGroup.App.ViewModels
             _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
             LecturerList = _lecturerContext.GetAll().Select(s => new LecturerModel(s)).ToList();
             LecturerListDisplay = LecturerList;
-            //SearchInput = string.Empty;
+            SearchInput = string.Empty;
             OpenAddLecturerViewCommand = new RelayCommand(ExecuteOpenAddLecturerWindowCommand, CanExecuteOpenAddLecturerWindowCommand);
             DeleteLecturerCommand = new RelayCommand(ExecuteDeleteLecturerCommand, CanExecuteDeleteLecturerCommand);
             EditLecturerCommand = new RelayCommand(ExecuteEditLecturerCommand, CanExecuteEditLecturerCommand);
@@ -181,10 +181,6 @@ namespace BHGroup.App.ViewModels
                 return false;
             }
         }
-
-        
-
-
         private void ExecuteEditLecturerCommand(object parameters)
         {
             var addLecturerView = new AddEditLecturerView();
@@ -193,6 +189,7 @@ namespace BHGroup.App.ViewModels
             if (addLecturerView.ShowDialog() == true)
             {
                 LecturerList = _lecturerContext.GetAll().Select(s => new LecturerModel(s)).ToList();
+                LecturerListDisplay = LecturerList.Where(s => s.FullName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.StaffCode.ToString().Contains(SearchInput)).ToList();
             }
         }
         #endregion
