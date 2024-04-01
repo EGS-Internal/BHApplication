@@ -1,3 +1,5 @@
+using BHGroup.App.ViewModels;
+using BHGroup.BL;
 using BHGroup.DAL;
 using log4net;
 using Microsoft.EntityFrameworkCore;
