@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace BHGroup.App.Public.Core
 {
 
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
         //{
-            //add { CommandManager.RequerySuggested += value; }
-            //remove { CommandManager.RequerySuggested -= value; }
+        //add { CommandManager.RequerySuggested += value; }
+        //remove { CommandManager.RequerySuggested -= value; }
         //}
         private Action<object> _execute;
         private Func<object, bool> _canExecute;

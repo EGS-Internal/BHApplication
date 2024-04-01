@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BHGroup.DAL.Entities
@@ -36,7 +37,8 @@ namespace BHGroup.DAL.Entities
         public DateTime JoinDate { get; set; }
         [Required]
         [Column("status")]
-        public EStatus Status { get; set; }
+        [DefaultValue(EStatus.Active)]
+        public EStatus Status { get; set; } 
 
         [Required]
         [Column("deleteStatus")]
