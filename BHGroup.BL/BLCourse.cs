@@ -43,12 +43,12 @@ namespace BHGroup.BL
 
         public IEnumerable<Course> GetAll()
         {
-            return _dbContext.Courses.Include(c => c.Lecturer).ToList();
+            return _dbContext.Courses.AsNoTracking().Include(c => c.Lecturer).ToList();
         }
 
         public Course GetById(int id)
         {
-            return _dbContext.Courses.Find(id);
+            return _dbContext.Courses.AsNoTracking().Include(c => c.Lecturer).FirstOrDefault(c => c.CourseID == id);
         }
 
         public void Update(Course course)

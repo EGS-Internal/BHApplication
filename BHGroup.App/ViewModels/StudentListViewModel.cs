@@ -122,6 +122,8 @@ namespace BHGroup.App.ViewModels
                 SearchInput = string.Empty;
             }
             _log.Info("First Log");
+            _log.Warn("First warning");
+            _log.Error("First error");
         }
 
         //Check if any students are selected
