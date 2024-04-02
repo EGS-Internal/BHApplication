@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BHGroup.DAL.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20240329084817_softdelete")]
-    partial class softdelete
+    [Migration("20240402094846_initDB")]
+    partial class initDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,12 +50,12 @@ namespace BHGroup.DAL.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("description");
 
-                    b.Property<int>("staff_code")
+                    b.Property<int>("LecturerID")
                         .HasColumnType("int");
 
                     b.HasKey("CourseID");
 
-                    b.HasIndex("staff_code");
+                    b.HasIndex("LecturerID");
 
                     b.ToTable("courses");
                 });
@@ -192,7 +192,7 @@ namespace BHGroup.DAL.Migrations
                 {
                     b.HasOne("BHGroup.DAL.Entities.Lecturer", "Lecturer")
                         .WithMany("Courses")
-                        .HasForeignKey("staff_code")
+                        .HasForeignKey("LecturerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

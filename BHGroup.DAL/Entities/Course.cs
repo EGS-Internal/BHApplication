@@ -20,8 +20,9 @@ namespace BHGroup.DAL.Entities
         [AllowNull]
         [Column("description")]
         public string Description { get; set; }
-        [Column("lecturer")]
-        [ForeignKey("staff_code")]
+
+
+        public int LecturerID { get; set; }
         public Lecturer Lecturer { get; set; }
     }
 }

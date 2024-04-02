@@ -1,22 +1,22 @@
-<Window x:Class="BHGroup.App.Views.StudentWindow.AddEditStudentView"
-        x:Name="AddEditWindow"
+﻿<Window x:Class="BHGroup.App.Views.CourseWindow.AddEditCourseView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BHGroup.App.Views.StudentWindow"
-        xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels.StudentViewModel"
+        xmlns:local="clr-namespace:BHGroup.App.Views.CourseWindow"
+        xmlns:viewModel="clr-namespace:BHGroup.App.ViewModels.CourseViewModel"
         xmlns:converter="clr-namespace:BHGroup.App.Public.Converter"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="AddStudentWindow" Height="550" Width="500"
+        Name="AddEditWindow"
+        Title="AddEditCourseView" Height="400" Width="500"
         Background="Transparent"
         ResizeMode="NoResize"
         WindowStyle="None"
         AllowsTransparency="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.DataContext>
-        <viewModel:StudentAddEditViewModel/>
+        <viewModel:CourseAddEditViewModel/>
     </Window.DataContext>
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -26,7 +26,7 @@
     <Border  Style="{DynamicResource DefaultAppBackground}" 
              CornerRadius="20" 
              BorderThickness="5" 
-             BorderBrush="Black">
+             BorderBrush="Black">  
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -39,7 +39,7 @@
                     Style="{StaticResource Window_Close_Button}"/>
             <Grid>
                 <TextBlock Style="{DynamicResource DefaultText}"
-                           Text="Add Student"
+                           Text="Add Course"
                            FontSize="20"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"
@@ -47,7 +47,7 @@
                            Margin="20 0 0 0"
                            Visibility="{Binding AddVisibility, Converter={StaticResource AddVis}}"/>
                 <TextBlock Style="{DynamicResource DefaultText}"
-                           Text="Edit Student"
+                           Text="Edit Course"
                            FontSize="20"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"
@@ -59,103 +59,77 @@
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{DynamicResource DefaultText}"
-                                   Text="First Name"
+                                   Text="Course Code"
                                    FontSize="15"
                                    Margin="40 0 0 10 "/>
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
-                    <TextBox x:Name="FirstName"
+                    <TextBox x:Name="CourseCode"
                              Width="400"
                              Height="25"
-                             Text="{Binding StudentInputObject.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                             ToolTip="{Binding StudentInputObject.ErrorsColection[FirstName]}"/>
+                             Text="{Binding CourseInputObject.CourseCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding CourseInputObject.ErrorsColection[CourseCode]}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{DynamicResource DefaultText}"
-                                   Text="Last Name"
+                                   Text="Course Name"
                                    FontSize="15"
                                    Margin="40 0 0 10 "/>
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
-                    <TextBox x:Name="LastName"
+                    <TextBox x:Name="CourseName"
                              Width="400"
                              Height="25"
-                             Text="{Binding StudentInputObject.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                             ToolTip="{Binding StudentInputObject.ErrorsColection[LastName]}"/>
+                             Text="{Binding CourseInputObject.CourseName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             ToolTip="{Binding CourseInputObject.ErrorsColection[CourseName]}"/>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{DynamicResource DefaultText}"
-                                   Text="Date Of Birth"
+                                   Text="Course Description"
                                    FontSize="15"
-                                   Margin="40 0 0 10 "/>
-                        <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
+                                   Margin="40 0 0 10 "/>   
+                        <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/> 
                     </StackPanel>
-                    <DatePicker x:Name="DOB" Width="400" Height="25"
-                                DisplayDateEnd="{x:Static sys:DateTime.Today}"
-                                SelectedDate="{Binding StudentInputObject.DateOfBirth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                                ToolTip="{Binding StudentInputObject.ErrorsColection[DateOfBirth]}"/>
+                        <TextBox x:Name="Description"
+                                 Width="400"
+                                 Height="25"
+                                 Text="{Binding CourseInputObject.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 ToolTip="{Binding CourseInputObject.ErrorsColection[Description]}"/>       
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{DynamicResource DefaultText}"
-                                   Text="Join Date"
+                                   Text="Lecturer"
                                    FontSize="15"
                                    Margin="40 0 0 10 "/>
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
-                    <DatePicker x:Name="JoinDate" Width="400" Height="25"
-                                SelectedDate="{Binding StudentInputObject.JoinDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                                ToolTip="{Binding StudentInputObject.ErrorsColection[JoinDate]}"/>
-                </StackPanel>
-                <StackPanel Margin="0 10 0 0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{DynamicResource DefaultText}"
-                                   Text="Gender"
-                                   FontSize="15"
-                                   Margin="40 0 0 10 "/>
-                        <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
-                    </StackPanel>
-                    <ComboBox x:Name="Gender" Width="400" Height="25" 
-                              ItemsSource="{Binding GenderOptionSource}"
-                              SelectedItem="{Binding StudentInputObject.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                              ToolTip="{Binding StudentInputObject.ErrorsColection[Gender]}"
-                              IsTextSearchEnabled="true"
-                              StaysOpenOnEdit="True"
-                              IsEditable="True"
-                              KeyUp="Gender_KeyUp"
-                              GotFocus="Gender_GotFocus">
-                    </ComboBox>
-                </StackPanel>
-                <StackPanel Margin="0 10 0 0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{DynamicResource DefaultText}"
-                                   Text="Status"
-                                   FontSize="15"
-                                   Margin="40 0 0 10 "/>
-                        <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
-                    </StackPanel>
-                    <ComboBox x:Name="Status" Width="400" Height="25"
-                              ItemsSource="{Binding StatusOptionSource}"
-                              SelectedItem="{Binding StudentInputObject.Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                              ToolTip="{Binding StudentInputObject.ErrorsCollection[Status]}"
-                              IsTextSearchEnabled="true"
-                              StaysOpenOnEdit="True"
-                              IsEditable="True"
-                              KeyUp="Status_KeyUp"
-                              GotFocus="Status_GotFocus">
+                    <ComboBox x:Name="Lecturer" Width="400" Height="25"
+                              ItemsSource="{Binding LecturerOptionSource}"
+                              SelectedValue="{Binding CourseInputObject.LecturerID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              SelectedValuePath="StaffCode"
+                              ToolTip="{Binding CourseInputObject.ErrorsColection[LecturerID]}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding FirstName}" Margin="2"/>
+                                    <TextBlock Text="{Binding LastName}" Margin="2"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
                 </StackPanel>
                 <Grid>
-                    <Button Command="{Binding AddStudentCommand}" 
+                    <Button Command="{Binding AddCourseCommand}" 
                             CommandParameter="{Binding ElementName=AddEditWindow}"
                             Visibility="{Binding AddVisibility, Converter={StaticResource AddVis}}"
                             Style="{StaticResource FormFunctionButton}"
                             Background="#32CD32"
                             Content="ADD"
                             Margin="0 30 0 0"/>
-                    <Button Command="{Binding EditStudentCommand}" 
+                    <Button Command="{Binding EditCourseCommand}" 
                             CommandParameter="{Binding ElementName=AddEditWindow}"
                             Visibility="{Binding AddVisibility, Converter={StaticResource EditVis}}"
                             Style="{StaticResource FormFunctionButton}"

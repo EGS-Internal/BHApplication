@@ -1,6 +1,8 @@
 ﻿using BHGroup.App.Models;
 using BHGroup.App.Public.Core;
+using BHGroup.App.ViewModels.CourseViewModel;
 using BHGroup.App.ViewModels.StudentViewModel;
+using BHGroup.App.Views.CourseWindow;
 using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using log4net;
@@ -57,8 +59,8 @@ namespace BHGroup.App.ViewModels
             {
                 _selectedItem = value;
                 OnPropertyChanged();
-                DeleteStudentCommand.OnCanExecuteChanged();
-                EditStudentCommand.OnCanExecuteChanged();
+                DeleteCourseCommand.OnCanExecuteChanged();
+                EditCourseCommand.OnCanExecuteChanged();
             }
         }
 
@@ -86,9 +88,9 @@ namespace BHGroup.App.ViewModels
         #endregion
 
         #region Commands
-        public RelayCommand OpenAddStudentViewCommand { get; private set; }
-        public RelayCommand DeleteStudentCommand { get; private set; }
-        public RelayCommand EditStudentCommand { get; private set; }
+        public RelayCommand OpenAddCourseViewCommand { get; private set; }
+        public RelayCommand DeleteCourseCommand { get; private set; }
+        public RelayCommand EditCourseCommand { get; private set; }
         public RelayCommand SearchCommand { get; private set; }
 
         public CourseListViewModel()
@@ -98,33 +100,32 @@ namespace BHGroup.App.ViewModels
             CourseListDisplay = CourseList;
             SearchInput = string.Empty;
             _log = DIHelper.Get().Services.GetRequiredService<ILog>();
-            OpenAddStudentViewCommand = new RelayCommand(ExecuteOpenAddStudentWindowCommand, CanExecuteOpenAddStudentWindowCommand);
-            DeleteStudentCommand = new RelayCommand(ExecuteDeleteStudentCommand, CanExecuteDeleteStudentCommand);
-            EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
+            OpenAddCourseViewCommand = new RelayCommand(ExecuteOpenAddCourseWindowCommand, CanExecuteOpenAddCourseWindowCommand);
+            DeleteCourseCommand = new RelayCommand(ExecuteDeleteCourseCommand, CanExecuteDeleteCourseCommand);
+            EditCourseCommand = new RelayCommand(ExecuteEditCourseCommand, CanExecuteEditCourseCommand);
             SearchCommand = new RelayCommand(ExecuteSearchCommand, CanExecuteSearchCommand);
         }
         #endregion
         #region Command Events
-        private bool CanExecuteOpenAddStudentWindowCommand(object parameters)
+        private bool CanExecuteOpenAddCourseWindowCommand(object parameters)
         {
             return true;
         }
-        private void ExecuteOpenAddStudentWindowCommand(object parameters)
+        private void ExecuteOpenAddCourseWindowCommand(object parameters)
         {
-            //var addStudentView = new AddEditStudentView();
-            //var AddStudentViewModel = new StudentAddEditViewModel();
-            //addStudentView.DataContext = AddStudentViewModel;
-            //if (addStudentView.ShowDialog() == true)
-            //{
-            //    CourseList = _courseContext.GetAll().Select(s => new CourseModel(s)).ToList();
-            //    CourseListDisplay = CourseList;
-            //    SearchInput = string.Empty;
-            //}
-            //_log.Info("First Log");
+            var addCourseView = new AddEditCourseView();
+            var AddCourseViewModel = new CourseAddEditViewModel();
+            addCourseView.DataContext = AddCourseViewModel;
+            if (addCourseView.ShowDialog() == true)
+            {
+                CourseList = _courseContext.GetAll().Select(s => new CourseModel(s)).ToList();
+                CourseListDisplay = CourseList;
+                SearchInput = string.Empty;
+            }
         }
 
 
-        private bool CanExecuteDeleteStudentCommand(object parameters)
+        private bool CanExecuteDeleteCourseCommand(object parameters)
         {
             if (SelectedItem != null)
             {
@@ -136,7 +137,7 @@ namespace BHGroup.App.ViewModels
             }
         }
 
-        private void ExecuteDeleteStudentCommand(object parameters)
+        private void ExecuteDeleteCourseCommand(object parameters)
         {
             MessageBoxResult result = MessageBox.Show("You sure'bout that?", "Delete Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
@@ -148,7 +149,7 @@ namespace BHGroup.App.ViewModels
             }
         }
 
-        private bool CanExecuteEditStudentCommand(object parameters)
+        private bool CanExecuteEditCourseCommand(object parameters)
         {
             if (SelectedItem != null)
             {
@@ -159,16 +160,16 @@ namespace BHGroup.App.ViewModels
                 return false;
             }
         }
-        private void ExecuteEditStudentCommand(object parameters)
+        private void ExecuteEditCourseCommand(object parameters)
         {
-            //var addStudentView = new AddEditStudentView();
-            //var AddStudentViewModel = new StudentAddEditViewModel(SelectedItem.StudentCode);
-            //addStudentView.DataContext = AddStudentViewModel;
-            //if (addStudentView.ShowDialog() == true)
-            //{
-            //    CourseList = _courseContext.GetAll().Select(s => new CourseModel(s)).ToList();
-            //    CourseListDisplay = CourseList.Where(s => s.CourseName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.CourseCode.ToString().Contains(SearchInput)).ToList();
-            //}
+            var addCourseView = new AddEditCourseView();
+            var AddCourseViewModel = new CourseAddEditViewModel(SelectedItem.CourseID);
+            addCourseView.DataContext = AddCourseViewModel;
+            if (addCourseView.ShowDialog() == true)
+            {
+                CourseList = _courseContext.GetAll().Select(s => new CourseModel(s)).ToList();
+                CourseListDisplay = CourseList.Where(s => s.CourseName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.CourseCode.ToString().Contains(SearchInput)).ToList();
+            }
         }
 
         private bool CanExecuteSearchCommand(object parameters)
