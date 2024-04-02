@@ -43,7 +43,7 @@
                 HorizontalAlignment="Left"
                 FontSize="22"
                 Margin="20 0 0 0"
-                Text="Bro is fkup"
+                Text=""
                 Style="{DynamicResource DefaultText}">
             </TextBlock>
             <StackPanel Grid.Row="1">

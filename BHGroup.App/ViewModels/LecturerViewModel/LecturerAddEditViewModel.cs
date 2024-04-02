@@ -4,11 +4,14 @@ using BHGroup.App.Views.LecturerWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel;
 using System.Windows;
+using System.Xml.Serialization;
+using static BHGroup.DAL.Entities.Person;
 
 namespace BHGroup.App.ViewModels.LecturerViewModel
 {
-    public class LecturerAddEditViewModel : ObservableObject
+    public class LecturerAddEditViewModel : ObservableObject,IDataErrorInfo
     {
         private ILecturer _lecturerContext;
 
@@ -38,9 +41,22 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
                 OnPropertyChanged();
             }
         }
+        public List<EStatus> StatusOptionSource { get; set; } = new List<EStatus>() {
+            EStatus.Active,
+            EStatus.Inactive,
+        };
+        public List<EGender> GenderOptionSource { get; set; } = new List<EGender>()
+        {
+            EGender.Male,
+            EGender.Female,
+        };
 
         public RelayCommand AddLecturerCommand { get; private set; }
         public RelayCommand EditLecturerCommand { get; private set; }
+
+        string IDataErrorInfo.Error => throw new NotImplementedException();
+
+        string IDataErrorInfo.this[string columnName] => throw new NotImplementedException();
 
         private void InitCommandAndContext()
         {
@@ -48,6 +64,10 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
             AddLecturerCommand = new RelayCommand(ExecuteAddLecturerCommand, CanExecuteAddLecturerCommand);
             EditLecturerCommand = new RelayCommand(ExecuteEditLecturerCommand, CanExecuteEditLecturerCommand);
         }
+        //private bool dataValidate(LecturerAddEditViewModel viewmodel)
+        //{
+        //    Lecturer temp = viewmodel._lecturerInputObject();
+        //}
         private bool CanExecuteAddLecturerCommand(object parameters)
         {
             return true;
@@ -60,7 +80,7 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
             var inputDOB = LecturerInputObject.DateOfBirth;
             var inputJoinDate = LecturerInputObject.JoinDate;
             var inputGender = LecturerInputObject.Gender;
-            var inputStatus = LecturerInputObject.Status;
+            //var inputStatus = LecturerInputObject.Status;
 
             if (inputFirstName == null || inputLastName == null || inputDOB == null ||
                 inputJoinDate == null || inputGender == null)
@@ -109,6 +129,7 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
             };
             AddVisibility = false;
         }
+
         private bool CanExecuteEditLecturerCommand(object parameter)
         {
             return true;
@@ -150,6 +171,7 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
                 }
             }
         }
+
 
     }
 }

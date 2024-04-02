@@ -5,6 +5,7 @@ namespace BHGroup.App.Models
 {
     public class LecturerModel : ObservableObject
     {
+        #region Properties
         private int staffCode;
         public int StaffCode
         {
@@ -98,7 +99,8 @@ namespace BHGroup.App.Models
             }
         }
         public string FullName { get { return $"{FirstName} {LastName}"; } }
-
+        #endregion
+        #region Constructor
         public LecturerModel()
         {
 
@@ -113,7 +115,42 @@ namespace BHGroup.App.Models
             this.JoinDate = lecturer.JoinDate;
             this.Status = lecturer.Status;
         }
+        #endregion
+        #region Input Validation
+        public Dictionary<string, string> ErrorsCollection { get; private set; } = new Dictionary<string, string>();
 
+        public string Error => string.Empty;
 
+        public string this[string columnName]
+        {
+            get
+            {
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case "FirstName":
+                        if (string.IsNullOrWhiteSpace(FirstName))
+                            error = "First name cannot be empty.";
+                        break;
+
+                    case "LastName":
+                        if (string.IsNullOrWhiteSpace(LastName))
+                            error = "Last name cannot be empty.";
+                        break;
+
+                }
+                if (ErrorsCollection.ContainsKey(columnName))
+                {
+                    ErrorsCollection[columnName] = error;
+                }
+                else if (error != string.Empty)
+                {
+                    ErrorsCollection.Add(columnName, error);
+                }
+                OnPropertyChanged("ErrorsCollection");
+                return error;
+            }
+        }
+        #endregion
     }
 }
