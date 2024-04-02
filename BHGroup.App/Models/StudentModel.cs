@@ -115,7 +115,7 @@ namespace BHGroup.App.Models
 
 
         #region Validation
-        public Dictionary<string, string> ErrorsColection { get; private set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> ErrorsCollection { get; private set; } = new Dictionary<string, string>();
 
         public string Error => string.Empty;
 
@@ -137,15 +137,15 @@ namespace BHGroup.App.Models
                         break;
 
                 }
-                if (ErrorsColection.ContainsKey(columnName))
+                if (ErrorsCollection.ContainsKey(columnName))
                 {
-                    ErrorsColection[columnName] = error;
+                    ErrorsCollection[columnName] = error;
                 }
                 else if (error != string.Empty)
                 {
-                    ErrorsColection.Add(columnName, error);
+                    ErrorsCollection.Add(columnName, error);
                 }
-                OnPropertyChanged("ErrorsColection");
+                OnPropertyChanged("ErrorsCollection");
                 return error;
             }
         }

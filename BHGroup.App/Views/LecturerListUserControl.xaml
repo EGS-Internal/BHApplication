@@ -64,10 +64,8 @@
                                   ItemsSource="{Binding LecturerListDisplay}"
                                   SelectedItem="{Binding SelectedItem}"
                                   IsReadOnly="True"
-                                  SelectionMode="Single">
-                            <!--PreviewMouseDown="DataGrid_PreviewMouseDown">-->
-                            
-                            <DataGrid.Columns >
+                                  SelectionUnit="FullRow">
+                            <DataGrid.Columns>
                                 <DataGridTextColumn IsReadOnly="True"  Header="StaffCode" Binding="{Binding StaffCode}"/>
                                 <DataGridTextColumn IsReadOnly="True" Width="220" Header="Name" Binding="{Binding FullName}"/>
                                 <DataGridTextColumn IsReadOnly="True" Header="Date Of Birth" Binding="{Binding DateOfBirth,StringFormat={}{0:dd/MM/yyyy}}"/>
