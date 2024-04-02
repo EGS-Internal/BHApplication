@@ -25,12 +25,6 @@ namespace BHGroup.App.Views.StudentWindow
             this.Close();
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-            //this.DialogResult = true;
-            //this.Close();
-        }
-
         private void Gender_KeyUp(object sender, KeyEventArgs e)
         {
             CollectionView itemsViewOriginal = (CollectionView)CollectionViewSource.GetDefaultView(Gender.ItemsSource);
@@ -62,6 +56,14 @@ namespace BHGroup.App.Views.StudentWindow
             });
 
             itemsViewOriginal.Refresh();
+        }
+        private void Gender_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Gender.IsDropDownOpen = true;
+        }
+        private void Status_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Status.IsDropDownOpen = true;
         }
     }
 }
