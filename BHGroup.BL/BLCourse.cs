@@ -16,44 +16,41 @@ namespace BHGroup.BL
         }
         public void Add(Course course)
         {
-            Course res = _dbContext.Courses.Find(keyValues: course.CourseID); //find if course existed in DB
-            if (res == null)
-            {
-                _dbContext.Courses.Add(course); // if course not existed, add course
-            }
-            else
-            {
-                res = course;
-                _dbContext.Courses.Update(res); //if course is existed, update the current value to the new value.
-            }
+             _dbContext.Courses.Add(course); // if course not existed, add course
             _dbContext.SaveChanges();
+            _dbContext.Entry(course).State = EntityState.Detached;
         }
 
         public void Delete(int courseID)
         {
-            if (_dbContext.Courses.Find(courseID) != null)
+            var courseToRemove = _dbContext.Courses.Find(courseID);
+            if (courseToRemove != null)
             {
-                _dbContext.Courses.Remove(GetById(courseID));
-            }
-            else
-            {
-                throw new Exception("Delete failed: record not found!");
+                _dbContext.Courses.Remove(courseToRemove);
+                _dbContext.SaveChanges();
             }
         }
 
         public IEnumerable<Course> GetAll()
         {
-            return _dbContext.Courses.AsNoTracking().Include(c => c.Lecturer).ToList();
+            return _dbContext.Courses.AsNoTracking()
+                .Include(c => c.Lecturer).AsNoTracking()
+                .ToList();
         }
 
         public Course GetById(int id)
         {
-            return _dbContext.Courses.AsNoTracking().Include(c => c.Lecturer).FirstOrDefault(c => c.CourseID == id);
+            return _dbContext.Courses.AsNoTracking()
+                .Include(c => c.Lecturer)
+                .AsNoTracking()
+                .FirstOrDefault(c => c.CourseID == id);
         }
 
         public void Update(Course course)
         {
+            _dbContext.Update(course);
             _dbContext.SaveChanges();
+            _dbContext.Entry(course).State = EntityState.Detached;
         }
 
         IEnumerable<Course> ICourse.GetByName(string name)

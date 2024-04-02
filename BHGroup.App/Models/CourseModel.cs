@@ -2,6 +2,7 @@
 using BHGroup.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BHGroup.App.Models
 {
-    internal class CourseModel : ObservableObject
+    internal class CourseModel : ObservableObject, IDataErrorInfo
     {
         public CourseModel() { }    
         public CourseModel(Course course)
@@ -18,6 +19,7 @@ namespace BHGroup.App.Models
             this.CourseCode = course.CourseCode;
             this.CourseName = course.Coursename;
             this.Description = course.Description;
+            this.LecturerID = course.LecturerID;
             this.Lecturer = course.Lecturer;
         }
         #region Properties
@@ -65,6 +67,19 @@ namespace BHGroup.App.Models
             }
         }
 
+        private int _lecturerID;
+        public int LecturerID
+        {
+            get
+            {
+                return _lecturerID;
+            }
+            set
+            {
+                _lecturerID = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Lecturer _lecturer;
         public Lecturer Lecturer
@@ -96,7 +111,20 @@ namespace BHGroup.App.Models
                 string error = string.Empty;
                 switch (columnName)
                 {
-                   
+                    case "CourseCode":
+                        if (string.IsNullOrWhiteSpace(CourseCode))
+                            error = "Course code cannot be empty.";
+                        break;
+
+                    case "CourseName":
+                        if (string.IsNullOrWhiteSpace(CourseName))
+                            error = "Course name cannot be empty.";
+                        break;
+
+                    case "Description":
+                        if (string.IsNullOrWhiteSpace(Description))
+                            error = "Course description cannot be empty.";
+                        break;
 
                 }
                 if (ErrorsColection.ContainsKey(columnName))

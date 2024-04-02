@@ -1,6 +1,8 @@
 ﻿using BHGroup.App.Models;
 using BHGroup.App.Public.Core;
+using BHGroup.App.ViewModels.CourseViewModel;
 using BHGroup.App.ViewModels.StudentViewModel;
+using BHGroup.App.Views.CourseWindow;
 using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using log4net;
@@ -111,16 +113,15 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteOpenAddCourseWindowCommand(object parameters)
         {
-            //var addStudentView = new AddEditStudentView();
-            //var AddStudentViewModel = new StudentAddEditViewModel();
-            //addStudentView.DataContext = AddStudentViewModel;
-            //if (addStudentView.ShowDialog() == true)
-            //{
-            //    CourseList = _courseContext.GetAll().Select(s => new CourseModel(s)).ToList();
-            //    CourseListDisplay = CourseList;
-            //    SearchInput = string.Empty;
-            //}
-            //_log.Info("First Log");
+            var addCourseView = new AddEditCourseView();
+            var AddCourseViewModel = new CourseAddEditViewModel();
+            addCourseView.DataContext = AddCourseViewModel;
+            if (addCourseView.ShowDialog() == true)
+            {
+                CourseList = _courseContext.GetAll().Select(s => new CourseModel(s)).ToList();
+                CourseListDisplay = CourseList;
+                SearchInput = string.Empty;
+            }
         }
 
 
@@ -161,14 +162,14 @@ namespace BHGroup.App.ViewModels
         }
         private void ExecuteEditCourseCommand(object parameters)
         {
-            //var addStudentView = new AddEditStudentView();
-            //var AddStudentViewModel = new StudentAddEditViewModel(SelectedItem.StudentCode);
-            //addStudentView.DataContext = AddStudentViewModel;
-            //if (addStudentView.ShowDialog() == true)
-            //{
-            //    CourseList = _courseContext.GetAll().Select(s => new CourseModel(s)).ToList();
-            //    CourseListDisplay = CourseList.Where(s => s.CourseName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.CourseCode.ToString().Contains(SearchInput)).ToList();
-            //}
+            var addCourseView = new AddEditCourseView();
+            var AddCourseViewModel = new CourseAddEditViewModel(SelectedItem.CourseID);
+            addCourseView.DataContext = AddCourseViewModel;
+            if (addCourseView.ShowDialog() == true)
+            {
+                CourseList = _courseContext.GetAll().Select(s => new CourseModel(s)).ToList();
+                CourseListDisplay = CourseList.Where(s => s.CourseName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.CourseCode.ToString().Contains(SearchInput)).ToList();
+            }
         }
 
         private bool CanExecuteSearchCommand(object parameters)

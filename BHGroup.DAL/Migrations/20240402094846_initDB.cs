@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace BHGroup.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class softdelete : Migration
+    public partial class initDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,14 +58,14 @@ namespace BHGroup.DAL.Migrations
                     course_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     course_code = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    staff_code = table.Column<int>(type: "int", nullable: false)
+                    LecturerID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_courses", x => x.course_id);
                     table.ForeignKey(
-                        name: "FK_courses_lecturers_staff_code",
-                        column: x => x.staff_code,
+                        name: "FK_courses_lecturers_LecturerID",
+                        column: x => x.LecturerID,
                         principalTable: "lecturers",
                         principalColumn: "staff_code",
                         onDelete: ReferentialAction.Cascade);
@@ -99,9 +100,9 @@ namespace BHGroup.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_courses_staff_code",
+                name: "IX_courses_LecturerID",
                 table: "courses",
-                column: "staff_code");
+                column: "LecturerID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_enrollments_course_code",

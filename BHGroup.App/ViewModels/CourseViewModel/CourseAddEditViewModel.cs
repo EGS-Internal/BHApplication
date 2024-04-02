@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using static BHGroup.DAL.Entities.Person;
 using System.Windows;
+using System.Collections.ObjectModel;
+using BHGroup.App.Views.CourseWindow;
 
 namespace BHGroup.App.ViewModels.CourseViewModel
 {
@@ -48,8 +50,8 @@ namespace BHGroup.App.ViewModels.CourseViewModel
                 OnPropertyChanged();
             }
         }
-        private List<Lecturer> _lecturerOptionSource { get; set; }
-        public List<Lecturer> LecturerOptionSource
+        private ObservableCollection<Lecturer> _lecturerOptionSource { get; set; }
+        public ObservableCollection<Lecturer> LecturerOptionSource
         {
             get
             {
@@ -82,21 +84,17 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             InitCommandAndContext();
             CourseInputObject = new CourseModel();
             AddVisibility = true;
-
+            _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
+            LecturerOptionSource = new(_lecturerContext.GetAll());
         }
         public CourseAddEditViewModel(int courseCode)
         {
             InitCommandAndContext();
             var editCourse = _courseContext.GetById(courseCode);
-            CourseInputObject = new CourseModel()
-            {
-                CourseID = editCourse.CourseID,
-                CourseCode = editCourse.CourseCode,
-                CourseName = editCourse.Coursename,
-                Description = editCourse.Description,
-                Lecturer = editCourse.Lecturer,
-            };
+            CourseInputObject = new CourseModel(editCourse);
             AddVisibility = false;
+            _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
+            LecturerOptionSource = new(_lecturerContext.GetAll());
         }
 
         #region Command events
@@ -106,32 +104,28 @@ namespace BHGroup.App.ViewModels.CourseViewModel
         }
         private void ExecuteAddCourseCommand(object parameters)
         {
-            //var view = (AddEditStudentView)parameters;
-            //var inputFirstName = CourseInputObject.FirstName;
-            //var inputLastName = CourseInputObject.LastName;
-            //var inputDOB = CourseInputObject.DateOfBirth;
-            //var inputJoinDate = CourseInputObject.JoinDate;
-            //var inputGender = CourseInputObject.Gender;
-            //var inputStatus = CourseInputObject.Status;
+            var view = (AddEditCourseView)parameters;
+            var inputCourseCode = CourseInputObject.CourseCode;
+            var inputCourseName = CourseInputObject.CourseName;
+            var inputDescription = CourseInputObject.Description;
+            var inputLecturer = CourseInputObject.LecturerID;
 
-            //if (string.IsNullOrWhiteSpace(inputFirstName) || string.IsNullOrWhiteSpace(inputLastName))
-            //{
-            //    MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //}
-            //else
-            //{
-            //    _courseContext.Add(new Student()
-            //    {
-            //        FirstName = inputFirstName,
-            //        LastName = inputLastName,
-            //        DateOfBirth = inputDOB,
-            //        Gender = inputGender,
-            //        JoinDate = inputJoinDate,
-            //        Status = inputStatus,
-            //    });
-            //    view.DialogResult = true;
-            //    view.Close();
-            //}
+            if (string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseName))
+            {
+                MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                _courseContext.Add(new Course()
+                {
+                    CourseCode = inputCourseCode,
+                    Coursename = inputCourseName,
+                    Description = inputDescription,
+                    LecturerID = inputLecturer,
+                });
+                view.DialogResult = true;
+                view.Close();
+            }
         }
         private bool CanExecuteEditCourseCommand(object parameters)
         {
@@ -139,37 +133,29 @@ namespace BHGroup.App.ViewModels.CourseViewModel
         }
         private void ExecuteEditCourseCommand(object parameters)
         {
-            //var view = (AddEditStudentView)parameters;
-            //var inputFirstName = CourseInputObject.FirstName;
-            //var inputLastName = CourseInputObject.LastName;
-            //var inputDOB = CourseInputObject.DateOfBirth;
-            //var inputJoinDate = CourseInputObject.JoinDate;
-            //var inputGender = CourseInputObject.Gender;
-            //var inputStatus = CourseInputObject.Status;
+            var view = (AddEditCourseView)parameters;
+            var inputCourseCode = CourseInputObject.CourseCode;
+            var inputCourseName = CourseInputObject.CourseName;
+            var inputDescription = CourseInputObject.Description;
+            var inputLecturer = CourseInputObject.LecturerID;
 
-            //if (string.IsNullOrWhiteSpace(inputFirstName) || string.IsNullOrWhiteSpace(inputLastName))
-            //{
-            //    MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //}
-            //else
-            //{
-            //    var result = MessageBox.Show("You sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
-            //    if (result == MessageBoxResult.Yes)
-            //    {
-            //        _courseContext.Update(new Student()
-            //        {
-            //            StudentCode = CourseInputObject.StudentCode,
-            //            FirstName = inputFirstName,
-            //            LastName = inputLastName,
-            //            DateOfBirth = inputDOB,
-            //            Gender = inputGender,
-            //            JoinDate = inputJoinDate,
-            //            Status = inputStatus,
-            //        });
-            //        view.DialogResult = true;
-            //        view.Close();
-            //    }
-            //}
+            if (string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseName))
+            {
+                MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                _courseContext.Update(new Course()
+                {
+                    CourseID = CourseInputObject.CourseID,
+                    CourseCode = inputCourseCode,
+                    Coursename = inputCourseName,
+                    Description = inputDescription,
+                    LecturerID = inputLecturer,
+                });
+                view.DialogResult = true;
+                view.Close();
+            }
         }
         #endregion
     }
