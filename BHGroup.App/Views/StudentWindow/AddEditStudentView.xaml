@@ -124,7 +124,8 @@
                               IsTextSearchEnabled="true"
                               StaysOpenOnEdit="True"
                               IsEditable="True"
-                              KeyUp="Gender_KeyUp">
+                              KeyUp="Gender_KeyUp"
+                              GotFocus="Gender_GotFocus">
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Margin="0 10 0 0">
@@ -142,7 +143,8 @@
                               IsTextSearchEnabled="true"
                               StaysOpenOnEdit="True"
                               IsEditable="True"
-                              KeyUp="Status_KeyUp">      
+                              KeyUp="Status_KeyUp"
+                              GotFocus="Status_GotFocus">      
                     </ComboBox>
                 </StackPanel>
                 <Grid>
