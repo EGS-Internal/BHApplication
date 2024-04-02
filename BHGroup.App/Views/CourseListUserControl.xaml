@@ -59,17 +59,17 @@
                         HorizontalAlignment="Right"
                         Margin="0 0 50 0 ">
                     </Button>
-                    <Button Command="{Binding OpenAddStudentViewCommand}" 
+                    <Button Command="{Binding OpenAddCourseViewCommand}" 
                         Style="{StaticResource FunctionButton}"
                         Margin="600 0 0 0"
                         Content="Add"
                         Background="#32CD32"/>
-                    <Button Command="{Binding EditStudentCommand}" 
+                    <Button Command="{Binding EditCourseCommand}" 
                         Style="{StaticResource FunctionButton}"
                         Margin="450 0 0 0"
                         Content="Edit"
                         Background="Gold"/>
-                    <Button Command="{Binding DeleteStudentCommand}" 
+                    <Button Command="{Binding DeleteCourseCommand}" 
                         Style="{DynamicResource FunctionButton}"
                         Margin="300 0 0 0"
                         Content="Delete"

@@ -47,12 +47,12 @@ namespace BHGroup.DAL.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("description");
 
-                    b.Property<int>("staff_code")
+                    b.Property<int>("LecturerID")
                         .HasColumnType("int");
 
                     b.HasKey("CourseID");
 
-                    b.HasIndex("staff_code");
+                    b.HasIndex("LecturerID");
 
                     b.ToTable("courses");
                 });
@@ -189,7 +189,7 @@ namespace BHGroup.DAL.Migrations
                 {
                     b.HasOne("BHGroup.DAL.Entities.Lecturer", "Lecturer")
                         .WithMany("Courses")
-                        .HasForeignKey("staff_code")
+                        .HasForeignKey("LecturerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
