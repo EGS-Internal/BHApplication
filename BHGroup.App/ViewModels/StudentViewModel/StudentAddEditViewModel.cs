@@ -71,7 +71,6 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             InitCommandAndContext();
             StudentInputObject = new StudentModel();
             AddVisibility = true;
-
         }
         public StudentAddEditViewModel(int studentCode)
         {
@@ -144,7 +143,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             }
             else
             {
-                var result = MessageBox.Show("You sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                var result = MessageBox.Show("Confirm change(s)?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
                     _studentContext.Update(new Student()

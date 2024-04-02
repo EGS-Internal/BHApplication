@@ -17,7 +17,7 @@ namespace BHGroup.DAL
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-B1FCSS6\\TEW_SQLEXPRESS;Database=school_db;User Id=sa;Password=password;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-28NL6SO\\SQLEXPRESS;Database=school_db;User Id=sa;Password=password;TrustServerCertificate=true");
             }
         }
     }
