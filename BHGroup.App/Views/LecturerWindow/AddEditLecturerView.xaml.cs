@@ -29,5 +29,6 @@ namespace BHGroup.App.Views.LecturerWindow
             //this.DialogResult = true;
             //this.Close();
         }
+
     }
 }
