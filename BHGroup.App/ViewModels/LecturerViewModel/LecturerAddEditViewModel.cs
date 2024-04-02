@@ -4,12 +4,14 @@ using BHGroup.App.Views.LecturerWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel;
 using System.Windows;
+using System.Xml.Serialization;
 using static BHGroup.DAL.Entities.Person;
 
 namespace BHGroup.App.ViewModels.LecturerViewModel
 {
-    public class LecturerAddEditViewModel : ObservableObject
+    public class LecturerAddEditViewModel : ObservableObject,IDataErrorInfo
     {
         private ILecturer _lecturerContext;
 
@@ -52,12 +54,20 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
         public RelayCommand AddLecturerCommand { get; private set; }
         public RelayCommand EditLecturerCommand { get; private set; }
 
+        string IDataErrorInfo.Error => throw new NotImplementedException();
+
+        string IDataErrorInfo.this[string columnName] => throw new NotImplementedException();
+
         private void InitCommandAndContext()
         {
             _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
             AddLecturerCommand = new RelayCommand(ExecuteAddLecturerCommand, CanExecuteAddLecturerCommand);
             EditLecturerCommand = new RelayCommand(ExecuteEditLecturerCommand, CanExecuteEditLecturerCommand);
         }
+        //private bool dataValidate(LecturerAddEditViewModel viewmodel)
+        //{
+        //    Lecturer temp = viewmodel._lecturerInputObject();
+        //}
         private bool CanExecuteAddLecturerCommand(object parameters)
         {
             return true;
@@ -161,6 +171,7 @@ namespace BHGroup.App.ViewModels.LecturerViewModel
                 }
             }
         }
+
 
     }
 }

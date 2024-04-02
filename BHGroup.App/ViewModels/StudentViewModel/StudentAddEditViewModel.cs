@@ -70,7 +70,6 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             InitCommandAndContext();
             StudentInputObject = new StudentModel();
             AddVisibility = true;
-
         }
         public StudentAddEditViewModel(int studentCode)
         {
