@@ -8,6 +8,7 @@ namespace BHGroup.BL
         public IEnumerable<Course> GetAll();
         public void Add(Course course);
         public void Update(Course course);
-        public void Delete(Course course);
+        public void Delete(int courseID);
+        IEnumerable<Course> GetByName(string name);
     }
 }
