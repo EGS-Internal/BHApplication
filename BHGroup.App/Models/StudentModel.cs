@@ -22,7 +22,7 @@ namespace BHGroup.App.Models
             this.JoinDate = student.JoinDate;
             this.Status = student.Status;
         }
-
+        #region Properties
         public int StudentCode { get; set; }
 
         private string _lastName;
@@ -112,7 +112,7 @@ namespace BHGroup.App.Models
         public string DisplayDateOfBirth => DateOfBirth.ToString(CultureInfo.CurrentCulture).Split(" ")[0];
         public string DisplayJoinDate => JoinDate.ToString(CultureInfo.CurrentCulture).Split(" ")[0];
         public string FullName { get { return $"{FirstName} {LastName}"; } }
-
+        #endregion
 
         #region Validation
         public Dictionary<string, string> ErrorsCollection { get; private set; } = new Dictionary<string, string>();
