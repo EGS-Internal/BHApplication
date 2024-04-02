@@ -1,6 +1,7 @@
 ﻿using BHGroup.App.Public.Core;
 using BHGroup.DAL;
 using BHGroup.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BHGroup.BL
@@ -28,11 +29,11 @@ namespace BHGroup.BL
             _dbContext.SaveChanges();
         }
 
-        public void Delete(Course course)
+        public void Delete(int courseID)
         {
-            if (_dbContext.Courses.Find(course.CourseID) != null)
+            if (_dbContext.Courses.Find(courseID) != null)
             {
-                _dbContext.Courses.Remove(GetById(course.CourseID));
+                _dbContext.Courses.Remove(GetById(courseID));
             }
             else
             {
@@ -42,7 +43,7 @@ namespace BHGroup.BL
 
         public IEnumerable<Course> GetAll()
         {
-            return _dbContext.Courses.ToList();
+            return _dbContext.Courses.Include(c => c.Lecturer).ToList();
         }
 
         public Course GetById(int id)
@@ -53,6 +54,14 @@ namespace BHGroup.BL
         public void Update(Course course)
         {
             _dbContext.SaveChanges();
+        }
+
+        IEnumerable<Course> ICourse.GetByName(string name)
+        {
+            var result = _dbContext.Courses
+                .AsNoTracking()
+                .Where(s => s.Coursename.Contains(name));
+            return result;
         }
     }
 }

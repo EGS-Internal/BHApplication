@@ -42,7 +42,6 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                 OnPropertyChanged();
             }
         }
-        #endregion
         public List<EStatus> StatusOptionSource { get; set; } = new List<EStatus>() {
             EStatus.Active,
             EStatus.Inactive,
@@ -52,6 +51,8 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             EGender.Male,
             EGender.Female,
         };
+        #endregion
+
         #region Command
         public RelayCommand AddStudentCommand { get; private set; }
         public RelayCommand EditStudentCommand { get; private set; }
