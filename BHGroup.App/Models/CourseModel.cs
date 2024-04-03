@@ -131,6 +131,8 @@ namespace BHGroup.App.Models
                     case "CourseCode":
                         if (string.IsNullOrWhiteSpace(CourseCode))
                             error = "Course code cannot be empty.";
+                        else if(CourseCode.Length > 6)
+                            error = "Course code must be under 6 characters";
                         break;
 
                     case "CourseName":

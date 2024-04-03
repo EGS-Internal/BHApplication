@@ -131,6 +131,10 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            else if (inputCourseCode.Length > 6)
+            {
+                MessageBox.Show("Please enter correct course code format", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             else
             {
                 _courseContext.Add(new Course()
