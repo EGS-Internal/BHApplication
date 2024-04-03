@@ -110,7 +110,7 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             var inputDescription = CourseInputObject.Description;
             var inputLecturer = CourseInputObject.LecturerID;
 
-            if (string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseName))
+            if (string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseName) || inputLecturer == 0)
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }

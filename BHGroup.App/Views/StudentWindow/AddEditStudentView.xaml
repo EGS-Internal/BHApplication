@@ -139,7 +139,7 @@
                     <ComboBox x:Name="Status" Width="400" Height="25"
                               ItemsSource="{Binding StatusOptionSource}"
                               SelectedItem="{Binding StudentInputObject.Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                              ToolTip="{Binding StudentInputObject.ErrorsCollection[Status]}"
+                              ToolTip="{Binding StudentInputObject.ErrorsColection[Status]}"
                               IsTextSearchEnabled="true"
                               StaysOpenOnEdit="True"
                               IsEditable="True"

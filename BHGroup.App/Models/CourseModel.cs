@@ -125,7 +125,10 @@ namespace BHGroup.App.Models
                         if (string.IsNullOrWhiteSpace(Description))
                             error = "Course description cannot be empty.";
                         break;
-
+                    case "LecturerID":
+                        if (LecturerID == 0)
+                            error = "Lecturer cannot be empty";
+                        break;
                 }
                 if (ErrorsColection.ContainsKey(columnName))
                 {
