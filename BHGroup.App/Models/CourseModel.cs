@@ -148,10 +148,10 @@ namespace BHGroup.App.Models
                             error = "Lecturer cannot be empty";
                         break;
 
-                    //case "LecturerNameID":
-                    //    if (string.IsNullOrWhiteSpace(LecturerNameID))
-                    //        error = "Lecturer cannot be empty";
-                    //    break;
+                    case "LecturerNameID":
+                        if (string.IsNullOrWhiteSpace(LecturerNameID))
+                            error = "Lecturer cannot be empty";
+                        break;
                 }
                 if (ErrorsColection.ContainsKey(columnName))
                 {
