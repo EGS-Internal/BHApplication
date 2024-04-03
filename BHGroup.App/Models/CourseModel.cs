@@ -12,7 +12,9 @@ namespace BHGroup.App.Models
 {
     internal class CourseModel : ObservableObject, IDataErrorInfo
     {
-        public CourseModel() { }    
+        public CourseModel()
+        {
+        }  
         public CourseModel(Course course)
         {
             this.CourseID = course.CourseID;
@@ -21,6 +23,7 @@ namespace BHGroup.App.Models
             this.Description = course.Description;
             this.LecturerID = course.LecturerID;
             this.Lecturer = course.Lecturer;
+            this.LecturerNameID = $"{course.Lecturer.FirstName} {course.Lecturer.LastName} ({course.Lecturer.StaffCode})";
         }
         #region Properties
         public int CourseID { get; set; }
@@ -95,6 +98,20 @@ namespace BHGroup.App.Models
             }
         }
 
+        private string _lecturerNameID;
+        public string LecturerNameID
+        {
+            get
+            {
+                return _lecturerNameID;
+            }
+            set
+            {
+                _lecturerNameID = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string LecturerName => $"{Lecturer.FirstName} {Lecturer.LastName}" ;
 
         #endregion
@@ -114,6 +131,8 @@ namespace BHGroup.App.Models
                     case "CourseCode":
                         if (string.IsNullOrWhiteSpace(CourseCode))
                             error = "Course code cannot be empty.";
+                        else if(CourseCode.Length > 6)
+                            error = "Course code must be under 6 characters";
                         break;
 
                     case "CourseName":
@@ -126,6 +145,15 @@ namespace BHGroup.App.Models
                             error = "Course description cannot be empty.";
                         break;
 
+                    case "LecturerID":
+                        if (LecturerID == 0)
+                            error = "Lecturer cannot be empty";
+                        break;
+
+                    case "LecturerNameID":
+                        if (string.IsNullOrWhiteSpace(LecturerNameID))
+                            error = "Lecturer cannot be empty";
+                        break;
                 }
                 if (ErrorsColection.ContainsKey(columnName))
                 {

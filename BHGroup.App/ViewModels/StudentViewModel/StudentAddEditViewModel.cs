@@ -108,6 +108,10 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            else if(inputFirstName.Length > 50 || inputLastName.Length > 50)
+            {
+                MessageBox.Show("Please enter correct first name and last name format", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             else
             {
                 _studentContext.Add(new Student()
@@ -140,6 +144,10 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             if (string.IsNullOrWhiteSpace(inputFirstName) || string.IsNullOrWhiteSpace(inputLastName))
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (inputFirstName.Length > 50 || inputLastName.Length > 50)
+            {
+                MessageBox.Show("Please enter correct first name and last name format", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
