@@ -106,19 +106,39 @@
                                    Margin="40 0 0 10 "/>
                         <TextBlock Text="*" Foreground="Red" Margin="5 0 0 0"/>
                     </StackPanel>
-                    <ComboBox x:Name="Lecturer" Width="400" Height="25"
+                    <!--<ComboBox x:Name="Lecturer" Width="400" Height="25"
                               ItemsSource="{Binding LecturerOptionSource}"
                               SelectedValue="{Binding CourseInputObject.LecturerID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                               SelectedValuePath="StaffCode"
-                              ToolTip="{Binding CourseInputObject.ErrorsColection[LecturerID]}">
+                              ToolTip="{Binding CourseInputObject.ErrorsColection[LecturerID]}"
+                              IsTextSearchEnabled="true"
+                              StaysOpenOnEdit="True"
+                              IsEditable="True"
+                              KeyUp="Lecturer_KeyUp"
+                              GotFocus="Lecturer_GotFocus"
+                              >        
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding FirstName}" Margin="2"/>
                                     <TextBlock Text="{Binding LastName}" Margin="2"/>
+                                    <TextBlock Text="(" Margin="2"/>
+                                    <TextBlock Text="{Binding StaffCode}" Margin="2"/>
+                                    <TextBlock Text=")" Margin="2"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
+                    </ComboBox>-->
+                    <ComboBox x:Name="Lecturer" Width="400" Height="25"
+                              ItemsSource="{Binding LecturerOptionSource}"
+                              SelectedItem="{Binding CourseInputObject.LecturerNameID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              SelectedValuePath="StaffCode"
+                              ToolTip="{Binding CourseInputObject.ErrorsColection[LecturerNameID]}"
+                              IsTextSearchEnabled="False"
+                              StaysOpenOnEdit="True"
+                              IsEditable="True"
+                              KeyUp="Lecturer_KeyUp"
+                              GotFocus="Lecturer_GotFocus">     
                     </ComboBox>
                 </StackPanel>
                 <Grid>

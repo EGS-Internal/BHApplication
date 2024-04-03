@@ -36,19 +36,19 @@ namespace BHGroup.App.Views.CourseWindow
    
         private void Lecturer_KeyUp(object sender, KeyEventArgs e)
         {
-                CollectionView itemsViewOriginal = (CollectionView)CollectionViewSource.GetDefaultView(Lecturer.ItemsSource);
+            CollectionView itemsViewOriginal = (CollectionView)CollectionViewSource.GetDefaultView(Lecturer.ItemsSource);
 
-                itemsViewOriginal.Filter = ((option) =>
+            itemsViewOriginal.Filter = ((option) =>
+            {
+                if (String.IsNullOrEmpty(Lecturer.Text)) return true;
+                else
                 {
-                    if (String.IsNullOrEmpty(Lecturer.Text)) return true;
-                    else
-                    {
-                        if (option.ToString().Contains(Lecturer.Text)) return true;
-                        else return false;
-                    }
-                });
+                    if (option.ToString().Contains(Lecturer.Text)) return true;
+                    else return false;
+                }
+            });
 
-                itemsViewOriginal.Refresh();
+            itemsViewOriginal.Refresh();
         }
         private void Lecturer_GotFocus(object sender, RoutedEventArgs e)
         {

@@ -12,6 +12,7 @@ namespace BHGroup.App.Models
             DateOfBirth = DateTime.Today;
             JoinDate = DateTime.Today;
         }
+
         public StudentModel(Student student)
         {
             this.StudentCode = student.StudentCode;
@@ -22,6 +23,7 @@ namespace BHGroup.App.Models
             this.JoinDate = student.JoinDate;
             this.Status = student.Status;
         }
+
         #region Properties
         public int StudentCode { get; set; }
 
