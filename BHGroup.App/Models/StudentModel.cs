@@ -12,6 +12,7 @@ namespace BHGroup.App.Models
             DateOfBirth = DateTime.Today;
             JoinDate = DateTime.Today;
         }
+
         public StudentModel(Student student)
         {
             this.StudentCode = student.StudentCode;
@@ -22,6 +23,7 @@ namespace BHGroup.App.Models
             this.JoinDate = student.JoinDate;
             this.Status = student.Status;
         }
+
         #region Properties
         public int StudentCode { get; set; }
 
@@ -129,11 +131,15 @@ namespace BHGroup.App.Models
                     case "FirstName":
                         if (string.IsNullOrWhiteSpace(FirstName))
                             error = "First name cannot be empty.";
+                        else if (FirstName.Length > 50)
+                            error = "First name must be under 50 characters";
                         break;
 
                     case "LastName":
                         if (string.IsNullOrWhiteSpace(LastName))
                             error = "Last name cannot be empty.";
+                        else if (LastName.Length > 50)
+                            error = "Last name must be under 50 characters";
                         break;
 
                 }
