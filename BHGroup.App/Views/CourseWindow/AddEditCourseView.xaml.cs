@@ -43,7 +43,7 @@ namespace BHGroup.App.Views.CourseWindow
                 if (String.IsNullOrEmpty(Lecturer.Text)) return true;
                 else
                 {
-                    if (option.ToString().Contains(Lecturer.Text)) return true;
+                    if (option.ToString().Contains(Lecturer.Text,StringComparison.CurrentCultureIgnoreCase)) return true;
                     else return false;
                 }
             });

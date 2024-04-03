@@ -34,7 +34,7 @@ namespace BHGroup.App.Views.StudentWindow
                 if (String.IsNullOrEmpty(Gender.Text)) return true;
                 else
                 {
-                    if (option.ToString().Contains(Gender.Text)) return true;
+                    if (option.ToString().Contains(Gender.Text, StringComparison.CurrentCultureIgnoreCase)) return true;
                     else return false;
                 }
             });
@@ -50,7 +50,7 @@ namespace BHGroup.App.Views.StudentWindow
                 if (String.IsNullOrEmpty(Status.Text)) return true;
                 else
                 {
-                    if (option.ToString().Contains(Status.Text)) return true;
+                    if (option.ToString().Contains(Status.Text, StringComparison.CurrentCultureIgnoreCase)) return true;
                     else return false;
                 }
             });

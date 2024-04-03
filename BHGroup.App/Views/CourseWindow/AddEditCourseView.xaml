@@ -120,11 +120,15 @@
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding FirstName}" Margin="2"/>
-                                    <TextBlock Text="{Binding LastName}" Margin="2"/>
-                                    <TextBlock Text="(" Margin="2"/>
-                                    <TextBlock Text="{Binding StaffCode}" Margin="2"/>
-                                    <TextBlock Text=")" Margin="2"/>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1} ({2})">
+                                                <Binding Path="FirstName" />
+                                                <Binding Path="LastName" />
+                                                <Binding Path="StaffCode" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
