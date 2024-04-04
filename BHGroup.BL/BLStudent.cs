@@ -14,6 +14,10 @@ namespace BHGroup.BL
         {
             _dbContext = DIHelper.Get().Services.GetRequiredService<DBContext>();
         }
+        public BLStudent(DBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         void IStudent.Add(Student student)
         {
