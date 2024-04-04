@@ -28,7 +28,7 @@ namespace BHGroup.BL
 
         void IStudent.Delete(int id)
         {
-            var studentToRemove = _dbContext.Students.Find(id);
+            var studentToRemove = _dbContext.Students.FirstOrDefault(s => s.StudentCode == id);
             if (studentToRemove != null)
             {
                 _dbContext.Students.Remove(studentToRemove);

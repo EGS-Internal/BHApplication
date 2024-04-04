@@ -3,18 +3,22 @@ using BHGroup.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Moq.EntityFrameworkCore;
 using Moq;
+using System.Xml;
+using NUnit.Framework;
+using System.Net.Sockets;
 
 namespace BHGroup.BL.Test
 {
     public class Tests
     {
         private IStudent _studentContext;
-        private Mock<DBContext> _mockStudentContext;
+        private Mock<DBContext> _mockStudentDbContext;
+        private Mock<DbSet<Student>> _mockStudentDbSet;
 
         [SetUp]
         public void Setup()
         {
-            _mockStudentContext = new Mock<DBContext>();
+            _mockStudentDbContext = new Mock<DBContext>();
             var data = new List<Student>()
             {
                 new Student()
@@ -57,9 +61,18 @@ namespace BHGroup.BL.Test
                     Gender = Person.EGender.Female,
                     Status = Person.EStatus.Inactive
                 },
-            };
-            _mockStudentContext.Setup(s => s.Students).ReturnsDbSet(data);
-            _studentContext = new BLStudent(_mockStudentContext.Object);
+            }.AsQueryable();
+
+            _mockStudentDbSet = new Mock<DbSet<Student>>();
+            _mockStudentDbSet.As<IQueryable<Student>>().Setup(m => m.Provider).Returns(data.Provider);
+            _mockStudentDbSet.As<IQueryable<Student>>().Setup(m => m.Expression).Returns(data.Expression);
+            _mockStudentDbSet.As<IQueryable<Student>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            _mockStudentDbSet.As<IQueryable<Student>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+
+            _mockStudentDbContext
+                .Setup(s => s.Students)
+                .Returns(_mockStudentDbSet.Object);
+            _studentContext = new BLStudent(_mockStudentDbContext.Object);
         }
 
         [Test]
@@ -75,11 +88,28 @@ namespace BHGroup.BL.Test
             Assert.That(result.Count(), Is.EqualTo(4));
         }
         [Test]
+        public void AddTest()
+        {
+            _studentContext.Add(
+                new Student()
+                {
+                    FirstName = "test update",
+                    LastName = "1",
+                    DateOfBirth = DateTime.Now,
+                    JoinDate = DateTime.Now,
+                    Gender = Person.EGender.Male,
+                    Status = Person.EStatus.Active
+                }
+            );
+            _mockStudentDbSet.Verify(m => m.Add(It.IsAny<Student>()), Times.Once());
+            _mockStudentDbContext.Verify(m => m.SaveChanges(), Times.Once());
+        }
+        [Test]
         public void DeleteTest()
         {
             _studentContext.Delete(1);
-            var result = _studentContext.GetAll();
-            Assert.That(result.Count(), Is.EqualTo(3));
+            _mockStudentDbSet.Verify(m => m.Remove(It.IsAny<Student>()), Times.Once());
+            _mockStudentDbContext.Verify(m => m.SaveChanges(), Times.Once());
         }
         [Test]
         public void UpdateTest()
@@ -96,8 +126,8 @@ namespace BHGroup.BL.Test
                     Status = Person.EStatus.Active
                 }
             );
-            var result = _studentContext.GetById(1);
-            Assert.That(result.FirstName, Is.EqualTo("test update"));
+            _mockStudentDbSet.Verify(m => m.Update(It.IsAny<Student>()), Times.Once());
+            _mockStudentDbContext.Verify(m => m.SaveChanges(), Times.Once());
         }
     }
 }
