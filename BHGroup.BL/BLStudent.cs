@@ -23,7 +23,10 @@ namespace BHGroup.BL
         {
             _dbContext.Students.Add(student);
             _dbContext.SaveChanges();
-            _dbContext.Entry(student).State = EntityState.Detached;
+            if (_dbContext.Entry(student) != null)
+            {
+                _dbContext.Entry(student).State = EntityState.Detached;
+            }
         }
 
         void IStudent.Delete(int id)
@@ -60,9 +63,12 @@ namespace BHGroup.BL
 
         void IStudent.Update(Student student)
         {
-            _dbContext.Update(student);
+            _dbContext.Students.Update(student);
             _dbContext.SaveChanges();
-            _dbContext.Entry(student).State = EntityState.Detached;
+            if (_dbContext.Entry(student) != null)
+            {
+                _dbContext.Entry(student).State = EntityState.Detached;
+            }
         }
     }
 }
