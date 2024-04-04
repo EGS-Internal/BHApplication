@@ -121,9 +121,6 @@ namespace BHGroup.App.ViewModels
                 StudentListDisplay = StudentList;
                 SearchInput = string.Empty;
             }
-            _log.Info("First Log");
-            _log.Warn("First warning");
-            _log.Error("First error");
         }
 
         //Check if any students are selected
@@ -144,10 +141,18 @@ namespace BHGroup.App.ViewModels
             MessageBoxResult result = MessageBox.Show("You sure'bout that?", "Delete Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                _studentContext.Delete(SelectedItem.StudentCode);
-                StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
-                StudentListDisplay = StudentList.Where(s => s.FullName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.StudentCode.ToString().Contains(SearchInput)).ToList();
-                SelectedItem = null;
+                try
+                {
+                    _studentContext.Delete(SelectedItem.StudentCode);
+                    StudentList = _studentContext.GetAll().Select(s => new StudentModel(s)).ToList();
+                    StudentListDisplay = StudentList.Where(s => s.FullName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.StudentCode.ToString().Contains(SearchInput)).ToList();
+                    SelectedItem = null;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ops,somthin bruh happens ", "Damn", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _log.Error(ex);
+                }
             }
         }
 

@@ -6,10 +6,10 @@ namespace BHGroup.DAL
     public class DBContext : DbContext
     {
 
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Lecturer> Lecturers { get; set; }
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Enrollment> Enrollments { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<Lecturer> Lecturers { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Enrollment> Enrollments { get; set; }
 
 
 

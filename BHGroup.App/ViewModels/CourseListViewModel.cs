@@ -142,10 +142,18 @@ namespace BHGroup.App.ViewModels
             MessageBoxResult result = MessageBox.Show("You sure'bout that?", "Delete Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                _courseContext.Delete(SelectedItem.CourseID);
-                CourseList = _courseContext.GetAll().Select(s => new CourseModel(s)).ToList();
-                CourseListDisplay = CourseList.Where(s => s.CourseName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.CourseCode.ToString().Contains(SearchInput)).ToList();
-                SelectedItem = null;
+                try
+                {
+                    _courseContext.Delete(SelectedItem.CourseID);
+                    CourseList = _courseContext.GetAll().Select(s => new CourseModel(s)).ToList();
+                    CourseListDisplay = CourseList.Where(s => s.CourseName.Contains(SearchInput, StringComparison.OrdinalIgnoreCase) || s.CourseCode.ToString().Contains(SearchInput)).ToList();
+                    SelectedItem = null;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Ops,somthin bruh happens ", "Damn", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _log.Error(ex);
+                }
             }
         }
 

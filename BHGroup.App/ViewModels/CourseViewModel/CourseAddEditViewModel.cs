@@ -13,6 +13,7 @@ using static BHGroup.DAL.Entities.Person;
 using System.Windows;
 using System.Collections.ObjectModel;
 using BHGroup.App.Views.CourseWindow;
+using log4net;
 
 namespace BHGroup.App.ViewModels.CourseViewModel
 {
@@ -21,6 +22,7 @@ namespace BHGroup.App.ViewModels.CourseViewModel
         #region Data context & repositories
         private ICourse _courseContext;
         private ILecturer _lecturerContext;
+        private ILog _log;
         #endregion
 
         #region Binding
@@ -92,6 +94,7 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
             AddCourseCommand = new RelayCommand(ExecuteAddCourseCommand, CanExecuteAddCourseCommand);
             EditCourseCommand = new RelayCommand(ExecuteEditCourseCommand, CanExecuteEditCourseCommand);
+            _log = DIHelper.Get().Services.GetRequiredService<ILog>();
         }
         //constructor
         public CourseAddEditViewModel()
@@ -127,7 +130,10 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             var inputDescription = CourseInputObject.Description;
             var inputLecturer = CourseInputObject.LecturerNameID;
 
-            if (string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseName) || string.IsNullOrWhiteSpace(inputLecturer))
+            if (string.IsNullOrWhiteSpace(inputCourseCode)
+                || string.IsNullOrWhiteSpace(inputCourseCode)
+                || string.IsNullOrWhiteSpace(inputCourseName)
+                || string.IsNullOrWhiteSpace(inputLecturer))
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -137,16 +143,25 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             }
             else
             {
-                _courseContext.Add(new Course()
+                try
                 {
-                    CourseCode = inputCourseCode,
-                    Coursename = inputCourseName,
-                    Description = inputDescription,
-                    LecturerID = int.Parse(inputLecturer.Split(" ")[2][1].ToString()),
-                });
-                view.DialogResult = true;
-                view.Close();
+                    _courseContext.Add(new Course()
+                    {
+                        CourseCode = inputCourseCode,
+                        Coursename = inputCourseName,
+                        Description = inputDescription,
+                        LecturerID = int.Parse(inputLecturer.Split(" ")[2][1].ToString()),
+                    });
+                    view.DialogResult = true;
+                    view.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ops,somthin bruh happens ", "Damn", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _log.Error(ex);
+                }
             }
+           
         }
         private bool CanExecuteEditCourseCommand(object parameters)
         {
@@ -160,22 +175,33 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             var inputDescription = CourseInputObject.Description;
             var inputLecturer = CourseInputObject.LecturerNameID;
 
-            if (string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseCode) || string.IsNullOrWhiteSpace(inputCourseName) || string.IsNullOrWhiteSpace(inputLecturer))
+            if (string.IsNullOrWhiteSpace(inputCourseCode)
+                || string.IsNullOrWhiteSpace(inputCourseCode)
+                || string.IsNullOrWhiteSpace(inputCourseName)
+                || string.IsNullOrWhiteSpace(inputLecturer))
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
-                _courseContext.Update(new Course()
+                try
                 {
-                    CourseID = CourseInputObject.CourseID,
-                    CourseCode = inputCourseCode,
-                    Coursename = inputCourseName,
-                    Description = inputDescription,
-                    LecturerID = int.Parse(inputLecturer.Split(" ")[2][1].ToString()),
-                });
-                view.DialogResult = true;
-                view.Close();
+                    _courseContext.Update(new Course()
+                    {
+                        CourseID = CourseInputObject.CourseID,
+                        CourseCode = inputCourseCode,
+                        Coursename = inputCourseName,
+                        Description = inputDescription,
+                        LecturerID = int.Parse(inputLecturer.Split(" ")[2][1].ToString()),
+                    });
+                    view.DialogResult = true;
+                    view.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ops,somthin bruh happens ", "Damn", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _log.Error(ex);
+                }
             }
         }
         #endregion
