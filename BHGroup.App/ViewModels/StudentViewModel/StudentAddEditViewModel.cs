@@ -3,6 +3,7 @@ using BHGroup.App.Public.Core;
 using BHGroup.App.Views.StudentWindow;
 using BHGroup.BL;
 using BHGroup.DAL.Entities;
+using log4net;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using static BHGroup.DAL.Entities.Person;
@@ -13,6 +14,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
     {
         #region Data context & repositories
         private IStudent _studentContext;
+        private ILog _log;
         #endregion
 
         #region Binding
@@ -64,6 +66,7 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             _studentContext = DIHelper.Get().Services.GetRequiredService<IStudent>();
             AddStudentCommand = new RelayCommand(ExecuteAddStudentCommand, CanExecuteAddStudentCommand);
             EditStudentCommand = new RelayCommand(ExecuteEditStudentCommand, CanExecuteEditStudentCommand);
+            _log = DIHelper.Get().Services.GetRequiredService<ILog>();
         }
         //constructor
         public StudentAddEditViewModel()
@@ -108,23 +111,31 @@ namespace BHGroup.App.ViewModels.StudentViewModel
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            else if(inputFirstName.Length > 50 || inputLastName.Length > 50)
+            else if (inputFirstName.Length > 50 || inputLastName.Length > 50)
             {
                 MessageBox.Show("Please enter correct first name and last name format", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
-                _studentContext.Add(new Student()
+                try
                 {
-                    FirstName = inputFirstName,
-                    LastName = inputLastName,
-                    DateOfBirth = inputDOB,
-                    Gender = inputGender,
-                    JoinDate = inputJoinDate,
-                    Status = inputStatus,
-                });
-                view.DialogResult = true;
-                view.Close();
+                    _studentContext.Add(new Student()
+                    {
+                        FirstName = inputFirstName,
+                        LastName = inputLastName,
+                        DateOfBirth = inputDOB,
+                        Gender = inputGender,
+                        JoinDate = inputJoinDate,
+                        Status = inputStatus,
+                    });
+                    view.DialogResult = true;
+                    view.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ops,somthin bruh happens ", "Damn", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _log.Error(ex);
+                }
             }
         }
         private bool CanExecuteEditStudentCommand(object parameters)
@@ -154,18 +165,26 @@ namespace BHGroup.App.ViewModels.StudentViewModel
                 var result = MessageBox.Show("Confirm change(s)?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
-                    _studentContext.Update(new Student()
+                    try
                     {
-                        StudentCode = StudentInputObject.StudentCode,
-                        FirstName = inputFirstName,
-                        LastName = inputLastName,
-                        DateOfBirth = inputDOB,
-                        Gender = inputGender,
-                        JoinDate = inputJoinDate,
-                        Status = inputStatus,
-                    });
-                    view.DialogResult = true;
-                    view.Close();
+                        _studentContext.Update(new Student()
+                        {
+                            StudentCode = StudentInputObject.StudentCode,
+                            FirstName = inputFirstName,
+                            LastName = inputLastName,
+                            DateOfBirth = inputDOB,
+                            Gender = inputGender,
+                            JoinDate = inputJoinDate,
+                            Status = inputStatus,
+                        });
+                        view.DialogResult = true;
+                        view.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ops,somthin bruh happens ", "Damn", MessageBoxButton.OK, MessageBoxImage.Information);
+                        _log.Error(ex);
+                    }
                 }
             }
         }
