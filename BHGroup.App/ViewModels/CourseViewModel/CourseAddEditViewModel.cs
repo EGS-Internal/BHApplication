@@ -80,6 +80,8 @@ namespace BHGroup.App.ViewModels.CourseViewModel
                 OnPropertyChanged();
             }
         }
+
+        private ObservableCollection<LecturerModel> ListLecturer {  get; set; }
         #endregion
 
         #region Command
@@ -91,10 +93,15 @@ namespace BHGroup.App.ViewModels.CourseViewModel
         private void InitCommandAndContext()
         {
             _courseContext = DIHelper.Get().Services.GetRequiredService<ICourse>();
-            _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
             AddCourseCommand = new RelayCommand(ExecuteAddCourseCommand, CanExecuteAddCourseCommand);
             EditCourseCommand = new RelayCommand(ExecuteEditCourseCommand, CanExecuteEditCourseCommand);
+
             _log = DIHelper.Get().Services.GetRequiredService<ILog>();
+
+            _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
+            //LecturerOptionSource = new(_lecturerContext.GetAll());
+            LecturerOptionSource = new(_lecturerContext.GetAll().Select(s => $"{s.FirstName} {s.LastName} ({s.StaffCode})"));
+            ListLecturer = new(_lecturerContext.GetAll().Select(s => new LecturerModel(s)));
         }
         //constructor
         public CourseAddEditViewModel()
@@ -102,9 +109,7 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             InitCommandAndContext();
             CourseInputObject = new CourseModel();
             AddVisibility = true;
-            _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
-            //LecturerOptionSource = new(_lecturerContext.GetAll());
-            LecturerOptionSource = new(_lecturerContext.GetAll().Select(s => $"{s.FirstName} {s.LastName} ({s.StaffCode})"));
+           
         }
         public CourseAddEditViewModel(int courseCode)
         {
@@ -112,9 +117,6 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             var editCourse = _courseContext.GetById(courseCode);
             CourseInputObject = new CourseModel(editCourse);
             AddVisibility = false;
-            _lecturerContext = DIHelper.Get().Services.GetRequiredService<ILecturer>();
-            //LecturerOptionSource = new(_lecturerContext.GetAll());
-            LecturerOptionSource = new(_lecturerContext.GetAll().Select(s => $"{s.FirstName} {s.LastName} ({s.StaffCode})"));
         }
 
         #region Command events
@@ -128,12 +130,12 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             var inputCourseCode = CourseInputObject.CourseCode;
             var inputCourseName = CourseInputObject.CourseName;
             var inputDescription = CourseInputObject.Description;
-            var inputLecturer = CourseInputObject.LecturerNameID;
+            var inputLecturer = ListLecturer.FirstOrDefault(l => l.LecturerNameID == CourseInputObject.LecturerNameID);
 
             if (string.IsNullOrWhiteSpace(inputCourseCode)
                 || string.IsNullOrWhiteSpace(inputCourseCode)
                 || string.IsNullOrWhiteSpace(inputCourseName)
-                || string.IsNullOrWhiteSpace(inputLecturer))
+                || inputLecturer == null)
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -150,7 +152,7 @@ namespace BHGroup.App.ViewModels.CourseViewModel
                         CourseCode = inputCourseCode,
                         Coursename = inputCourseName,
                         Description = inputDescription,
-                        LecturerID = int.Parse(inputLecturer.Split(" ")[2][1].ToString()),
+                        LecturerID = inputLecturer.StaffCode,
                     });
                     view.DialogResult = true;
                     view.Close();
@@ -173,12 +175,12 @@ namespace BHGroup.App.ViewModels.CourseViewModel
             var inputCourseCode = CourseInputObject.CourseCode;
             var inputCourseName = CourseInputObject.CourseName;
             var inputDescription = CourseInputObject.Description;
-            var inputLecturer = CourseInputObject.LecturerNameID;
+            var inputLecturer = ListLecturer.FirstOrDefault(l => l.LecturerNameID == CourseInputObject.LecturerNameID);
 
             if (string.IsNullOrWhiteSpace(inputCourseCode)
                 || string.IsNullOrWhiteSpace(inputCourseCode)
                 || string.IsNullOrWhiteSpace(inputCourseName)
-                || string.IsNullOrWhiteSpace(inputLecturer))
+                || inputLecturer == null)
             {
                 MessageBox.Show("Please fill in every required field", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -192,7 +194,7 @@ namespace BHGroup.App.ViewModels.CourseViewModel
                         CourseCode = inputCourseCode,
                         Coursename = inputCourseName,
                         Description = inputDescription,
-                        LecturerID = int.Parse(inputLecturer.Split(" ")[2][1].ToString()),
+                        LecturerID = inputLecturer.StaffCode,
                     });
                     view.DialogResult = true;
                     view.Close();

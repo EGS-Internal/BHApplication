@@ -1,15 +1,11 @@
 using BHGroup.DAL;
 using BHGroup.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using Moq.EntityFrameworkCore;
 using Moq;
-using System.Xml;
-using NUnit.Framework;
-using System.Net.Sockets;
 
 namespace BHGroup.BL.Test
 {
-    public class Tests
+    public class StudentTests
     {
         private IStudent _studentContext;
         private Mock<DBContext> _mockStudentDbContext;

@@ -14,16 +14,23 @@ namespace BHGroup.BL
         {
             _dbContext = DIHelper.Get().Services.GetRequiredService<DBContext>();
         }
+        public BLCourse(DBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public void Add(Course course)
         {
              _dbContext.Courses.Add(course); // if course not existed, add course
             _dbContext.SaveChanges();
-            _dbContext.Entry(course).State = EntityState.Detached;
+            if(_dbContext.Entry(course) != null)
+            {
+                _dbContext.Entry(course).State = EntityState.Detached;
+            }
         }
 
         public void Delete(int courseID)
         {
-            var courseToRemove = _dbContext.Courses.Find(courseID);
+            var courseToRemove = _dbContext.Courses.FirstOrDefault(c => c.CourseID == courseID);
             if (courseToRemove != null)
             {
                 _dbContext.Courses.Remove(courseToRemove);
@@ -48,9 +55,12 @@ namespace BHGroup.BL
 
         public void Update(Course course)
         {
-            _dbContext.Update(course);
+            _dbContext.Courses.Update(course);
             _dbContext.SaveChanges();
-            _dbContext.Entry(course).State = EntityState.Detached;
+            if (_dbContext.Entry(course) != null)
+            {
+                _dbContext.Entry(course).State = EntityState.Detached;
+            }
         }
 
         IEnumerable<Course> ICourse.GetByName(string name)

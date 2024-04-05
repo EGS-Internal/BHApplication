@@ -99,6 +99,8 @@ namespace BHGroup.App.Models
             }
         }
         public string FullName { get { return $"{FirstName} {LastName}"; } }
+
+        public string LecturerNameID => $"{FirstName} {LastName} ({StaffCode})";
         #endregion
         #region Constructor
         public LecturerModel()
